@@ -1,0 +1,22 @@
+https://github.com/ManimCommunity/manim/
+
+save to /media folder:
+manim -p -ql example.py SquareToCircle
+
+<<<<<<<<<<<<<<<<<
+https://docs.manim.community/en/stable/reference/manim.mobject.geometry.line.Line.html
+
+attributes are used by putting in parenthesis upon making:
+line(start,end, color='green')
+
+methods are used by line().method
+
+<<<<<<<<<<<<<<<<<
+https://www.reddit.com/r/manim/comments/twuaws/aligning_a_vector_to_a_point/
+It sounds like what you need is Arrow() instead of Vector(). Arrow takes two arguments, start and end, just like you want. If you look at the source for Vector, it's just an implementation of Arrow that sets start as the origin.
+
+<<<<<<<<<<<<<<<<<
+latex:
+Tex('$(\\vec{v} \\cdot \\vec{x}) * \\vec{v}$')
+
+uses \\ instead of \
