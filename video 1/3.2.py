@@ -11,6 +11,10 @@ class VectorArrow(VectorScene, Scene):
         numberplane = NumberPlane()
         self.add(numberplane)
         
+        self.wait(2)
+        
+        '''The data samples in this dataset can be represented as points in a coordinate space, using face length and body size as axes. '''
+        
         faceText = Text('Face \nLength', 
             font_size=16).next_to([1,0,0], DOWN*2)
         arrow_c = self.add_vector([1, 0, 0], buff=0, color='#FA8072',
@@ -30,6 +34,8 @@ class VectorArrow(VectorScene, Scene):
         self.remove(arrow_c, arrow_d)
         
         ########
+        '''Note that each data point here corresponds to a data sample of a basic measuring unit.'''
+        
         face_1 = Rectangle(color=WHITE, height=0.15, width=0.32, stroke_width=1,fill_color = BLACK, fill_opacity=1)
         face_1.move_to(np.array([1, 0, 0])).shift(UP*0.1 + LEFT*0.25)
         face_box = Rectangle(color=WHITE, height=0.75, width=1.05, stroke_width=1)
@@ -56,9 +62,11 @@ class VectorArrow(VectorScene, Scene):
         body_1_text.scale(0.7 * body_1.get_height() / body_1_text.get_height()).move_to(body_1.get_center())
         self.play(FadeIn(body_1_text))
         
-        self.wait(2)
+        self.wait(3)
                 
         ################ Move to (1, 1)
+        
+        '''We can add together the unit 1 face length and the unit 1 body size to form a data sample with a unit 1 face length and a unit 1 body size.'''
         
         # will leave a copy behind if this isn't done
         self.remove(face_1, body_1, face_box, body_box, face_1_text, body_1_text,backgroundRectangle1,backgroundRectangle2)
@@ -99,9 +107,12 @@ class VectorArrow(VectorScene, Scene):
         body_box_eqn.move_to(np.array([5, 1, 0]))
         
         self.play(FadeIn(eqn_background, equal_sign, face_1_eqn, face_box_eqn, plus_sign, body_1_eqn, body_box_eqn))
+        
         self.wait(1)
         
         ######### Show data pts for [1,1]
+        
+        '''Notice that this is the same as adding the data points (1,0), and (0,1). '''
         
         dot1 = Dot([1,0,0], radius=0.1)
         dot1_text = Text('(1, 0)', font_size=16).next_to(dot1, 0.3*LEFT+UP*0.5)
@@ -111,7 +122,11 @@ class VectorArrow(VectorScene, Scene):
         
         self.play(FadeIn(dot1, dot1_text, dot2, dot2_text))
         
+        self.wait(1)
+        
         ######### Show vector equations for [1,1]
+        
+        '''We can represent these data points as vectors'''
         
         eqn_background_2 = Rectangle(color=WHITE, height=1.5, width=4, fill_color=BLACK, fill_opacity=1, stroke_width=2)
         eqn_background_2.move_to(np.array([3.7, -1, 0]))
@@ -129,9 +144,12 @@ class VectorArrow(VectorScene, Scene):
         mat_2.move_to(np.array([5, -1, 0])).scale(0.85)
         
         self.play(FadeOut(faceText, bodyText), FadeIn(eqn_background_2, equal_sign_2, mat_1, plus_sign_2, mat_2, shift=DOWN))
-        self.wait(2)
+        
+        self.wait(3)
         
         ######### Sum up vectors to get [1,1]
+        
+        ''', and show that adding these data sample images together is the same as vector addition.'''
                 
         # dot1 = Dot([1,1,0], radius=0.08)
         dot3_text = Text('(1, 1)', font_size=16).next_to([1, 1, 0], 0.3*LEFT+DOWN*2)
@@ -145,7 +163,7 @@ class VectorArrow(VectorScene, Scene):
         self.play(dot1.animate.move_to(np.array([1, 1, 0])), dot2.animate.move_to(np.array([1, 1, 0])), FadeOut(plus_sign_2, mat_2, shift=LEFT*2), Transform(mat_1, mat_3))
         self.play(FadeIn(dot3_text))
                         
-        self.wait(2)
+        self.wait(4)
         
         ########## Reset all
         
