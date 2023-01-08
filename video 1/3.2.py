@@ -118,6 +118,16 @@ class VectorArrow(VectorScene, Scene):
         self.play(FadeIn(eqn_background, equal_sign, face_1_eqn, face_box_eqn, plus_sign, body_1_eqn, body_box_eqn))
         self.wait(1)
         
+        ######### Show data pts for [1,1]
+        
+        dot1 = Dot([1,0,0], radius=0.1)
+        dot1_text = Text('(1, 0)', font_size=16).next_to(dot1, 0.3*LEFT+UP*0.5)
+        
+        dot2 = Dot([0,1,0], radius=0.1)
+        dot2_text = Text('(0, 1)', font_size=16).next_to(dot2, 0.3*LEFT+UP*0.6)
+        
+        self.play(FadeIn(dot1, dot1_text, dot2, dot2_text))
+        
         ######### Show vector equations for [1,1]
         
         eqn_background_2 = Rectangle(color=WHITE, height=1.5, width=4, fill_color=BLACK, fill_opacity=1, stroke_width=2)
@@ -138,15 +148,17 @@ class VectorArrow(VectorScene, Scene):
         self.play(FadeOut(faceText, bodyText), FadeIn(eqn_background_2, equal_sign_2, mat_1, plus_sign_2, mat_2, shift=DOWN))
         self.wait(2)
                
+        ########## Reset all
         
-        ########## Recreate basis data samples
-                
         self.remove(face_1, body_1, face_box, body_box)
         self.remove(eqn_background, equal_sign, face_1_eqn, face_box_eqn, plus_sign, body_1_eqn, body_box_eqn)
+        self.remove(dot1, dot1_text, dot2, dot2_text)
         self.remove(eqn_background_2, equal_sign_2, mat_1, plus_sign_2, mat_2)
 
         self.play(FadeIn(faceText, bodyText))
         
+        ########## Recreate basis data samples
+                        
         face_1 = Rectangle(color=WHITE, height=0.15, width=0.3, stroke_width=1)
         face_1.move_to(np.array([1, 0, 0])).shift(UP*0.1 + LEFT*0.25)
         face_box = Rectangle(color=WHITE, height=0.8, width=1, stroke_width=1)
@@ -268,7 +280,7 @@ class VectorArrow(VectorScene, Scene):
         mat_1_2 = MathTex(r"\begin{bmatrix} 0.5 \\ 0 \end{bmatrix}")
         mat_1_2.move_to(np.array([3.2, 0, 0])).scale(0.85)
         
-        mat_2_2 = MathTex(r"\begin{bmatrix} 2 \\ 0 \end{bmatrix}")
+        mat_2_2 = MathTex(r"\begin{bmatrix} 0 \\ 2 \end{bmatrix}")
         mat_2_2.move_to(np.array([5.4, 0, 0])).scale(0.85)
         
         self.wait(1)
@@ -279,6 +291,10 @@ class VectorArrow(VectorScene, Scene):
         self.wait(1)
         self.play(FadeOut(scalar_2, scalar_2_body, shift=RIGHT), Transform(mat_2, mat_2_2), Transform(body_1_eqn, body_1_eqn_2))
                 
+        self.wait(2)
+        
+        ######### Sum up vectors
+        
         self.wait(2)
         
         ###################################################################
