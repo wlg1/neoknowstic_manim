@@ -147,12 +147,29 @@ class VectorArrow(VectorScene, Scene):
         
         self.play(FadeOut(faceText, bodyText), FadeIn(eqn_background_2, equal_sign_2, mat_1, plus_sign_2, mat_2, shift=DOWN))
         self.wait(2)
-               
+        
+        ######### Sum up vectors to get [1,1]
+                
+        # dot1 = Dot([1,1,0], radius=0.08)
+        dot3_text = Text('(1, 1)', font_size=16).next_to([1, 1, 0], 0.3*LEFT+DOWN*2)
+                              
+        mat_3 = MathTex(r"\begin{bmatrix} 1 \\ 1 \end{bmatrix}")
+        mat_3.move_to(np.array([3, -1, 0])).scale(0.85)
+        
+        # to move obj using move_to instead of transform, use .animate.move_to
+        self.play(FadeOut(dot1_text, dot2_text))
+        self.remove(mat_1, mat_2)
+        self.play(dot1.animate.move_to(np.array([1, 1, 0])), dot2.animate.move_to(np.array([1, 1, 0])), FadeOut(plus_sign_2, mat_2, shift=LEFT*2), Transform(mat_1, mat_3))
+        self.play(FadeIn(dot3_text))
+                        
+        self.wait(2)
+        
         ########## Reset all
         
         self.remove(face_1, body_1, face_box, body_box)
         self.remove(eqn_background, equal_sign, face_1_eqn, face_box_eqn, plus_sign, body_1_eqn, body_box_eqn)
-        self.remove(dot1, dot1_text, dot2, dot2_text)
+        # self.remove(dot1, dot1_text, dot2, dot2_text)
+        self.remove(dot1, dot2, dot3_text)
         self.remove(eqn_background_2, equal_sign_2, mat_1, plus_sign_2, mat_2)
 
         self.play(FadeIn(faceText, bodyText))
@@ -211,7 +228,15 @@ class VectorArrow(VectorScene, Scene):
         
         self.play(Transform(face_2, face_3), Transform(face_box_2, face_box_3), Transform(body_2, body_3), Transform(body_box_2, body_box_3))
         
-        self.wait(2)
+        self.wait(1)
+        
+        dot1 = Dot([0.5, 0, 0], radius=0.08)
+        dot1_text = Text('(0.5, 0)', font_size=16).next_to(dot1, DOWN*0.5)
+        
+        dot2 = Dot([0,2,0], radius=0.08)
+        dot2_text = Text('(0, 2)', font_size=16).next_to(dot2, 0.3*LEFT+UP*0.6)
+        
+        self.play(FadeIn(dot1, dot1_text, dot2, dot2_text))
         
         ######### Show equations for imgs and [0.5, 2]
                
@@ -284,7 +309,6 @@ class VectorArrow(VectorScene, Scene):
         mat_2_2.move_to(np.array([5.4, 0, 0])).scale(0.85)
         
         self.wait(1)
-        # self.play(FadeOut(scalar_1, scalar_2, scalar_1_face, scalar_2_body, shift=RIGHT), Transform(mat_1, mat_1_2), Transform(mat_2, mat_2_2), Transform(face_1_eqn, face_1_eqn_2), Transform(body_1_eqn, body_1_eqn_2))
         
         self.play(FadeOut(scalar_1, scalar_1_face, shift=RIGHT), Transform(mat_1, mat_1_2), Transform(face_1_eqn, face_1_eqn_2))
         
@@ -293,25 +317,18 @@ class VectorArrow(VectorScene, Scene):
                 
         self.wait(2)
         
-        ######### Sum up vectors
+        ######### Sum up vectors to get [0.5, 2]
         
-        dot1 = Dot([0.5,2,0], radius=0.08)
-        dot1_text = Text('(0.5, 2)', font_size=16).next_to(dot1, DOWN*1.5)
-        
-        # eqn_background_3 = Rectangle(color=WHITE, height=1.5, width=5.2, fill_color=BLACK, fill_opacity=1, stroke_width=2)
-        # eqn_background_3.move_to(np.array([3.8, -2, 0]))
-        
-        # equal_sign_3 = Text('=', font_size=32)
-        # equal_sign_3.move_to(np.array([1.5, -2, 0]))
-        
+        dot3_text = Text('(0.5, 2)', font_size=16).next_to([0.5,2,0], DOWN*2)
+                
         mat_3 = MathTex(r"\begin{bmatrix} 0.5 \\ 2 \end{bmatrix}")
         mat_3.move_to(np.array([3.2, 0, 0])).scale(0.85)
                 
+        self.play(FadeOut(dot1_text, dot2_text))
         self.remove(mat_1, mat_2)
-        self.play(FadeIn(dot1, dot1_text), FadeOut(plus_sign_2, mat_2_2, shift=LEFT*2), Transform(mat_1_2, mat_3))
-                
-        # self.play(FadeIn(dot1, dot1_text), FadeIn(eqn_background_3, equal_sign_3, mat_3, shift=DOWN))
-        
+        self.play(dot1.animate.move_to(np.array([0.5,2,0])), dot2.animate.move_to(np.array([0.5,2,0])), FadeOut(plus_sign_2, mat_2_2, shift=LEFT*2), Transform(mat_1_2, mat_3))
+        self.play(FadeIn(dot3_text))
+                        
         self.wait(2)
         
         ###################################################################
