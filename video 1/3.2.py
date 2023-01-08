@@ -295,6 +295,23 @@ class VectorArrow(VectorScene, Scene):
         
         ######### Sum up vectors
         
+        dot1 = Dot([0.5,2,0], radius=0.08)
+        dot1_text = Text('(0.5, 2)', font_size=16).next_to(dot1, DOWN*1.5)
+        
+        # eqn_background_3 = Rectangle(color=WHITE, height=1.5, width=5.2, fill_color=BLACK, fill_opacity=1, stroke_width=2)
+        # eqn_background_3.move_to(np.array([3.8, -2, 0]))
+        
+        # equal_sign_3 = Text('=', font_size=32)
+        # equal_sign_3.move_to(np.array([1.5, -2, 0]))
+        
+        mat_3 = MathTex(r"\begin{bmatrix} 0.5 \\ 2 \end{bmatrix}")
+        mat_3.move_to(np.array([3.2, 0, 0])).scale(0.85)
+                
+        self.remove(mat_1, mat_2)
+        self.play(FadeIn(dot1, dot1_text), FadeOut(plus_sign_2, mat_2_2, shift=LEFT*2), Transform(mat_1_2, mat_3))
+                
+        # self.play(FadeIn(dot1, dot1_text), FadeIn(eqn_background_3, equal_sign_3, mat_3, shift=DOWN))
+        
         self.wait(2)
         
         ###################################################################
