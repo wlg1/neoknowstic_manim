@@ -22,6 +22,11 @@ class VectorArrow(Scene):
             stroke_width=4, max_tip_length_to_length_ratio=0.15, 
             max_stroke_width_to_length_ratio=5) #light red
         self.add(faceText, arrow_c)
+        
+        body = ImageMobject("body1.png")
+        body.scale(0.4)
+        body.move_to(np.array([0, 1, 0]))
+        self.add(body)
             
         bodyText = Text('Body \nSize', 
             font_size=16).next_to([0,1,0], LEFT)
@@ -33,7 +38,7 @@ class VectorArrow(Scene):
         dot1 = Dot([1,0,0], radius=0.05, color='#FA8072')
         dot1_text = Text('(1, 0)', font_size=16, color='#FA8072').next_to(dot1, RIGHT*2+UP*0.5)
         face = ImageMobject("face1.png")
-        face.scale(0.55)
+        face.scale(0.4)
         face.move_to(np.array([1, 0, 0]))
         self.add(face)
         
