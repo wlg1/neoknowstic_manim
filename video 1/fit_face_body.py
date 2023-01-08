@@ -23,13 +23,13 @@ class VectorArrow(VectorScene, Scene):
         self.add(body)
         #################################
                 
-        face_1 = Rectangle(color=RED, height=0.15, width=0.32, stroke_width=1)
-        face_1.move_to(np.array([1, 0, 0])).shift(UP*0.1 + LEFT*0.25)
+        face_1 = Rectangle(color=RED, height=0.15, width=0.32, stroke_width=1,fill_color = BLACK, fill_opacity=1)
+        face_1.move_to(np.array([1, 0, 0])).shift(UP*0.1 + LEFT*0.24)
         face_box = Rectangle(color=RED, height=0.75, width=1.05, stroke_width=1)
         face_box.move_to(np.array([1, 0, 0]))
         
-        body_1 = Ellipse(color=RED, height=0.15, width=0.42, stroke_width=1)
-        body_1.move_to(np.array([0, 1, 0])).shift(DOWN*0.05 + RIGHT*0.1)
+        body_1 = Ellipse(color=RED, height=0.15, width=0.42, stroke_width=1,fill_color = BLACK, fill_opacity=1)
+        body_1.move_to(np.array([0, 1, 0])).shift(DOWN*0.04 + RIGHT*0.11)
         body_box = Rectangle(color=RED, height=0.75, width=1.05, stroke_width=1)
         body_box.move_to(np.array([0, 1, 0]))
         
