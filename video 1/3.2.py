@@ -39,6 +39,8 @@ class VectorArrow(VectorScene, Scene):
         # self.add(body)
         ##################################
         
+        self.remove(arrow_c, arrow_d)
+        
         face_1 = Rectangle(color=WHITE, height=0.15, width=0.3, stroke_width=1)
         face_1.move_to(np.array([1, 0, 0])).shift(UP*0.1 + LEFT*0.25)
         face_box = Rectangle(color=WHITE, height=0.8, width=1, stroke_width=1)
@@ -70,9 +72,7 @@ class VectorArrow(VectorScene, Scene):
         ################ Move to (1, 1)
         
         # will leave a copy behind if this isn't done
-        # self.remove(face_1, body_1, face_box, body_box)
-        
-        self.play(FadeOut(face_1_text), FadeOut(body_1_text))
+        self.remove(face_1, body_1, face_box, body_box, face_1_text, body_1_text)
         
         face_2 = Rectangle(color=WHITE, height=0.15, width=0.3, stroke_width=1)
         face_2.move_to(np.array([1, 1, 0])).shift(UP*0.1 + LEFT*0.25)
@@ -92,11 +92,60 @@ class VectorArrow(VectorScene, Scene):
         self.play(Transform(face_1, face_2), Transform(face_box, face_box_2), Transform(body_1, body_2), Transform(body_box, body_box_2))
         # Transform(face_1_text, face_1_text_2), Transform(body_1_text, body_1_text_2))
        
+        self.wait(1)
+        
+        ######### Show equations for imgs and [1,1]
+                
+        eqn_background = Rectangle(color=WHITE, height=1.5, width=4, fill_color=BLACK, fill_opacity=1, stroke_width=2)
+        eqn_background.move_to(np.array([3.7, 1, 0]))
+        
+        equal_sign = Text('=', font_size=32)
+        equal_sign.move_to(np.array([2, 1, 0]))
+        
+        face_1_eqn = Rectangle(color=WHITE, height=0.15, width=0.3, stroke_width=1)
+        face_1_eqn.move_to(np.array([3, 1, 0])).shift(UP*0.1 + LEFT*0.25)
+        face_box_eqn = Rectangle(color=WHITE, height=0.8, width=1, stroke_width=1)
+        face_box_eqn.move_to(np.array([3, 1, 0]))
+        
+        plus_sign = Text('+', font_size=32)
+        plus_sign.move_to(np.array([4, 1, 0]))
+        
+        body_1_eqn = Ellipse(color=WHITE, stroke_width=1).scale(0.2)
+        body_1_eqn.move_to(np.array([5, 1, 0])).shift(DOWN*0.1 + RIGHT*0.1)
+        body_box_eqn = Rectangle(color=WHITE, height=0.8, width=1, stroke_width=1)
+        body_box_eqn.move_to(np.array([5, 1, 0]))
+        
+        self.play(FadeIn(eqn_background, equal_sign, face_1_eqn, face_box_eqn, plus_sign, body_1_eqn, body_box_eqn))
+        self.wait(1)
+        
+        ######### Show vector equations for [1,1]
+        
+        eqn_background_2 = Rectangle(color=WHITE, height=1.5, width=4, fill_color=BLACK, fill_opacity=1, stroke_width=2)
+        eqn_background_2.move_to(np.array([3.7, -1, 0]))
+        
+        equal_sign_2 = Text('=', font_size=32)
+        equal_sign_2.move_to(np.array([2, -1, 0]))
+        
+        mat_1 = MathTex(r"\begin{bmatrix} 1 \\ 0 \end{bmatrix}")
+        mat_1.move_to(np.array([3, -1, 0])).scale(0.85)
+        
+        plus_sign_2 = Text('+', font_size=32)
+        plus_sign_2.move_to(np.array([4, -1, 0]))
+        
+        mat_2 = MathTex(r"\begin{bmatrix} 0 \\ 1 \end{bmatrix}")
+        mat_2.move_to(np.array([5, -1, 0])).scale(0.85)
+        
+        self.play(FadeOut(faceText, bodyText), FadeIn(eqn_background_2, equal_sign_2, mat_1, plus_sign_2, mat_2, shift=DOWN))
         self.wait(2)
+               
         
+        ########## Recreate basis data samples
+                
         self.remove(face_1, body_1, face_box, body_box)
-        
-        ######### Recreate basis data samples
+        self.remove(eqn_background, equal_sign, face_1_eqn, face_box_eqn, plus_sign, body_1_eqn, body_box_eqn)
+        self.remove(eqn_background_2, equal_sign_2, mat_1, plus_sign_2, mat_2)
+
+        self.play(FadeIn(faceText, bodyText))
         
         face_1 = Rectangle(color=WHITE, height=0.15, width=0.3, stroke_width=1)
         face_1.move_to(np.array([1, 0, 0])).shift(UP*0.1 + LEFT*0.25)
@@ -106,7 +155,7 @@ class VectorArrow(VectorScene, Scene):
         add_face = GrowFromPoint(face_1, [1, 0, 0])
         add_faceBox = GrowFromPoint(face_box, [1, 0, 0])
         self.play(add_face, add_faceBox)
-                
+              
         body_1 = Ellipse(color=WHITE, stroke_width=1).scale(0.2)
         body_1.move_to(np.array([0, 1, 0])).shift(DOWN*0.1 + RIGHT*0.1)
         body_box = Rectangle(color=WHITE, height=0.8, width=1, stroke_width=1)
@@ -115,9 +164,9 @@ class VectorArrow(VectorScene, Scene):
         add_body = GrowFromPoint(body_1, [0, 1, 0])
         add_bodyBox = GrowFromPoint(body_box, [0, 1, 0])
         self.play(add_body, add_bodyBox)
-                
+              
         ######### Scale and move to (0.5, 0), (0, 2)
-                
+              
         # generate_target() doesn't seem to be able to use in a group animation since it plays directly
         face_2 = Rectangle(color=WHITE, height=0.15, width=0.15, stroke_width=1)
         face_2.move_to(np.array([0.5, 0, 0])).shift(UP*0.1 + LEFT*0.25)
@@ -130,7 +179,7 @@ class VectorArrow(VectorScene, Scene):
         body_box_2 = Rectangle(color=WHITE, height=0.8, width=1, stroke_width=1)
         body_box_2.move_to(np.array([0, 2, 0]))
         self.play(Transform(body_1, body_2), Transform(body_box, body_box_2))
-       
+        
         self.wait(1)
         
         ######### Move to (0.5, 2)
@@ -149,10 +198,91 @@ class VectorArrow(VectorScene, Scene):
         body_box_3.move_to(np.array([0.5, 2, 0]))
         
         self.play(Transform(face_2, face_3), Transform(face_box_2, face_box_3), Transform(body_2, body_3), Transform(body_box_2, body_box_3))
-       
+        
         self.wait(2)
         
-        ################################################
+        ######### Show equations for imgs and [0.5, 2]
+               
+        eqn_background = Rectangle(color=WHITE, height=1.5, width=5.2, fill_color=BLACK, fill_opacity=1, stroke_width=2)
+        eqn_background.move_to(np.array([3.8, 2, 0]))
+        
+        equal_sign = Text('=', font_size=32)
+        equal_sign.move_to(np.array([1.5, 2, 0]))
+        
+        scalar_1_face = MathTex(r"0.5 \ * \ ")
+        scalar_1_face.move_to(np.array([2.2, 2, 0])).scale(0.7)
+        
+        face_1_eqn = Rectangle(color=WHITE, height=0.15, width=0.3, stroke_width=1)
+        face_1_eqn.move_to(np.array([3.2, 2, 0])).shift(UP*0.1 + LEFT*0.25)
+        face_box_eqn = Rectangle(color=WHITE, height=0.8, width=1, stroke_width=1)
+        face_box_eqn.move_to(np.array([3.2, 2, 0]))
+        
+        plus_sign = Text('+', font_size=32)
+        plus_sign.move_to(np.array([4.1, 2, 0]))
+        
+        scalar_2_body = MathTex(r"2 \ * \ ")
+        scalar_2_body.move_to(np.array([4.7, 2, 0])).scale(0.7)
+        
+        body_1_eqn = Ellipse(color=WHITE, stroke_width=1).scale(0.2)
+        body_1_eqn.move_to(np.array([5.6, 2, 0])).shift(DOWN*0.1 + RIGHT*0.1)
+        body_box_eqn = Rectangle(color=WHITE, height=0.8, width=1, stroke_width=1)
+        body_box_eqn.move_to(np.array([5.6, 2, 0]))
+        
+        self.play(FadeIn(eqn_background, equal_sign, scalar_1_face, face_1_eqn, face_box_eqn, plus_sign, scalar_2_body, body_1_eqn, body_box_eqn))
+        
+        self.wait(2)
+                
+        ######### Show vector equations for [0.5, 2]
+        
+        eqn_background_2 = Rectangle(color=WHITE, height=1.5, width=5.2, fill_color=BLACK, fill_opacity=1, stroke_width=2)
+        eqn_background_2.move_to(np.array([3.8, 0, 0]))
+        
+        equal_sign_2 = Text('=', font_size=32)
+        equal_sign_2.move_to(np.array([1.5, 0, 0]))
+        
+        scalar_1 = MathTex(r"0.5 \ * \ ")
+        scalar_1.move_to(np.array([2.3, 0, 0])).scale(0.7)
+        
+        mat_1 = MathTex(r"\begin{bmatrix} 1 \\ 0 \end{bmatrix}")
+        mat_1.move_to(np.array([3.2, 0, 0])).scale(0.85)
+        
+        plus_sign_2 = Text('+', font_size=32)
+        plus_sign_2.move_to(np.array([4.1, 0, 0]))
+        
+        scalar_2 = MathTex(r"2 \ * \ ")
+        scalar_2.move_to(np.array([4.7, 0, 0])).scale(0.7)
+        
+        mat_2 = MathTex(r"\begin{bmatrix} 0 \\ 1 \end{bmatrix}")
+        mat_2.move_to(np.array([5.4, 0, 0])).scale(0.85)
+        
+        self.play(FadeOut(faceText, bodyText), FadeIn(eqn_background_2, equal_sign_2, scalar_1, mat_1, scalar_2, plus_sign_2, mat_2, shift=DOWN))
+        
+        ######### Multiply scalars into vectors and imgs
+        
+        face_1_eqn_2 = Rectangle(color=WHITE, height=0.15, width=0.15, stroke_width=1)
+        face_1_eqn_2.move_to(np.array([3.2, 2, 0])).shift(UP*0.1 + LEFT*0.25)
+        
+        body_1_eqn_2 = Ellipse(color=WHITE, stroke_width=1).scale(0.4)
+        body_1_eqn_2.move_to(np.array([5.6, 2, 0])).shift(DOWN*0.1 + RIGHT*0.1)
+        
+        mat_1_2 = MathTex(r"\begin{bmatrix} 0.5 \\ 0 \end{bmatrix}")
+        mat_1_2.move_to(np.array([3.2, 0, 0])).scale(0.85)
+        
+        mat_2_2 = MathTex(r"\begin{bmatrix} 2 \\ 0 \end{bmatrix}")
+        mat_2_2.move_to(np.array([5.4, 0, 0])).scale(0.85)
+        
+        self.wait(1)
+        # self.play(FadeOut(scalar_1, scalar_2, scalar_1_face, scalar_2_body, shift=RIGHT), Transform(mat_1, mat_1_2), Transform(mat_2, mat_2_2), Transform(face_1_eqn, face_1_eqn_2), Transform(body_1_eqn, body_1_eqn_2))
+        
+        self.play(FadeOut(scalar_1, scalar_1_face, shift=RIGHT), Transform(mat_1, mat_1_2), Transform(face_1_eqn, face_1_eqn_2))
+        
+        self.wait(1)
+        self.play(FadeOut(scalar_2, scalar_2_body, shift=RIGHT), Transform(mat_2, mat_2_2), Transform(body_1_eqn, body_1_eqn_2))
+                
+        self.wait(2)
+        
+        ###################################################################
+        ###################################################################
         # face.generate_target()
         # face.target.move_to(np.array([1, 1, 0]))
         # face_move_1 = MoveToTarget(face)
