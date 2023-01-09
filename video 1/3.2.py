@@ -11,7 +11,7 @@ class VectorArrow(VectorScene, Scene):
         numberplane = NumberPlane()
         self.add(numberplane)
         
-        self.wait(2)
+        self.wait(3)
         
         '''The data samples in this dataset can be represented as points in a coordinate space, using face length and body size as axes. '''
         
@@ -32,6 +32,8 @@ class VectorArrow(VectorScene, Scene):
         self.play(FadeIn(backgroundRectangle2, bodyText))
                 
         self.remove(arrow_c, arrow_d)
+        
+        self.wait(1)
         
         ########
         '''Note that each data point here corresponds to a data sample of a basic measuring unit.'''
@@ -62,7 +64,7 @@ class VectorArrow(VectorScene, Scene):
         body_1_text.scale(0.7 * body_1.get_height() / body_1_text.get_height()).move_to(body_1.get_center())
         self.play(FadeIn(body_1_text))
         
-        self.wait(3)
+        self.wait(4)
                 
         ################ Move to (1, 1)
         
@@ -83,7 +85,7 @@ class VectorArrow(VectorScene, Scene):
                 
         self.play(Transform(face_1, face_2), Transform(face_box, face_box_2), Transform(body_1, body_2), Transform(body_box, body_box_2))
        
-        self.wait(1)
+        self.wait(3)
         
         ######### Show equations for imgs and [1,1]
                 
