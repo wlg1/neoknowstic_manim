@@ -56,8 +56,12 @@ class test(LinearTransformationScene):
         # a is body, b is face
         # y is cat, x is rat
         
-        ## or long tail, small body is cat
-        ## so short tail, big body is pig
+        ## or long tail, small body is house cat
+        ## so short tail, big body is bobcat (lynx), which are wild
+        # green considers 0.6 tail, 0.4 body to be 1 house cat, 0 bobcat
+        # purple considers 0.4 tail, 0.6 body to be 1 bobcat, 0 house cat
+        
+        
         
         #z = np.array([3, 1, 0])
         #n = np.array([0.5, 2, 0])
