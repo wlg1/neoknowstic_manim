@@ -30,8 +30,7 @@ class ManimScene(Scene):
         ear_box = Rectangle(color=WHITE, height=5.7, width=6, stroke_width=1).shift(UP*0.33)
         ears = VGroup(left_ear, right_ear, ear_box).scale(0.5).shift(DOWN*2.1)
                         
-        #face_1_text = Text("1")
-        #face_1_text.scale(0.4 * face_1.get_height() / face_1_text.get_height()).move_to(face_1.get_center())
+        ear_1_text = Text("1", font_size=28).shift(DOWN*0.8)
         
         ear_box.z_index=2
         face_black.z_index=1
@@ -40,7 +39,7 @@ class ManimScene(Scene):
         right_ear.z_index=0
         
         self.add(face_black)  #to cover ear bottoms
-        self.play(FadeIn(left_ear, right_ear, ear_box))
+        self.play(FadeIn(left_ear, right_ear, ear_box, ear_1_text))
     
         self.wait(1.5)
         
@@ -64,9 +63,11 @@ class ManimScene(Scene):
         whisker_6 = Line([1, -0.3, 0], [2.3, 0, 0]) # left middle
         whiskers = VGroup(whisker_1, whisker_2, whisker_3, whisker_4, whisker_5, whisker_6)
         
-        nose_group = VGroup(face_outline, left_eye, right_eye, nose, whiskers, nose_box).scale(0.5).shift(UP*1.8)
+        nose_group = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), nose.copy(), whiskers.copy(), nose_box.copy()).scale(0.5).shift(UP*1.8)
                         
-        self.play(FadeIn(nose_group))
+        nose_1_text = Text("1", font_size=28).shift(UP*3.1)
+                        
+        self.play(FadeIn(nose_group, nose_1_text))
         
         self.wait(2)
                 
@@ -142,7 +143,7 @@ class ManimScene(Scene):
                 
         ####### Scale copy
         #
-        #'''For example, we can make the unit 1 body twice as big to get the unit 2 body, '''
+        #'''For example, on the bottom right, we can make the unit 1 ear twice as big to get the unit 2 ear, '''
                
         self.wait(4)
         
@@ -158,27 +159,64 @@ class ManimScene(Scene):
         ear_box_2 = Rectangle(color=WHITE, height=5.7, width=6, stroke_width=1).shift(UP*0.33)
         ears_2 = VGroup(left_ear_2, right_ear_2, ear_box_2).scale(0.5).shift(DOWN*2.1+RIGHT*4.8)
                 
-        # pdb.set_trace()
-        self.play(Transform(left_ear_copy, left_ear_2), Transform(right_ear_copy, right_ear_2))
+        ear_2_text = Text("2", font_size=28).shift(DOWN*0.8+RIGHT*4.8)
+        
+        self.play(Transform(left_ear_copy, left_ear_2), Transform(right_ear_copy, right_ear_2), FadeIn(ear_2_text))
         
         #ISSUE: transform goes to unscaled version. the issue is scale(0.5) doesn't work when copy vgroup, so need to re-create from scratch then scale group instead of just copying group. 
-        #also, scale works different depending on which objects are scaled together in a group
-        
-        #body_2_text = Text("2")
-        #body_2_text.scale(0.2 * body_2.get_height() / body_2_text.get_height()).move_to(body_2.get_center())
-        #self.play(FadeIn(body_2_text))
-        
-        '''or cut the unit 1 face in half to get the unit 0.5 face.'''
+        #also, scale works different depending on which objects are scaled together in a group, so you must recreate all objs that were scaled together, even if they aren't going to be transformed, as the recreation makes them (eg. ear_box) their orig size before being transformed
+        # in nose group, instead of scaling the original, we scale copies of the original so it's still intact. that way, instead of re-creating the original, we can just make copies of it and scale those. only nose needs to be re-created so its values can be adjusted
         
         self.wait(2)  
-        #
-        #face_2 = Rectangle(color=WHITE, height=0.65, width=0.66, stroke_width=1).shift(RIGHT*4.97 + UP*2.05)
-        #self.play(Transform(face_copy, face_2))
-        #
-        #face_2_text = Text("0.5")
-        #face_2_text.scale(0.3 * face_2.get_height() / face_2_text.get_height()).move_to(face_2).shift(RIGHT*0.7)
-        #self.play(FadeIn(face_2_text))
-        #
-        #self.wait(2)
+                
+        '''or cut it in half to get the unit 0.5 ear.'''
         
+        ear_length_3 = 0.25
+        left_ear_1_3 = Line([-1.5, 0, 0], [-1, ear_length_3+1.5, 0])
+        left_ear_2_3 = Line([-1, ear_length_3+1.5, 0], [0, 0, 0])
+        left_ear_3 = VGroup(left_ear_1_3, left_ear_2_3)
+        
+        right_ear_1_3 = Line([1.5, 0, 0], [1, ear_length_3+1.5, 0])
+        right_ear_2_3 = Line([1, ear_length_3+1.5, 0], [0, 0, 0])
+        right_ear_3 = VGroup(right_ear_1_3, right_ear_2_3)
+        
+        ear_box_3 = Rectangle(color=WHITE, height=5.7, width=6, stroke_width=1).shift(UP*0.33)
+        ears_2 = VGroup(left_ear_3, right_ear_3, ear_box_3).scale(0.5).shift(DOWN*2.1+RIGHT*4.8)
+                
+        ear_3_text = Text("0.5", font_size=28).shift(DOWN*0.8+RIGHT*4.8)
+                
+        self.play(Transform(left_ear_copy, left_ear_3), Transform(right_ear_copy, right_ear_3), Transform(ear_2_text, ear_3_text))
+                
+        self.wait(2)  
+        
+        ##############
+        '''On the top right, the higher the nose tip points, the higher the value. '''
+        
+        
+        
+        ##############
+        
+        '''It can also point down to get a negative measurement.'''
+        
+        # nose_2 = nose.copy()
+        # nose_2[1].end[1] = 0.75
+        # nose_2[2].start[1] = 0.75
+        nose_tip_2 = -0.25
+        nose_line_1_2 = Line([-0.5, 0, 0], [0.5, 0, 0])
+        nose_line_2_2 = Line([-0.5, 0, 0], [0, nose_tip_2, 0])
+        nose_line_3_2 = Line([0, nose_tip_2, 0], [0.5, 0, 0])
+        nose_2 = VGroup(nose_line_1_2, nose_line_2_2, nose_line_3_2)
+        
+        nose_group_2 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), nose_2, whiskers.copy(), nose_box.copy()).scale(0.5).shift(UP*1.8).shift(RIGHT*4.8)
+                        
+        nose_2_text = Text("-1", font_size=28).shift(UP*3.1).shift(RIGHT*4.8)
+                        
+        self.play(Transform(nose_group_copy, nose_group_2), FadeIn(nose_2_text))
+        # self.play(FadeOut(nose_group_copy[3]), FadeIn(nose_group_2), FadeIn(nose_2_text))
+        
+        # pdb.set_trace()        
+        self.wait(2)
+        
+        #########################
+        ''' The lower the tip points, the lower the value.'''
         
