@@ -48,7 +48,7 @@ class ManimScene(Scene):
         nose_line_1 = Line([-0.5, 0, 0], [0.5, 0, 0])
         nose_line_2 = Line([-0.5, 0, 0], [0, nose_tip, 0])
         nose_line_3 = Line([0, nose_tip, 0], [0.5, 0, 0])
-        nose_box = Rectangle(color=WHITE, height=5, width=6, stroke_width=1).shift(UP*0.33)
+        nose_box = Rectangle(color=WHITE, height=5.7, width=6, stroke_width=1).shift(UP*0.33)
         nose = VGroup(nose_line_1, nose_line_2, nose_line_3)
                      
         face_outline = Circle(radius=1.75, color=WHITE, fill_color=BLACK, fill_opacity=1).move_to([0, 0, 0])
@@ -65,7 +65,7 @@ class ManimScene(Scene):
         
         nose_group = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), nose.copy(), whiskers.copy(), nose_box.copy()).scale(0.5).shift(UP*1.8)
                         
-        nose_1_text = Text("1", font_size=28).shift(UP*3.1)
+        nose_1_text = Text("1", font_size=28).shift(UP*3.2)
                         
         self.play(FadeIn(nose_group, nose_1_text))
         
@@ -203,7 +203,7 @@ class ManimScene(Scene):
         
         nose_group_2 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), nose_2, whiskers.copy(), nose_box.copy()).scale(0.5).shift(UP*1.8).shift(RIGHT*4.8)
                         
-        nose_2_text = Text("2", font_size=28).shift(UP*3.1).shift(RIGHT*4.8)
+        nose_2_text = Text("2", font_size=28).shift(UP*3.2).shift(RIGHT*4.8)
                         
         self.play(Transform(nose_group_copy, nose_group_2), FadeIn(nose_2_text))
         # self.play(FadeOut(nose_group_copy[3]), FadeIn(nose_group_2), FadeIn(nose_2_text))
@@ -222,9 +222,8 @@ class ManimScene(Scene):
         
         nose_group_3 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), nose_3, whiskers.copy(), nose_box.copy()).scale(0.5).shift(UP*1.8).shift(RIGHT*4.8)
                         
-        nose_3_text = Text("-1", font_size=28).shift(UP*3.1).shift(RIGHT*4.8)
-                        
-                        
+        nose_3_text = Text("-1", font_size=28).shift(UP*3.2).shift(RIGHT*4.8)
+                                                
         self.play(Transform(nose_group_copy, nose_group_3), Transform(nose_2_text, nose_3_text))
         
         self.wait(2)
@@ -240,7 +239,7 @@ class ManimScene(Scene):
         
         nose_group_4 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), nose_4, whiskers.copy(), nose_box.copy()).scale(0.5).shift(UP*1.8).shift(RIGHT*4.8)
                         
-        nose_4_text = Text("-3", font_size=28).shift(UP*3.1).shift(RIGHT*4.8)
+        nose_4_text = Text("-3", font_size=28).shift(UP*3.2).shift(RIGHT*4.8)
                         
         self.play(Transform(nose_group_copy, nose_group_4), Transform(nose_2_text, nose_4_text))
         
