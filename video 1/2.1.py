@@ -19,10 +19,10 @@ class ManimScene(Scene):
                 
         face = Circle(radius=1.75, color=WHITE, fill_color=BLACK, fill_opacity=1).move_to([0, 0, 0])
         
-        # left_eye = Dot(color=WHITE).move_to([-1, 0.5, 0])
-        # right_eye = Dot(color=WHITE).move_to([1, 0.5, 0])
-        left_eye = ArcBetweenPoints([-0.3, -0.75,0], [0.3, -0.75,0]).rotate(180*DEGREES).move_to([-1, 0.5, 0])
-        right_eye = ArcBetweenPoints([-0.3, -0.75,0], [0.3, -0.75,0]).rotate(180*DEGREES).move_to([1, 0.5, 0])
+        left_eye = Dot(color=WHITE).move_to([-1, 0.5, 0])
+        right_eye = Dot(color=WHITE).move_to([1, 0.5, 0])
+        # left_eye = ArcBetweenPoints([-0.3, -0.75,0], [0.3, -0.75,0]).rotate(180*DEGREES).move_to([-1, 0.5, 0])
+        # right_eye = ArcBetweenPoints([-0.3, -0.75,0], [0.3, -0.75,0]).rotate(180*DEGREES).move_to([1, 0.5, 0])
         
         nose_line_1 = Line([-0.5, 0, 0], [0.5, 0, 0])
         nose_line_2 = Line([-0.5, 0, 0], [0, nose_tip, 0])
