@@ -143,9 +143,9 @@ class ManimScene(Scene):
                 
         ####### Scale copy
         #
-        #'''For example, on the bottom right, we can make the unit 1 ear twice as big to get the unit 2 ear, '''
+        #'''For example, at the bottom right, we can make the unit 1 ear twice as big to get the unit 2 ear, '''
                
-        self.wait(4)
+        # self.wait(4)
         
         ear_length_2 = 1
         left_ear_1_2 = Line([-1.5, 0, 0], [-1, ear_length_2+1.5, 0])
@@ -190,18 +190,12 @@ class ManimScene(Scene):
         self.wait(2)  
         
         ##############
-        '''On the top right, the higher the nose tip points, the higher the value. '''
-        
-        
-        
-        ##############
-        
-        '''It can also point down to get a negative measurement.'''
+        '''At the top right, the higher the nose tip points, the higher the value. '''
         
         # nose_2 = nose.copy()
         # nose_2[1].end[1] = 0.75
         # nose_2[2].start[1] = 0.75
-        nose_tip_2 = -0.25
+        nose_tip_2 = 1
         nose_line_1_2 = Line([-0.5, 0, 0], [0.5, 0, 0])
         nose_line_2_2 = Line([-0.5, 0, 0], [0, nose_tip_2, 0])
         nose_line_3_2 = Line([0, nose_tip_2, 0], [0.5, 0, 0])
@@ -209,14 +203,45 @@ class ManimScene(Scene):
         
         nose_group_2 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), nose_2, whiskers.copy(), nose_box.copy()).scale(0.5).shift(UP*1.8).shift(RIGHT*4.8)
                         
-        nose_2_text = Text("-1", font_size=28).shift(UP*3.1).shift(RIGHT*4.8)
+        nose_2_text = Text("2", font_size=28).shift(UP*3.1).shift(RIGHT*4.8)
                         
         self.play(Transform(nose_group_copy, nose_group_2), FadeIn(nose_2_text))
         # self.play(FadeOut(nose_group_copy[3]), FadeIn(nose_group_2), FadeIn(nose_2_text))
+              
+        self.wait(2)
         
-        # pdb.set_trace()        
+        ##############
+        
+        '''It can also point down to get a negative measurement.'''
+        
+        nose_tip_3 = -0.25
+        nose_line_1_3 = Line([-0.5, 0, 0], [0.5, 0, 0])
+        nose_line_2_3 = Line([-0.5, 0, 0], [0, nose_tip_3, 0])
+        nose_line_3_3 = Line([0, nose_tip_3, 0], [0.5, 0, 0])
+        nose_3 = VGroup(nose_line_1_3, nose_line_2_3, nose_line_3_3)
+        
+        nose_group_3 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), nose_3, whiskers.copy(), nose_box.copy()).scale(0.5).shift(UP*1.8).shift(RIGHT*4.8)
+                        
+        nose_3_text = Text("-1", font_size=28).shift(UP*3.1).shift(RIGHT*4.8)
+                        
+                        
+        self.play(Transform(nose_group_copy, nose_group_3), Transform(nose_2_text, nose_3_text))
+        
         self.wait(2)
         
         #########################
         ''' The lower the tip points, the lower the value.'''
         
+        nose_tip_4 = -0.75
+        nose_line_1_4 = Line([-0.5, 0, 0], [0.5, 0, 0])
+        nose_line_2_4 = Line([-0.5, 0, 0], [0, nose_tip_4, 0])
+        nose_line_3_4 = Line([0, nose_tip_4, 0], [0.5, 0, 0])
+        nose_4 = VGroup(nose_line_1_4, nose_line_2_4, nose_line_3_4)
+        
+        nose_group_4 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), nose_4, whiskers.copy(), nose_box.copy()).scale(0.5).shift(UP*1.8).shift(RIGHT*4.8)
+                        
+        nose_4_text = Text("-3", font_size=28).shift(UP*3.1).shift(RIGHT*4.8)
+                        
+        self.play(Transform(nose_group_copy, nose_group_4), Transform(nose_2_text, nose_4_text))
+        
+        self.wait(2)
