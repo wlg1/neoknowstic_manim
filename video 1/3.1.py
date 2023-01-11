@@ -1,4 +1,5 @@
 from manim import *
+import pdb
 
 class ManimScene(Scene):
     def construct(self):
@@ -103,7 +104,25 @@ class ManimScene(Scene):
         '''We can grow or shrink basic measuring units to get different measurements. '''
                 
         face_black_copy = face_black.copy()
-        ears_copy = ears.copy()
+        # ears_copy = ears.copy()
+        # ears_copy.add(face_black_copy)
+        # left_ear_copy = left_ear.copy()
+        left_ear_1_c = Line([-1.5, 0, 0], [-1, ear_length+1.5, 0])
+        left_ear_2_c = Line([-1, ear_length+1.5, 0], [0, 0, 0])
+        left_ear_copy = VGroup(left_ear_1_c, left_ear_2_c)
+        
+        right_ear_1_copy = Line([1.5, 0, 0], [1, ear_length+1.5, 0])
+        right_ear_2_copy = Line([1, ear_length+1.5, 0], [0, 0, 0])
+        right_ear_copy = VGroup(right_ear_1_copy, right_ear_2_copy)
+        
+        face_black_copy = Circle(radius=1.75, color=BLACK, fill_color=BLACK, fill_opacity=1).move_to([0, 0, 0]).scale(0.5).shift(DOWN*2.1)
+        
+        ear_box_copy = Rectangle(color=WHITE, height=5.7, width=6, stroke_width=1).shift(UP*0.33)
+        
+        # right_ear_copy = right_ear.copy()
+        # ear_box_copy = ear_box.copy()
+        # ears_copy = VGroup(face_black_copy, left_ear_copy, right_ear_copy, ear_box_copy)
+        ears_copy = VGroup(left_ear_copy, right_ear_copy, ear_box_copy).scale(0.5).shift(DOWN*2.1)
         ears_copy.add(face_black_copy)
         
         ears_copy.generate_target()
@@ -120,24 +139,38 @@ class ManimScene(Scene):
         
         # self.add(face_black_copy)
         # self.play(FadeIn(face_black_copy, left_ear_copy, right_ear_copy, ear_box_copy, shift=RIGHT*5))
-        
-        
+                
         ####### Scale copy
         #
         #'''For example, we can make the unit 1 body twice as big to get the unit 2 body, '''
-        #        
-        #self.wait(4)
-        #
-        #body_2 = Ellipse(color=WHITE, height=1, width=2.1, stroke_width=1).shift(RIGHT*5.12 + DOWN*1.6)
-        #self.play(Transform(body_copy, body_2))
-        #
+               
+        self.wait(4)
+        
+        ear_length_2 = 1
+        left_ear_1_2 = Line([-1.5, 0, 0], [-1, ear_length_2+1.5, 0])
+        left_ear_2_2 = Line([-1, ear_length_2+1.5, 0], [0, 0, 0])
+        left_ear_2 = VGroup(left_ear_1_2, left_ear_2_2)
+        
+        right_ear_1_2 = Line([1.5, 0, 0], [1, ear_length_2+1.5, 0])
+        right_ear_2_2 = Line([1, ear_length_2+1.5, 0], [0, 0, 0])
+        right_ear_2 = VGroup(right_ear_1_2, right_ear_2_2)
+        
+        ear_box_2 = Rectangle(color=WHITE, height=5.7, width=6, stroke_width=1).shift(UP*0.33)
+        ears_2 = VGroup(left_ear_2, right_ear_2, ear_box_2).scale(0.5).shift(DOWN*2.1+RIGHT*4.8)
+                
+        # pdb.set_trace()
+        self.play(Transform(left_ear_copy, left_ear_2), Transform(right_ear_copy, right_ear_2))
+        
+        #ISSUE: transform goes to unscaled version. the issue is scale(0.5) doesn't work when copy vgroup, so need to re-create from scratch then scale group instead of just copying group. 
+        #also, scale works different depending on which objects are scaled together in a group
+        
         #body_2_text = Text("2")
         #body_2_text.scale(0.2 * body_2.get_height() / body_2_text.get_height()).move_to(body_2.get_center())
         #self.play(FadeIn(body_2_text))
-        #
-        #'''or cut the unit 1 face in half to get the unit 0.5 face.'''
-        #
-        #self.wait(2)  
+        
+        '''or cut the unit 1 face in half to get the unit 0.5 face.'''
+        
+        self.wait(2)  
         #
         #face_2 = Rectangle(color=WHITE, height=0.65, width=0.66, stroke_width=1).shift(RIGHT*4.97 + UP*2.05)
         #self.play(Transform(face_copy, face_2))
