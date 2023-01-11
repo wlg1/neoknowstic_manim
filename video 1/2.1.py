@@ -8,6 +8,7 @@ class ManimScene(Scene):
         nose_tip = 0.5  # each unit of 1 is 0.25. 3 is 0.75, etc
         
         #############
+        '''Some evidence suggests that how much a cat person enjoys naps can be predicted by measuring their nose tips and ear lengths.'''
         left_ear_1 = Line([-1.5, 0, 0], [-1, ear_length, 0])
         left_ear_2 = Line([-1, ear_length, 0], [0, 0, 0])
         left_ear = VGroup(left_ear_1, left_ear_2)
@@ -46,7 +47,21 @@ class ManimScene(Scene):
         # self.play(Unwrite(zzz))
         
         ##################
+        # Highlight nose
+        '''For example, a lot of cat people with long nose tips'''
+        
+        #grow it?
+        
+        nose_line_1_color = Line([-0.5, 0, 0], [0.5, 0, 0], color=RED)
+        nose_line_2_color = Line([-0.5, 0, 0], [0, nose_tip, 0], color=RED)
+        nose_line_3_color = Line([0, nose_tip, 0], [0.5, 0, 0], color=RED)
+        
+        self.play(Transform(nose_line_1, nose_line_1_color), Transform(nose_line_2, nose_line_2_color), Transform(nose_line_3, nose_line_3_color))
+        self.wait(1)
+        
+        ##################
         # Highlight ears
+        ''' and long ears are said to enjoy naps.'''
             
         left_ear_1_color = Line([-1.5, 0, 0], [-1, ear_length, 0], color=BLUE)
         left_ear_2_color = Line([-1, ear_length, 0], [0, 0, 0], color=BLUE)
@@ -60,7 +75,37 @@ class ManimScene(Scene):
         # self.bring_to_back(left_ear_color)
         # self.play(Create(left_ear_color))
         self.play(Transform(left_ear, left_ear_color), Transform(right_ear, right_ear_color))
+        self.wait(1)
+        
+        # on enjoy- transform -- into smile?
+        
+        ##################
+        '''But we don't know the exact set of rules to figure this out.'''
+        
+        nap_eqn = Text('? * nose_tip + ? * ear_length = nap happy').shift(DOWN)
+        self.play(Write(nap_eqn))
+        
+        ##################
+        '''We can also predict how much each cat person enjoys caps by measuring their ear lengths and nose tips, using different weighings of these features than before. But again, we also don't know this formula.'''
+        
+        self.play(
+            *[FadeOut(mob)for mob in self.mobjects]
+            # All mobjects in the screen are saved in self.mobjects
+        )
+        
+        self.add(face, left_eye, right_eye, left_ear, right_ear)
+        self.add(whisker_1, whisker_2, whisker_3, whisker_4)
+        self.add(nose_line_1, nose_line_2, nose_line_3)
+        self.bring_to_back(left_ear, right_ear)
+        
+        thought = ImageMobject('thought.png').move_to([2.2, 1.8,0]).scale(1.5)
+        self.add(thought)
         self.wait(2)
+        
+        ##################
+        '''So we're going to have to find what these rules are using a neural network.'''
+        
+        
         
         ##################
     
