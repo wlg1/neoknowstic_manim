@@ -37,7 +37,7 @@ class VectorArrow(VectorScene, Scene):
         ########
         '''Note that each data point here corresponds to a data sample of a basic measuring unit.'''
         
-        nose_tip = 0.25
+        nose_tip = 0.3
         
         nose_box = Rectangle(color=WHITE, height=5.4, width=5.7, stroke_width=1, fill_color=BLACK, fill_opacity=1).shift(UP*0.33)
         

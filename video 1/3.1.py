@@ -13,7 +13,7 @@ class ManimScene(Scene):
         # self.wait(4)
         
         ear_length = 0.5  #lowest is 0.5
-        nose_tip = 0.25  # each unit of 1 is 0.25. 3 is 0.75, etc
+        nose_tip = 0.3  # each unit of 1 is 0.3. 3 is 0.9, etc
         
         ##########        
         left_ear_1 = Line([-1.5, 0, 0], [-1, ear_length+1.5, 0])
@@ -195,7 +195,7 @@ class ManimScene(Scene):
         # nose_2 = nose.copy()
         # nose_2[1].end[1] = 0.75
         # nose_2[2].start[1] = 0.75
-        nose_tip_2 = 1
+        nose_tip_2 = 0.6
         nose_line_1_2 = Line([-0.5, 0, 0], [0.5, 0, 0])
         nose_line_2_2 = Line([-0.5, 0, 0], [0, nose_tip_2, 0])
         nose_line_3_2 = Line([0, nose_tip_2, 0], [0.5, 0, 0])
@@ -214,7 +214,7 @@ class ManimScene(Scene):
         
         '''It can also point down to get a negative measurement.'''
         
-        nose_tip_3 = -0.25
+        nose_tip_3 = -0.3
         nose_line_1_3 = Line([-0.5, 0, 0], [0.5, 0, 0])
         nose_line_2_3 = Line([-0.5, 0, 0], [0, nose_tip_3, 0])
         nose_line_3_3 = Line([0, nose_tip_3, 0], [0.5, 0, 0])
@@ -231,7 +231,7 @@ class ManimScene(Scene):
         #########################
         ''' The lower the tip points, the lower the value.'''
         
-        nose_tip_4 = -0.75
+        nose_tip_4 = -0.9
         nose_line_1_4 = Line([-0.5, 0, 0], [0.5, 0, 0])
         nose_line_2_4 = Line([-0.5, 0, 0], [0, nose_tip_4, 0])
         nose_line_3_4 = Line([0, nose_tip_4, 0], [0.5, 0, 0])
