@@ -14,7 +14,7 @@ class CatFace(Scene):
         right_ear_2 = Line([1, ear_length, 0], [0, 0, 0])
         right_ear = VGroup(right_ear_1, right_ear_2)
                 
-        face = Circle(radius=1.75, color=WHITE, fill_color=BLACK, fill_opacity=1).move_to([0, 0, 0])
+        face = Circle(radius=1.75, color=BLACK, fill_color=BLACK, fill_opacity=1).move_to([0, 0, 0])
         
         left_eye = Dot(color=WHITE).move_to([-1, 0.5, 0])
         right_eye = Dot(color=WHITE).move_to([1, 0.5, 0])
@@ -32,9 +32,7 @@ class CatFace(Scene):
         # mouth = ArcBetweenPoints([-0.5, -0.75,0], [0.5, -0.75,0])
         mouth = Ellipse(width=0.4, height=0.8, color=WHITE).move_to([0, -0.75, 0])
                                 
-        self.add(face, left_eye, right_eye, left_ear, right_ear)
-        self.add(whisker_1, whisker_2, whisker_3, whisker_4)
-        self.add(nose_line_1, nose_line_2, nose_line_3)
+        self.add(face, left_ear, right_ear)
         self.bring_to_back(left_ear, right_ear)
         
         
