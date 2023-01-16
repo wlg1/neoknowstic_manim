@@ -2,124 +2,189 @@ from manim import *
 
 class ManimScene(Scene):
     def construct(self):
-    
-        ###### Make the cat person ############
-        ear_length = 2.75  #lowest is 2. each +1 is 0.25
+        ##############
+        '''To show why neural networks use matrix multiplication, let’s start with an example where in the future, cat people roam the world. '''
+        
+        ear_length = 1.5  #lowest is 0.5. each +1 is 0.5; largest is 1.5
         nose_tip = 0.5  # each unit of 1 is 0.25. 3 is 0.75, etc
         
-        #############
-        '''Some evidence suggests that how much a cat person enjoys naps can be predicted by measuring their nose tips and ear lengths.'''
-        left_ear_1 = Line([-1.5, 0, 0], [-1, ear_length, 0])
-        left_ear_2 = Line([-1, ear_length, 0], [0, 0, 0])
+        left_ear_1 = Line([-1.5, 0, 0], [-1, ear_length+1.5, 0])
+        left_ear_2 = Line([-1, ear_length+1.5, 0], [0, 0, 0])
         left_ear = VGroup(left_ear_1, left_ear_2)
         
-        right_ear_1 = Line([1.5, 0, 0], [1, ear_length, 0])
-        right_ear_2 = Line([1, ear_length, 0], [0, 0, 0])
+        right_ear_1 = Line([1.5, 0, 0], [1, ear_length+1.5, 0])
+        right_ear_2 = Line([1, ear_length+1.5, 0], [0, 0, 0])
         right_ear = VGroup(right_ear_1, right_ear_2)
                 
-        face = Circle(radius=1.75, color=WHITE, fill_color=BLACK, fill_opacity=1).move_to([0, 0, 0])
+        face_outline = Circle(radius=1.75, color=WHITE, fill_color=BLACK, fill_opacity=1).move_to([0, 0, 0])
         
         left_eye = Dot(color=WHITE).move_to([-1, 0.5, 0])
         right_eye = Dot(color=WHITE).move_to([1, 0.5, 0])
-        # left_eye = ArcBetweenPoints([-0.3, -0.75,0], [0.3, -0.75,0]).rotate(180*DEGREES).move_to([-1, 0.5, 0])
-        # right_eye = ArcBetweenPoints([-0.3, -0.75,0], [0.3, -0.75,0]).rotate(180*DEGREES).move_to([1, 0.5, 0])
         
         nose_line_1 = Line([-0.5, 0, 0], [0.5, 0, 0])
         nose_line_2 = Line([-0.5, 0, 0], [0, nose_tip, 0])
         nose_line_3 = Line([0, nose_tip, 0], [0.5, 0, 0])
-                
-        whisker_1 = Line([-1, -0.3, 0], [-2, -0.5, 0]) # left down
-        whisker_2 = Line([-1, -0.3, 0], [-2, 0.5, 0]) # left up
-        whisker_3 = Line([1, -0.3, 0], [2, -0.5, 0]) # right down
-        whisker_4 = Line([1, -0.3, 0], [2, 0.5, 0])  # right up
+        nose = VGroup(nose_line_1, nose_line_2, nose_line_3)
         
-        # mouth = ArcBetweenPoints([-0.5, -0.75,0], [0.5, -0.75,0])
-                                
-        self.add(face, left_eye, right_eye, left_ear, right_ear)
-        self.add(whisker_1, whisker_2, whisker_3, whisker_4)
-        self.add(nose_line_1, nose_line_2, nose_line_3)
-        self.bring_to_back(left_ear, right_ear)
+        whisker_1 = Line([-1, -0.3, 0], [-2.3, -0.5, 0]) # left down
+        whisker_2 = Line([-1, -0.3, 0], [-2.3, 0.5, 0]) # left up
+        whisker_3 = Line([-1, -0.3, 0], [-2.3, 0, 0]) # left middle
+        whisker_4 = Line([1, -0.3, 0], [2.3, -0.5, 0]) # right down
+        whisker_5 = Line([1, -0.3, 0], [2.3, 0.5, 0])  # right up
+        whisker_6 = Line([1, -0.3, 0], [2.3, 0, 0]) # r mid                 
+        whiskers = VGroup(whisker_1, whisker_2, whisker_3, whisker_4, whisker_5, whisker_6)          
+        
+        mouth = Ellipse(width=0.4, height=0.8, color=WHITE).move_to([0, -0.75, 0])
+               
+        left_ear.z_index=1
+        right_ear.z_index=1
+               
+        face_outline.z_index=3
+        left_eye.z_index=3
+        right_eye.z_index=3
+                
+        for nl in nose:
+            nl.z_index=3
+        
+        for whisk in whiskers:
+            whisk.z_index=3
+                    
+        cat_person_1 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy()).scale(0.75).move_to(np.array([-3, 1, 0]))   
+        cat_person_1[5].color=PURPLE
+        cat_person_1[6].color=PURPLE
+        faceBlack = cat_person_1[0].copy()
+        faceBlack.color=BLACK
+        self.add(faceBlack)
+        
+        ear_length = 0.5  #lowest is 0.5. each +1 is 0.5; largest is 1.5
+        nose_tip = 0.75  # each unit of 1 is 0.25. 3 is 0.75, etc
+        left_ear_1_2 = Line([-1.5, 0, 0], [-1, ear_length+1.5, 0])
+        left_ear_2_2 = Line([-1, ear_length+1.5, 0], [0, 0, 0])
+        left_ear_2 = VGroup(left_ear_1_2, left_ear_2_2)
+        right_ear_1_2 = Line([1.5, 0, 0], [1, ear_length+1.5, 0])
+        right_ear_2_2 = Line([1, ear_length+1.5, 0], [0, 0, 0])
+        right_ear_2 = VGroup(right_ear_1_2, right_ear_2_2)
+        nose_line_2_2 = Line([-0.5, 0, 0], [0, nose_tip, 0])
+        nose_line_3_2 = Line([0, nose_tip, 0], [0.5, 0, 0])
+        nose_2 = VGroup(nose_line_1, nose_line_2_2, nose_line_3_2)
+        left_ear_2.z_index=1
+        right_ear_2.z_index=1
+        for nl in nose_2:
+            nl.z_index=3
+            
+        cat_person_2 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), left_ear_2.copy(), right_ear_2.copy(), nose_2.copy(), whiskers.copy()).scale(0.75).move_to(np.array([3, 2, 0]))   
+        cat_person_2[5].color=GREEN
+        cat_person_2[6].color=GREEN
+        faceBlack2 = cat_person_2[0].copy()
+        faceBlack2.color=BLACK
+        self.add(faceBlack2)
+        
+        ear_length = 1  #lowest is 0.5. each +1 is 0.5; largest is 1.5
+        nose_tip = 0.25  # each unit of 1 is 0.25. 3 is 0.75, etc
+        left_ear_1_3 = Line([-1.5, 0, 0], [-1, ear_length+1.5, 0])
+        left_ear_2_3 = Line([-1, ear_length+1.5, 0], [0, 0, 0])
+        left_ear_3 = VGroup(left_ear_1_3, left_ear_2_3)
+        right_ear_1_3 = Line([1.5, 0, 0], [1, ear_length+1.5, 0])
+        right_ear_2_3 = Line([1, ear_length+1.5, 0], [0, 0, 0])
+        right_ear_3 = VGroup(right_ear_1_3, right_ear_2_3)
+        nose_line_2_3 = Line([-0.5, 0, 0], [0, nose_tip, 0])
+        nose_line_3_3 = Line([0, nose_tip, 0], [0.5, 0, 0])
+        nose_3 = VGroup(nose_line_1, nose_line_2_3, nose_line_3_3)
+        left_ear_3.z_index=1
+        right_ear_3.z_index=1
+        for nl in nose_3:
+            nl.z_index=3
+            
+        cat_person_3 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), left_ear_3.copy(), right_ear_3.copy(), nose_3.copy(), whiskers.copy()).scale(0.75).move_to(np.array([-1, -2, 0]))   
+        faceBlack3 = cat_person_3[0].copy()
+        faceBlack3.color=BLACK
+        self.add(faceBlack3)
+        
+        self.play(FadeIn(cat_person_1))
+        self.play(FadeIn(cat_person_2))
+        self.play(FadeIn(cat_person_3))
+        
+        ##############
+        '''Some evidence suggests that how much a cat person enjoys naps...'''
+                
+        left_eye = ArcBetweenPoints([-0.3, -0.75,0], [0.3, -0.75,0]).rotate(180*DEGREES).move_to([-1, 0.5, 0])
+        right_eye = ArcBetweenPoints([-0.3, -0.75,0], [0.3, -0.75,0]).rotate(180*DEGREES).move_to([1, 0.5, 0])
+        left_eye.z_index=3
+        right_eye.z_index=3
+        
+        mouth_smile = ArcBetweenPoints([-0.5, -0.75,0], [0.5, -0.75,0])
+                               
+        cat_person_zzz = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), left_ear_3.copy(), right_ear_3.copy(), nose_3.copy(), whiskers.copy())
         
         zzz = Text("...zZz...", font_size = 40, color=WHITE).move_to([2.2, 1.8,0])
         
-        # self.play(Write(zzz))
-        # self.wait(1)
-        # self.play(Unwrite(zzz))
+        self.play(FadeOut(cat_person_1, cat_person_2), Transform(cat_person_3, cat_person_zzz))
+        self.remove(faceBlack, faceBlack2, faceBlack3)
         
-        ##################
-        # Highlight nose
-        '''For example, a lot of cat people with long nose tips'''
+        self.play(Write(zzz))
+        self.wait(1)
+        self.play(Unwrite(zzz))
         
-        #grow it?
+        ###################
+        '''... can be predicted by measuring how far away their nose tips are from the center of their face. We call this measurement, 'Nose tip'.'''
         
         nose_line_1_color = Line([-0.5, 0, 0], [0.5, 0, 0], color=RED)
         nose_line_2_color = Line([-0.5, 0, 0], [0, nose_tip, 0], color=RED)
         nose_line_3_color = Line([0, nose_tip, 0], [0.5, 0, 0], color=RED)
         
-        self.play(Transform(nose_line_1, nose_line_1_color), Transform(nose_line_2, nose_line_2_color), Transform(nose_line_3, nose_line_3_color))
+        self.play(Transform(cat_person_zzz[5][0], nose_line_1_color), Transform(cat_person_zzz[5][1], nose_line_2_color), Transform(cat_person_zzz[5][2], nose_line_3_color), Write(zzz))
+        
         self.wait(1)
         
-        ##################
-        # Highlight ears
-        ''' and long ears are said to enjoy naps.'''
-            
-        left_ear_1_color = Line([-1.5, 0, 0], [-1, ear_length, 0], color=BLUE)
-        left_ear_2_color = Line([-1, ear_length, 0], [0, 0, 0], color=BLUE)
-        left_ear_color = VGroup(left_ear_1_color, left_ear_2_color)
+        nap_eqn = Text('Nose Tip').shift(DOWN*2.5)
+        self.play(Write(nap_eqn), Unwrite(zzz))        
+                
+        ###################
+        ## Highlight nose
+        #'''For example, many cat people with long nose tips are said to enjoy naps. It's always the case that the more a cat person smiles when napping, the more they enjoy it. '''
         
-        right_ear_1_color = Line([1.5, 0, 0], [1, ear_length, 0], color=BLUE)
-        right_ear_2_color = Line([1, ear_length, 0], [0, 0, 0], color=BLUE)
-        right_ear_color = VGroup(right_ear_1_color, right_ear_2_color)
-    
-        # self.add(left_ear_color)
-        # self.bring_to_back(left_ear_color)
-        # self.play(Create(left_ear_color))
-        self.play(Transform(left_ear, left_ear_color), Transform(right_ear, right_ear_color))
-        self.wait(1)
+        self.play(FadeOut(nap_eqn))   
         
-        # on enjoy- transform -- into smile?
+        nose_tip = 0.75
+        nose_line_2_4 = Line([-0.5, 0, 0], [0, nose_tip, 0], color=RED)
+        nose_line_3_4 = Line([0, nose_tip, 0], [0.5, 0, 0], color=RED)
+        cat_person_zzz[5][1].z_index = 5
+        cat_person_zzz[5][2].z_index = 5
+        nose_line_2_4.z_index = 5
+        nose_line_3_4.z_index = 5
         
-        ##################
-        '''But we don't know the exact set of rules to figure this out.'''
+        # do this else leaves orig white lines behind
+        noseBlack = cat_person_zzz[5][1].copy()
+        noseBlack.color=BLACK
+        noseBlack.z_index = 4
+        self.add(noseBlack)
+        noseBlack2 = cat_person_zzz[5][2].copy()
+        noseBlack2.color=BLACK
+        noseBlack2.z_index = 4
+        self.add(noseBlack2)
+        # self.remove(cat_person_zzz[5][1], cat_person_zzz[5][2])
+        # self.remove(nose_line_2_color, nose_line_3_color)
+        # self.add(nose_line_2_color, nose_line_3_color)
+        self.play(Transform(cat_person_zzz[5][1], nose_line_2_4), Transform(cat_person_zzz[5][2], nose_line_3_4))
+        # self.play(Transform(nose_line_2_color, nose_line_2_4), Transform(nose_line_3_color, nose_line_3_4))
         
-        nap_eqn = Text('? * nose_tip + ? * ear_length = nap happy').shift(DOWN)
+        mouth_smile = ArcBetweenPoints([-0.5, -0.75,0], [0.5, -0.75,0])
+        mouth_smile.z_index=4
+        self.play(GrowFromCenter(mouth_smile))
+
+        ###################
+        #'''We measure how much they enjoy naps using a metric called 'Nap Smile', or just shortened to 'Naps'. '''
+        
+        nap_eqn = Text('Nap Smile').shift(DOWN*2.5)
         self.play(Write(nap_eqn))
+        self.wait(1)
         
-        ##################
-        '''We can also predict how much each cat person enjoys caps by measuring their ear lengths and nose tips, using different weighings of these features than before. But again, we also don't know this formula.'''
+        ###################
+        '''But we don't know just how proportional nose tips are to enjoying naps. For example, how big of a Nap Smile does a cat person with a nose of size 3 have, compared to a cat person with a nose of size 2? A slightly bigger smile, or a much bigger smile? '''
         
-        self.play(
-            *[FadeOut(mob)for mob in self.mobjects]
-            # All mobjects in the screen are saved in self.mobjects
-        )
+        # self.play(*[FadeOut(mob)for mob in self.mobjects])
         
-        self.add(face, left_eye, right_eye, left_ear, right_ear)
-        self.add(whisker_1, whisker_2, whisker_3, whisker_4)
-        self.add(nose_line_1, nose_line_2, nose_line_3)
-        self.bring_to_back(left_ear, right_ear)
-        
-        thought = ImageMobject('thought.png').move_to([2.2, 1.8,0]).scale(1.5)
-        self.add(thought)
-        self.wait(2)
-        
-        ##################
-        '''So we're going to have to find what these rules are using a neural network.'''
+        # cat_person_1.scale(1).move_to(np.array([-2, 0, 0]))   
+        # cat_person_2.scale(1).move_to(np.array([2, 0, 0]))   
         
         
-        
-        ##################
-    
-        # cat = ImageMobject("cat.png").scale(1.5)
-        # self.play(FadeIn(cat))
-        
-        # face_2 = Line([0,0,0], [0.66,0,0], color = RED, stroke_width=5).shift(LEFT*1.37 + UP*0.2)
-        # body_2 = Ellipse(color=BLUE, height=1, width=2.1, stroke_width=5).shift(DOWN*0.1 + RIGHT*0.12)
-        # face_box = Rectangle(color=WHITE, height=3, width=5, stroke_width=5)
-        
-        # self.wait(1)        
-        # self.play(FadeIn(face_box))
-        # self.wait(1)
-        # self.play(GrowFromCenter(face_2))
-        # self.wait(1)
-        # self.play(GrowFromCenter(body_2))
-        # self.wait(3)
