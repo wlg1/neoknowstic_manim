@@ -110,7 +110,7 @@ class scene_3_2(Scene):
         # self.play(FadeIn(eqn_1))
         # self.add(eqn_1)
         
-        self.wait(2)
+        # self.wait(2)
         
         ####################
         '''And visually speaking, this means that for every one unit of nose tip, there are two units of Nap Smile.'''
@@ -124,7 +124,7 @@ class scene_3_2(Scene):
         nap_space = NumberLine(
             x_range=[0, 4, 1],
             include_numbers=True,
-            label_direction=UP,
+            label_direction=DOWN,
         ).scale(2).shift(DOWN*2)
         
         self.add(nose_space, nap_space)
@@ -144,23 +144,42 @@ class scene_3_2(Scene):
         nose_unit_1 = Line(nose_space.number_to_point(0), nose_space.number_to_point(1), stroke_width=10, color=RED)
         self.add(nose_unit_1)
         
-        nose_unit_2 = Line(nose_space.number_to_point(0), nose_space.number_to_point(2), stroke_width=10, color=RED).shift(DOWN*1.5)
-        
-        # nose_unit_1_DM = VGroup(nose_unit_1, nose_group_1)
-        # nose_unit_1_DM_copy = nose_unit_1_DM.copy()
-        
-        # self.play(Transform(nose_unit_1_DM_copy, nose_unit_2), Transform(weight_2, nose_unit_2))
-        
+        # move and connect from nose space to middle
+                
+        # copy on orig nose space
         nose_unit_1_copy = nose_unit_1.copy()
         nose_group_1_copy = nose_group_1.copy()
         
+        # in middle
+        nose_unit_2 = Line(nose_space.number_to_point(0), nose_space.number_to_point(2), stroke_width=10, color=RED).shift(DOWN*1.5)
         nose_group_2 = nose_group_1.copy().move_to(nose_space.number_to_point(2)).shift(DOWN*1.5)
         
-        self.play(Transform(nose_unit_1_copy, nose_unit_2), Transform(nose_group_1_copy, nose_group_2), Transform(weight_2, nose_unit_2))
+        #conns down
+        nose_dot = Dot(nose_space.number_to_point(1), radius=0.01)
+        mid_dot = Dot(nose_space.number_to_point(2), radius=0.01).shift(DOWN*1.5) #use this instead of nose_unit_2 b/c nose_unit_2's center not small enough
+        conn_1 = Line(nose_dot, mid_dot.get_center())
+        # pdb.set_trace()
+        self.wait(1)
+        self.play(Transform(nose_unit_1_copy, nose_unit_2), Transform(nose_group_1_copy, nose_group_2), Transform(weight_2, nose_unit_2), GrowFromPoint(conn_1, nose_space.number_to_point(1)))
+        self.add(mid_dot)
         
         self.wait(1)
+                
+        # move and connect from middle to nap space        
+        nose_group_2_b = nose_group_1.copy().move_to(nap_space.number_to_point(2))
+        nose_unit_2_b = Line(nap_space.number_to_point(0), nap_space.number_to_point(2), stroke_width=10, color=RED)
+        nap_dot = Dot(nap_space.number_to_point(2), radius=0.01)
+        conn_2 = Line(mid_dot, nap_dot)
+        self.remove(weight_2) #else will leave behind
+        self.play(Transform(nose_unit_1_copy, nose_unit_2_b), Transform(nose_group_1_copy, nose_group_2_b), GrowFromPoint(conn_2, nose_group_2))
+        
+        self.wait(1)
+        weight_line = Line(nose_dot, nap_dot)
+        both_conns = VGroup(conn_1, conn_2)
+        self.remove(mid_dot)
+        self.play(Transform(both_conns, weight_line))
         
         ''' For every two units of nose tip, there are four units of Nap Smile.'''
-        
+        self.wait(1)
         
         
