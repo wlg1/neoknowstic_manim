@@ -1,9 +1,10 @@
 from manim import *
 
-class ManimScene(Scene):
+class scene_2_1(Scene):
     def construct(self):
         ##############
         '''To show why neural networks use matrix multiplication, let’s start with an example where in the future, cat people roam the world. '''
+        self.wait(2)
         
         ear_length = 1.5  #lowest is 0.5. each +1 is 0.5; largest is 1.5
         nose_tip = 0.5  # each unit of 1 is 0.25. 3 is 0.75, etc
@@ -101,19 +102,21 @@ class ManimScene(Scene):
         self.add(faceBlack3)
         
         self.play(FadeIn(cat_person_1))
+        self.wait(1.5)
         self.play(FadeIn(cat_person_2))
+        self.wait(1.5)
         self.play(FadeIn(cat_person_3))
         
         ##############
         '''Some evidence suggests that how much a cat person enjoys naps...'''
-                
+               
         left_eye = ArcBetweenPoints([-0.3, -0.75,0], [0.3, -0.75,0]).rotate(180*DEGREES).move_to([-1, 0.5, 0])
         right_eye = ArcBetweenPoints([-0.3, -0.75,0], [0.3, -0.75,0]).rotate(180*DEGREES).move_to([1, 0.5, 0])
         left_eye.z_index=3
         right_eye.z_index=3
         
         mouth_smile = ArcBetweenPoints([-0.5, -0.75,0], [0.5, -0.75,0])
-                               
+                              
         cat_person_zzz = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), left_ear_3.copy(), right_ear_3.copy(), nose_3.copy(), whiskers.copy())
         
         zzz = Text("...zZz...", font_size = 40, color=WHITE).move_to([2.2, 1.8,0])
@@ -126,7 +129,10 @@ class ManimScene(Scene):
         self.play(Unwrite(zzz))
         
         ###################
+        ### Highlight nose
         '''... can be predicted by measuring how far away their nose tips are from the center of their face. We call this measurement, 'Nose tip'.'''
+                
+        self.wait(1.5)
         
         nose_line_1_color = Line([-0.5, 0, 0], [0.5, 0, 0], color=RED)
         nose_line_2_color = Line([-0.5, 0, 0], [0, nose_tip, 0], color=RED)
@@ -134,16 +140,16 @@ class ManimScene(Scene):
         
         self.play(Transform(cat_person_zzz[5][0], nose_line_1_color), Transform(cat_person_zzz[5][1], nose_line_2_color), Transform(cat_person_zzz[5][2], nose_line_3_color), Write(zzz))
         
-        self.wait(1)
+        self.wait(3)
         
         nap_eqn = Text('Nose Tip').shift(DOWN*2.5)
         self.play(Write(nap_eqn), Unwrite(zzz))        
-                
+               
         ###################
-        ## Highlight nose
         #'''For example, many cat people with long nose tips are said to enjoy naps. It's always the case that the more a cat person smiles when napping, the more they enjoy it. '''
         
-        self.play(FadeOut(nap_eqn))   
+        self.play(FadeOut(nap_eqn))  
+        self.wait(1)
         
         nose_tip = 0.75
         nose_line_2_4 = Line([-0.5, 0, 0], [0, nose_tip, 0], color=RED)
@@ -165,26 +171,33 @@ class ManimScene(Scene):
         # self.remove(cat_person_zzz[5][1], cat_person_zzz[5][2])
         # self.remove(nose_line_2_color, nose_line_3_color)
         # self.add(nose_line_2_color, nose_line_3_color)
-        self.play(Transform(cat_person_zzz[5][1], nose_line_2_4), Transform(cat_person_zzz[5][2], nose_line_3_4))
         # self.play(Transform(nose_line_2_color, nose_line_2_4), Transform(nose_line_3_color, nose_line_3_4))
+        self.play(Transform(cat_person_zzz[5][1], nose_line_2_4), Transform(cat_person_zzz[5][2], nose_line_3_4))
+        self.wait(3)
         
         mouth_smile = ArcBetweenPoints([-0.5, -0.75,0], [0.5, -0.75,0])
         mouth_smile.z_index=4
         self.play(GrowFromCenter(mouth_smile))
-
+        self.wait(2)
+        
         ###################
         #'''We measure how much they enjoy naps using a metric called 'Nap Smile', or just shortened to 'Naps'. '''
         
         nap_eqn = Text('Nap Smile').shift(DOWN*2.5)
         self.play(Write(nap_eqn))
         self.wait(1)
+        nap_eqn2 = Text('Naps').shift(DOWN*2.5)
+        self.play(Transform(nap_eqn, nap_eqn2))
+        self.wait(2)
         
-        ###################
-        '''But we don't know just how proportional nose tips are to enjoying naps. For example, how big of a Nap Smile does a cat person with a nose of size 3 have, compared to a cat person with a nose of size 2? A slightly bigger smile, or a much bigger smile? '''
+        self.wait(4)
         
-        # self.play(*[FadeOut(mob)for mob in self.mobjects])
-        
-        # cat_person_1.scale(1).move_to(np.array([-2, 0, 0]))   
-        # cat_person_2.scale(1).move_to(np.array([2, 0, 0]))   
+        ####################
+        #'''But we don't know just how proportional nose tips are to enjoying naps. For example, how big of a Nap Smile does a cat person with a nose of size 3 have, compared to a cat person with a nose of size 2? A slightly bigger smile, or a much bigger smile? '''
+        #
+        ## self.play(*[FadeOut(mob)for mob in self.mobjects])
+        #
+        ## cat_person_1.scale(1).move_to(np.array([-2, 0, 0]))   
+        ## cat_person_2.scale(1).move_to(np.array([2, 0, 0]))   
         
         
