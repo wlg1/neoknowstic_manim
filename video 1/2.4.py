@@ -1,6 +1,6 @@
 from manim import *
 
-class scene_2_1(Scene):
+class scene_2_4(Scene):
     def construct(self):
         ##############
         '''Let's start with the input to this neural network.'''
@@ -50,8 +50,9 @@ class scene_2_1(Scene):
         for whisk in whiskers:
             whisk.z_index=3
         
-        nose_box = Rectangle(color=WHITE, height=5.7, width=6, stroke_width=1).shift(UP*0.33)
-                
+        nose_box = Rectangle(color=WHITE, height=5.7, width=6, stroke_width=1, fill_color=BLACK).shift(UP*0.33)
+        nose_box.z_index = 0
+        
         cat_person_1 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), nose_box.copy()).scale(0.7).shift(LEFT*5) 
         faceBlack = cat_person_1[0].copy()
         faceBlack.color=BLACK
@@ -64,14 +65,14 @@ class scene_2_1(Scene):
 
         self.wait(1)
     
-        nose_tip = VGroup(cat_person_1[0].copy(), cat_person_1[5].copy(), cat_person_1[-1].copy()) 
+        nose_group = VGroup(cat_person_1[0].copy(), cat_person_1[5].copy(), cat_person_1[-1].copy()) 
         
         # self.play(FadeIn(nose_box))
-        self.add(nose_tip)
+        self.add(nose_group)
         
-        nose_tip.generate_target()
-        nose_tip.target.shift(RIGHT*5)
-        self.play(MoveToTarget(nose_tip))  
+        nose_group.generate_target()
+        nose_group.target.shift(RIGHT*5)
+        self.play(MoveToTarget(nose_group))  
         
         ####################
         '''We can measure nose tips using 1 unit of nose tip, which is a basic measuring unit, just like using 1 meter to measure distance, or using 1 second to measure time.'''
@@ -100,72 +101,59 @@ class scene_2_1(Scene):
         sec.add_updater(update_timer)
                
         self.wait(3)
-               
+        
         self.remove(meter, meter_text, meter_2, sec)
+        self.play(FadeOut(cat_person_1))
+        self.remove(faceBlack)
         
         ####################
-        #### Highlight nose
-        #'''... can be predicted by measuring how far away their nose tips are from the center of their face. We call this measurement, 'Nose tip'.'''
-        #        
-        #self.wait(1.5)
-        #
-        #nose_line_1_color = Line([-0.5, 0, 0], [0.5, 0, 0], color=RED)
-        #nose_line_2_color = Line([-0.5, 0, 0], [0, nose_tip, 0], color=RED)
-        #nose_line_3_color = Line([0, nose_tip, 0], [0.5, 0, 0], color=RED)
-        #
-        #self.play(Transform(cat_person_zzz[5][0], nose_line_1_color), Transform(cat_person_zzz[5][1], nose_line_2_color), Transform(cat_person_zzz[5][2], nose_line_3_color), Write(zzz))
-        #
-        #self.wait(3)
-        #
-        #nap_eqn = Text('Nose Tip').shift(DOWN*2.5)
-        #self.play(Write(nap_eqn), Unwrite(zzz))        
-        #       
+        '''Let's measure the nose tip along a number line which we'll call the Nose Space.'''
+                
+        nose_group_1 = VGroup(cat_person_1[0].copy(), cat_person_1[5].copy(), cat_person_1[-1].copy()).scale(0.3).move_to([1,0,0])
+        
+        nose_space = NumberLine(
+            x_range=[-5, 5, 1],
+            color=BLUE,
+            include_numbers=True,
+            label_direction=UP,
+        ).scale(1).move_to([0,0,0])
+        
+        #attach units etc to nose_space and scale all together
+        
+        self.play(FadeIn(nose_space), Transform(nose_group, nose_group_1))
+        
+        self.wait(1)
+        
         ####################
-        ##'''For example, many cat people with long nose tips are said to enjoy naps. It's always the case that the more a cat person smiles when napping, the more they enjoy it. '''
-        #
-        #self.play(FadeOut(nap_eqn))  
-        #self.wait(1)
-        #
-        #nose_tip = 0.75
-        #nose_line_2_4 = Line([-0.5, 0, 0], [0, nose_tip, 0], color=RED)
-        #nose_line_3_4 = Line([0, nose_tip, 0], [0.5, 0, 0], color=RED)
-        #cat_person_zzz[5][1].z_index = 5
-        #cat_person_zzz[5][2].z_index = 5
-        #nose_line_2_4.z_index = 5
-        #nose_line_3_4.z_index = 5
-        #
-        ## do this else leaves orig white lines behind
-        #noseBlack = cat_person_zzz[5][1].copy()
-        #noseBlack.color=BLACK
-        #noseBlack.z_index = 4
-        #self.add(noseBlack)
-        #noseBlack2 = cat_person_zzz[5][2].copy()
-        #noseBlack2.color=BLACK
-        #noseBlack2.z_index = 4
-        #self.add(noseBlack2)
-        ## self.remove(cat_person_zzz[5][1], cat_person_zzz[5][2])
-        ## self.remove(nose_line_2_color, nose_line_3_color)
-        ## self.add(nose_line_2_color, nose_line_3_color)
-        ## self.play(Transform(nose_line_2_color, nose_line_2_4), Transform(nose_line_3_color, nose_line_3_4))
-        #self.play(Transform(cat_person_zzz[5][1], nose_line_2_4), Transform(cat_person_zzz[5][2], nose_line_3_4))
-        #self.wait(3)
-        #
-        #mouth_smile = ArcBetweenPoints([-0.5, -0.75,0], [0.5, -0.75,0])
-        #mouth_smile.z_index=4
-        #self.play(GrowFromCenter(mouth_smile))
-        #self.wait(2)
-        #
+        '''We can make a nose tip of 1 unit twice as big to get a nose tip of 2 units, or make it three times as big to get a nose tip of 3 units.'''
+        
+        nose_tip_2 = 0.6
+        nose_line_2_2 = Line([-0.5, 0, 0], [0, nose_tip_2, 0])
+        nose_line_3_2 = Line([0, nose_tip_2, 0], [0.5, 0, 0])
+        nose_2 = VGroup(nose_line_1, nose_line_2_2, nose_line_3_2)
+        for nl in nose_2:
+            nl.z_index=3
+        nose_group_2 = VGroup(face_outline.copy(), nose_2.copy(), nose_box.copy()).scale(0.7).scale(0.3).move_to(np.array([2, 0, 0]))
+        
+        self.play(Transform(nose_group, nose_group_2))
+        
+        self.wait(2)
+        
+        nose_tip = 0.9
+        nose_line_2_3 = Line([-0.5, 0, 0], [0, nose_tip, 0])
+        nose_line_3_3 = Line([0, nose_tip, 0], [0.5, 0, 0])
+        nose_3 = VGroup(nose_line_1, nose_line_2_3, nose_line_3_3)
+        for nl in nose_3:
+            nl.z_index=3
+        nose_group_3 = VGroup(face_outline.copy(), nose_3.copy(), nose_box.copy()).scale(0.7).scale(0.3).move_to(np.array([3, 0, 0]))
+        
+        self.play(Transform(nose_group, nose_group_3))
+        
+        self.wait(2)
+        
         ####################
-        ##'''We measure how much they enjoy naps using a metric called 'Nap Smile', or just shortened to 'Naps'. '''
-        #
-        #nap_eqn = Text('Nap Smile').shift(DOWN*2.5)
-        #self.play(Write(nap_eqn))
-        #self.wait(1)
-        #nap_eqn2 = Text('Naps').shift(DOWN*2.5)
-        #self.play(Transform(nap_eqn, nap_eqn2))
-        #self.wait(2)
-        #
-        #self.wait(4)
+        '''Each point in Nose Space is associated with a different Data Measurement of Nose Tip.'''
         
+        self.play(FadeIn(nose_group_1, nose_group_2))
         
-        
+        self.wait(3)
