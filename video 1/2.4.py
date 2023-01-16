@@ -1,4 +1,5 @@
 from manim import *
+import pdb
 
 class scene_2_4(Scene):
     def construct(self):
@@ -7,7 +8,7 @@ class scene_2_4(Scene):
         self.wait(1)
         
         ear_length = 1  #lowest is 0.5. each +1 is 0.5; largest is 1.5
-        nose_tip = 0.5  # each unit of 1 is 0.25. 3 is 0.75, etc
+        nose_tip = 0.3  # each unit of 1 is 0.25. 3 is 0.75, etc
         
         left_ear_1 = Line([-1.5, 0, 0], [-1, ear_length+1.5, 0])
         left_ear_2 = Line([-1, ear_length+1.5, 0], [0, 0, 0])
@@ -46,10 +47,11 @@ class scene_2_4(Scene):
                 
         for nl in nose:
             nl.z_index=3
+            nl.stroke_width=2  #default is 4
         
         for whisk in whiskers:
             whisk.z_index=3
-        
+            
         nose_box = Rectangle(color=WHITE, height=5.7, width=6, stroke_width=1, fill_color=BLACK).shift(UP*0.33)
         nose_box.z_index = 0
         
@@ -77,7 +79,7 @@ class scene_2_4(Scene):
         ####################
         '''We can measure nose tips using 1 unit of nose tip, which is a basic measuring unit, just like using 1 meter to measure distance, or using 1 second to measure time.'''
         
-        self.wait(1)
+        self.wait(3)
         
         meter = Arrow([0,0,0], [1,0,0]).shift(RIGHT*3 + UP*1.75).scale(1.5)
         meter_text = Text("1 meter").shift(RIGHT*4 + UP*1.35).scale(0.5)
@@ -108,15 +110,21 @@ class scene_2_4(Scene):
         
         ####################
         '''Let's measure the nose tip along a number line which we'll call the Nose Space.'''
-                
-        nose_group_1 = VGroup(cat_person_1[0].copy(), cat_person_1[5].copy(), cat_person_1[-1].copy()).scale(0.3).move_to([1,0,0])
+        
+        nose_group_1 = VGroup(face_outline.copy(), nose.copy(), nose_box.copy()).scale(0.3)  
+        
+        # nose_group_1 = VGroup(cat_person_1[0].copy(), cat_person_1[5].copy(), cat_person_1[-1].copy()).scale(0.3)
+        #.move_to([1,0,0]) # if use scale 1, otherwise pts are off
         
         nose_space = NumberLine(
             x_range=[-5, 5, 1],
             color=BLUE,
             include_numbers=True,
             label_direction=UP,
-        ).scale(1).move_to([0,0,0])
+        ).scale(2)
+        #.move_to([0,0,0]) # if use scale 1, otherwise pts are off
+        
+        nose_group_1.move_to(nose_space.number_to_point(1))
         
         #attach units etc to nose_space and scale all together
         
@@ -127,14 +135,19 @@ class scene_2_4(Scene):
         ####################
         '''We can make a nose tip of 1 unit twice as big to get a nose tip of 2 units, or make it three times as big to get a nose tip of 3 units.'''
         
+        self.wait(2)
+        
         nose_tip_2 = 0.6
         nose_line_2_2 = Line([-0.5, 0, 0], [0, nose_tip_2, 0])
         nose_line_3_2 = Line([0, nose_tip_2, 0], [0.5, 0, 0])
         nose_2 = VGroup(nose_line_1, nose_line_2_2, nose_line_3_2)
         for nl in nose_2:
             nl.z_index=3
-        nose_group_2 = VGroup(face_outline.copy(), nose_2.copy(), nose_box.copy()).scale(0.7).scale(0.3).move_to(np.array([2, 0, 0]))
-        
+            nl.stroke_width=2
+        # nose_group_2 = VGroup(face_outline.copy(), nose_2.copy(), nose_box.copy()).scale(0.7).scale(0.3).move_to(nose_space.number_to_point(2))
+        #.move_to(np.array([2, 0, 0]))
+        nose_group_2 = VGroup(face_outline.copy(), nose_2.copy(), nose_box.copy()).scale(0.3).move_to(nose_space.number_to_point(2))
+                
         self.play(Transform(nose_group, nose_group_2))
         
         self.wait(2)
@@ -145,8 +158,10 @@ class scene_2_4(Scene):
         nose_3 = VGroup(nose_line_1, nose_line_2_3, nose_line_3_3)
         for nl in nose_3:
             nl.z_index=3
-        nose_group_3 = VGroup(face_outline.copy(), nose_3.copy(), nose_box.copy()).scale(0.7).scale(0.3).move_to(np.array([3, 0, 0]))
-        
+            nl.stroke_width=2
+        # nose_group_3 = VGroup(face_outline.copy(), nose_3.copy(), nose_box.copy()).scale(0.7).scale(0.3).move_to(np.array([3, 0, 0]))
+        nose_group_3 = VGroup(face_outline.copy(), nose_3.copy(), nose_box.copy()).scale(0.3).move_to(nose_space.number_to_point(3))
+                
         self.play(Transform(nose_group, nose_group_3))
         
         self.wait(2)
