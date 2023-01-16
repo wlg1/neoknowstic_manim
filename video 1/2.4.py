@@ -3,8 +3,8 @@ from manim import *
 class scene_2_1(Scene):
     def construct(self):
         ##############
-        '''To show why neural networks use matrix multiplication, let’s start with an example where in the future, cat people roam the world. '''
-        self.wait(2)
+        '''Let's start with the input to this neural network.'''
+        self.wait(1)
         
         ear_length = 1  #lowest is 0.5. each +1 is 0.5; largest is 1.5
         nose_tip = 0.5  # each unit of 1 is 0.25. 3 is 0.75, etc
@@ -49,24 +49,59 @@ class scene_2_1(Scene):
         
         for whisk in whiskers:
             whisk.z_index=3
-                    
-        cat_person_1 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy()) 
+        
+        nose_box = Rectangle(color=WHITE, height=5.7, width=6, stroke_width=1).shift(UP*0.33)
+                
+        cat_person_1 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), nose_box.copy()).scale(0.7).shift(LEFT*5) 
         faceBlack = cat_person_1[0].copy()
         faceBlack.color=BLACK
         self.add(faceBlack)
         
         self.play(FadeIn(cat_person_1))
-                
-        ##############
-        
-        zzz = Text("...zZz...", font_size = 40, color=WHITE).move_to([2.2, 1.8,0])
-        
-        self.play(FadeOut(cat_person_1, cat_person_2), Transform(cat_person_3, cat_person_zzz))
-        self.remove(faceBlack, faceBlack2, faceBlack3)
-        
-        self.play(Write(zzz))
+                        
+        ####################                
+        ''' We're only going to be measuring their nose tip, capturing this information into a Data Measurement. '''      
+
         self.wait(1)
-        self.play(Unwrite(zzz))
+    
+        nose_tip = VGroup(cat_person_1[0].copy(), cat_person_1[5].copy(), cat_person_1[-1].copy()) 
+        
+        # self.play(FadeIn(nose_box))
+        self.add(nose_tip)
+        
+        nose_tip.generate_target()
+        nose_tip.target.shift(RIGHT*5)
+        self.play(MoveToTarget(nose_tip))  
+        
+        ####################
+        '''We can measure nose tips using 1 unit of nose tip, which is a basic measuring unit, just like using 1 meter to measure distance, or using 1 second to measure time.'''
+        
+        self.wait(1)
+        
+        meter = Arrow([0,0,0], [1,0,0]).shift(RIGHT*3 + UP*1.75).scale(1.5)
+        meter_text = Text("1 meter").shift(RIGHT*4 + UP*1.35).scale(0.5)
+        self.play(FadeIn(meter), FadeIn(meter_text, shift=DOWN*0.3))
+        
+        self.wait(1)
+        
+        meter_2 = Arrow([0,0,0], [1,0,0]).shift(RIGHT*3.75 + UP*1.75).scale(1.5)
+        meter_text_2 = Text("2 meters").shift(RIGHT*4 + UP*1.35).scale(0.5)
+        self.play(FadeIn(meter_2, shift=RIGHT), Transform(meter_text, meter_text_2))
+        
+        self.wait(2)
+        
+        # https://www.reddit.com/r/manim/comments/j3s49p/timerstopwatch/
+        sec = Integer(0).shift(RIGHT*4 + DOWN)
+        self.add(sec)
+        self.clock = 0
+        def update_timer(mob, dt):
+           self.clock += dt
+           mob.set_value(self.clock)
+        sec.add_updater(update_timer)
+               
+        self.wait(3)
+               
+        self.remove(meter, meter_text, meter_2, sec)
         
         ####################
         #### Highlight nose
