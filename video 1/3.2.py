@@ -189,27 +189,19 @@ class scene_3_2(Scene):
         
         ##################################
         '''Notice the point 1 in the Nose number line and the point 2 in the Nose number line are labeling the same Nose Tip Measurement. This is because we're saying that every nose tip of 1 ALWAYS has a nap smile of 2. '''
-        
-        #fade nap features in
-        
+                
         # self.wait(5)
         
+        #fade nap features in
         cat_person_zzz = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), zzz.copy(), box.copy()).scale(0.3).move_to(nose_group_2_b.get_center())
-        faceBlack = cat_person_zzz[0].copy()
-        faceBlack.color=BLACK
-        # self.add(faceBlack)
         self.play(FadeIn(cat_person_zzz))
         
         ##################################
         '''Our equation isn't mapping a number, such as 1, to another number, such as 2, but it is mapping a Data Measurement from 1 in the nose space to 2 in the nap space. This is a Change of Units.'''
         
-        # CoU = Text("Change of Units", font_size = 30).shift(RIGHT*2)
-        # self.play(Write(CoU))
-        # self.wait(6)
-        
-        ##################################
-        '''Our unit conversation factor of 2 can be represented, in general, as a variable W, which means how much we should weigh our nose value by to get our nap value. '''
-        
+        CoU = Text("Change of Units", font_size = 30).shift(UP+RIGHT*2)
+        self.play(Write(CoU))
+        self.wait(4)
         
         ##################################
         ''' Likewise, for every two units of nose tip, there are four units of Nap Smile.'''
@@ -263,6 +255,13 @@ class scene_3_2(Scene):
         #both_conns = VGroup(conn_1, conn_2)
         #self.remove(mid_dot)
         #self.play(Transform(both_conns, weight_line))
+        
+        ##################################
+        '''Our unit conversation factor of 2 can be represented, in general, as a variable W, which means how much we should weigh our nose value by to get our nap value. '''
+        
+        eqn_w = Tex("w * Nose = 2 Nap", font_size=53).shift(RIGHT*2)
+        self.play(Transform(eqn_1, eqn_w))
+        self.wait(4)
         
         ##################################
         '''We can change this weight, such as making it bigger to w=3, which means for every one unit of nose tip, there are 3 units of Nap Smile, and for every two unit of nose tip, there are 6 units of Nap Smile.'''
