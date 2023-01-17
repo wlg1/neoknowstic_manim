@@ -126,7 +126,7 @@ class scene_4_1(Scene):
         self.add(nose_space, nap_space, noseName, napName, eqn_1)
         self.add(cat_person_zzz)
         
-        # self.wait(11)
+        self.wait(5)
         
         ##################################
         # Transform eqns
@@ -139,12 +139,14 @@ class scene_4_1(Scene):
         eqn_2 = Tex("[w][x Nose] = [w*x Nap]", font_size=53).shift(RIGHT*3+UP)
         self.play(Transform(eqn_1, eqn_2))
         
-        self.wait(4)
+        self.wait(2)
         
         '''Then we'll add 0 to the left side, '''
         
         eqn_3 = Tex("[w][x Nose]+[0] = [w*x Nap]", font_size=53).shift(RIGHT*3+UP)
         self.play(Transform(eqn_1, eqn_3))
+        
+        self.wait(1)
         
         '''and put both sides through the Identity function, which doesn't change anything'''
         eqn_3b = Tex("I([w][x Nose]+[0]) = [w*x Nap]", font_size=53).shift(RIGHT*3+UP)
@@ -154,15 +156,15 @@ class scene_4_1(Scene):
         '''Finally, we'll represent our output values using a variable.'''
         eqn_4 = Tex("I([w][x Nose]+[0]) = [A Nap]", font_size=53).shift(RIGHT*3+UP)
         self.play(Transform(eqn_1, eqn_3b))
-        self.wait(4)
+        self.wait(1)
         
         '''This is the exact same equation as before, just written in a different form.'''
-        self.wait(5)
+        self.wait(1)
         
         '''Let's compare it to a neuron equation, which is what a neural network uses to compute a neuron activation. All the variables are matrices. The sigma is an activation function, which in our case is just the identity, and b is the bias, which we have as 0. So our equation is just a very simple neuron. '''
         eqn_n = Tex(r"$\sigma(WX + b) = A$", font_size=53).shift(RIGHT*3)
         self.play(FadeIn(eqn_n, shift=DOWN))
-        # self.wait(15)
+        self.wait(2)
         
         '''Now, we see that our unit conversion visual has been hiding a neural network neuron all along.'''
         
