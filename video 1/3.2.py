@@ -108,9 +108,8 @@ class scene_3_2(Scene):
         
         self.play(*[FadeOut(mob)for mob in self.mobjects])
         
-        eqn_1 = Tex("2 * Nose = 2 Nap", font_size=53)
+        eqn_1 = Tex("2 * (1 Nose) = 2 Nap", font_size=53)
         self.play(FadeIn(eqn_1))
-        self.add(eqn_1)
         
         self.wait(4)
         
@@ -118,27 +117,28 @@ class scene_3_2(Scene):
         '''And visually speaking, this means that for every one unit of nose tip, there are two units of Nap Smile.'''
         
         nose_space = NumberLine(
-            x_range=[0, 6, 1],
+            x_range=[0, 4, 1],
             include_numbers=True,
             label_direction=UP,
-        ).scale(2).shift(UP*2)
+        ).scale(2).shift(UP*2+LEFT)
         
         nap_space = NumberLine(
-            x_range=[0, 6, 1],
+            x_range=[0, 4, 1],
             include_numbers=True,
             label_direction=DOWN,
-        ).scale(2).shift(DOWN*2)
+        ).scale(2).shift(DOWN*2+LEFT)
         
-        # self.add(nose_space, nap_space)
+        noseName = Text("Nose").shift(UP*2+RIGHT*5)
+        napName = Text("Nap").shift(DOWN*2+RIGHT*5)
         
         eqn_1.generate_target()
-        eqn_1.target.shift(RIGHT*2)      
+        eqn_1.target.shift(RIGHT*2.5)      
         weight_2 = Tex("2 * ", font_size=53).move_to(nose_space.number_to_point(1)).shift(DOWN*1.5)
         
         # self.play(MoveToTarget(eqn_1), GrowFromPoint(nose_space, eqn_1), GrowFromPoint(nap_space, eqn_1), Transform(eqn_1.copy(), weight_2))
         # can't do above b/c no way to get rid of copy after transf
         eqn_1_copy = eqn_1.copy()
-        self.play(MoveToTarget(eqn_1), GrowFromPoint(nose_space, eqn_1), GrowFromPoint(nap_space, eqn_1), Transform(eqn_1_copy, weight_2))
+        self.play(MoveToTarget(eqn_1), GrowFromPoint(nose_space, eqn_1), GrowFromPoint(nap_space, eqn_1), Transform(eqn_1_copy, weight_2), FadeIn(noseName, napName))
         
         ##################
         # convert nose to nap
@@ -198,7 +198,7 @@ class scene_3_2(Scene):
         self.wait(5)
         
         #fade nap features in
-        cat_person_zzz = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), zzz.copy(), box.copy()).scale(0.3).move_to(nose_group_2_b.get_center())
+        cat_person_zzz = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), zzz.copy(), box.copy(), mouth_smile.copy()).scale(0.3).move_to(nose_group_2_b.get_center())
         self.play(FadeIn(cat_person_zzz))
         
         ##################################
@@ -213,20 +213,28 @@ class scene_3_2(Scene):
         
         ##################################
         ''' Likewise, for every two units of nose tip, there are four units of Nap Smile.'''
-        self.wait(1)
         
-        self.play(*[FadeOut(mob) for mob in self.mobjects if mob not in [nap_space, nose_space]])  
+        self.play(*[FadeOut(mob) for mob in self.mobjects if mob not in [nap_space, nose_space, noseName, napName]]) 
         
         nose_unit_0 = Line(nose_space.number_to_point(0), nose_space.number_to_point(1), stroke_width=10, color=RED)
         nose_group_0 = VGroup(face_outline.copy(), nose.copy()).scale(0.3).move_to(nose_space.number_to_point(1))
         self.add(nose_unit_0, nose_group_0)    
         
         nose_unit_1 = Line(nose_space.number_to_point(0), nose_space.number_to_point(2), stroke_width=10, color=RED)
-        nose_group_1 = VGroup(face_outline.copy(), nose.copy()).scale(0.3)  
+        
+        nose_tip = 0.6
+        nose_line_2_2 = Line([-0.5, 0, 0], [0, nose_tip, 0])
+        nose_line_3_2 = Line([0, nose_tip, 0], [0.5, 0, 0])
+        nose_2 = VGroup(nose_line_1, nose_line_2_2, nose_line_3_2)
+        for nl in nose_2:
+            nl.z_index=3
+            nl.stroke_width=2
+        nose_group_1 = VGroup(face_outline.copy(), nose_2.copy()).scale(0.3) 
+        
         nose_group_1.move_to(nose_space.number_to_point(2))
         self.play(Transform(nose_unit_0, nose_unit_1), Transform(nose_group_0, nose_group_1))
         
-        eqn_1 = Tex("2 * Nose = 2 Nap", font_size=53).shift(LEFT*3)
+        eqn_1 = Tex("2 * (2 Nose) = 4 Nap", font_size=53).shift(LEFT*3)
         eqn_1_copy = eqn_1.copy()
         weight_2 = Tex("2 * ", font_size=53).move_to(nose_space.number_to_point(2)).shift(DOWN*1.5)
         # self.play(FadeIn(eqn_1))
@@ -248,11 +256,11 @@ class scene_3_2(Scene):
         mid_dot = Dot(nose_space.number_to_point(4), radius=0.01).shift(DOWN*1.5)
         conn_1 = Line(nose_dot, mid_dot.get_center())
         
-        self.wait(1)
+        # self.wait(1)
         self.play(Transform(nose_unit_1_copy, nose_unit_2), Transform(nose_group_1_copy, nose_group_2), Transform(eqn_1_copy, nose_unit_2), GrowFromPoint(conn_1, nose_space.number_to_point(1)))
         self.add(mid_dot)
         
-        self.wait(1)
+        # self.wait(1)
                
         # move and connect from middle to nap space        
         nose_group_2_b = nose_group_1.copy().move_to(nap_space.number_to_point(4))
@@ -262,18 +270,32 @@ class scene_3_2(Scene):
         self.remove(weight_2, eqn_1_copy) #else will leave behind
         self.play(Transform(nose_unit_1_copy, nose_unit_2_b), Transform(nose_group_1_copy, nose_group_2_b), GrowFromPoint(conn_2, nose_group_2))
         
-        self.wait(1)
+        # self.wait(1)
         weight_line = Line(nose_dot, nap_dot)
         both_conns = VGroup(conn_1, conn_2)
         self.remove(mid_dot)
         self.play(Transform(both_conns, weight_line))
         
+        # remember to use nose_2 to scale/center it right
+        mouth_smile_2 = mouth_smile.copy().scale(1.5)
+        cat_person_zzz = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear.copy(), right_ear.copy(), nose_2.copy(), whiskers.copy(), zzz.copy(), box.copy(), mouth_smile_2).scale(0.3).move_to(nose_group_2_b.get_center()).shift(UP*0.1)
+        self.play(FadeIn(cat_person_zzz))
+        
         ##################################
         '''Our unit conversation factor of 2 can be represented, in general, as a variable W, which means how much we should weigh our nose value by to get our nap value. '''
         
-        self.wait(4)
-        eqn_w = Tex("w * Nose = 2 Nap", font_size=53).shift(LEFT*3)
+        eqn_1 = Tex("2 * (2 Nose) = 4 Nap", font_size=53).shift(LEFT*3)
+        self.play(FadeIn(eqn_1))
+        self.wait(2)
+        eqn_w = Tex("W * (2 Nose) = W*2 Nap", font_size=53).shift(LEFT*3)
         self.play(Transform(eqn_1, eqn_w))
+        self.wait(4)
+        
+        ##################################
+        '''Let's also represent our input as a variable x'''
+        
+        eqn_wx = Tex("W * (X Nose) = W*X Nap", font_size=53).shift(LEFT*3)
+        self.play(Transform(eqn_1, eqn_wx))
         self.wait(4)
         
         ##################################
