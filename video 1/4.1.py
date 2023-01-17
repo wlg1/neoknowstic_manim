@@ -113,49 +113,46 @@ class scene_4_1(Scene):
         
         weight_line = Line(nose_dot, nap_dot)
         both_conns = VGroup(conn_1, conn_2)
-        
-        self.add(nose_unit_1, nose_group_1, weight_line, nose_unit_2_b, nose_group_2_b)
-                
+                        
         #fade nap features in
         cat_person_zzz = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), zzz.copy(), box.copy(), mouth_smile.copy()).scale(0.3).move_to(nose_group_2_b.get_center())
         
-        ##################################
+        ####################################################################
         '''So, what does this visual we've just seen have to do with a neural network? The answer actually has been hidden in front of our eyes this entire time. '''
         
-        eqn_1 = Tex("(W) * X Nose = W*X Nap", font_size=53).shift(RIGHT*3+UP*1.5)
+        eqn_1 = Tex("w*(x Nose) = w*x Nap", font_size=53).shift(RIGHT*3+UP)
         
+        self.add(nose_unit_1, nose_group_1, weight_line, nose_unit_2_b, nose_group_2_b)
         self.add(nose_space, nap_space, noseName, napName, eqn_1)
         self.add(cat_person_zzz)
         
-        self.wait(11)
+        # self.wait(11)
         
         ##################################
         # Transform eqns
         '''Let's analogously map out multiplication into matrix multiplication by putting our terms in brackets. '''
         
-        eqn_1b = Tex("(W) * (X Nose) = (W*X Nap)", font_size=53).shift(RIGHT*3+UP*1.5)
+        eqn_1b = Tex("(w)*(x Nose) = (w*x Nap)", font_size=53).shift(RIGHT*3+UP)
         self.play(Transform(eqn_1, eqn_1b))    
         self.wait(1)
-        eqn_2 = Tex("[W] * [X Nose] = [W*X Nap]", font_size=53).shift(RIGHT*3+UP*1.5)
+        # eqn_2 = Tex(r"$\begin{bmatrix}W\end{bmatrix} * [X Nose] = [w*x Nap]$", font_size=53).shift(RIGHT*3+UP)
+        eqn_2 = Tex("[w][x Nose] = [w*x Nap]", font_size=53).shift(RIGHT*3+UP)
         self.play(Transform(eqn_1, eqn_2))
         
         self.wait(4)
         
         '''Then we'll add 0 to the left side, '''
         
-        eqn_3 = Tex("[W] * [X Nose] + [0] = [W*X Nap]", font_size=53).shift(RIGHT*3+UP*1.5)
+        eqn_3 = Tex("[w][x Nose]+[0] = [w*x Nap]", font_size=53).shift(RIGHT*3+UP)
         self.play(Transform(eqn_1, eqn_3))
         
         '''and put both sides through the Identity function, which doesn't change anything'''
-        eqn_3 = Tex("I( [W] * [X Nose] + [0] ) = I([W*X Nap])", font_size=53).shift(RIGHT*3+UP*1.5)
-        self.play(Transform(eqn_1, eqn_3))
-        self.wait(2)
-        eqn_3b = Tex("I( [W] * [X Nose] + [0] ) = [W*X Nap]", font_size=53).shift(RIGHT*3+UP*1.5)
+        eqn_3b = Tex("I([w][x Nose]+[0]) = [w*x Nap]", font_size=53).shift(RIGHT*3+UP)
         self.play(Transform(eqn_1, eqn_3b))
         self.wait(1)
         
         '''Finally, we'll represent our output values using a variable.'''
-        eqn_4 = Tex("I( [W] * [X Nose] + [0] ) = [A Nap]", font_size=53).shift(RIGHT*3+UP*1.5)
+        eqn_4 = Tex("I([w][x Nose]+[0]) = [A Nap]", font_size=53).shift(RIGHT*3+UP)
         self.play(Transform(eqn_1, eqn_3b))
         self.wait(4)
         
@@ -163,11 +160,41 @@ class scene_4_1(Scene):
         self.wait(5)
         
         '''Let's compare it to a neuron equation, which is what a neural network uses to compute a neuron activation. All the variables are matrices. The sigma is an activation function, which in our case is just the identity, and b is the bias, which we have as 0. So our equation is just a very simple neuron. '''
-        eqn_n = Tex(r"\sigma( WX + b ) = A", font_size=53).shift(RIGHT*3)
+        eqn_n = Tex(r"$\sigma(WX + b) = A$", font_size=53).shift(RIGHT*3)
         self.play(FadeIn(eqn_n, shift=DOWN))
-        self.wait(15)
+        # self.wait(15)
         
         '''Now, we see that our unit conversion visual has been hiding a neural network neuron all along.'''
+        
+        self.remove(nose_group_2_b)
+        self.play(FadeOut(nose_unit_1, nose_space, nap_space, noseName, napName, eqn_1, nose_unit_2_b))
+        
+        NN_1_dot = Dot(nap_space.number_to_point(0), radius=0.01)
+        nose_group_1_N1 = nose_group_1.copy().move_to(NN_1_dot)
+        weight_line_NN = Line(NN_1_dot, nap_dot)
+        
+        self.play(Transform(nose_group_1, nose_group_1_N1), Transform(weight_line, weight_line_NN))
+        
+        self.wait(1) 
+        
+        N1 = nose_group_1[0].copy()
+        N1.fill_color=WHITE
+        N2 = cat_person_zzz[0].copy()
+        N2.fill_color=WHITE
+        self.play(Transform(nose_group_1, N1), Transform(cat_person_zzz, N2))
+             
+        NN = VGroup(nose_group_1, weight_line, cat_person_zzz)
+        
+        NN.generate_target()
+        NN.target.shift(RIGHT*3)
+        eqn_n.generate_target()
+        eqn_n.target.shift(LEFT*3)
+        self.play(MoveToTarget(NN), MoveToTarget(eqn_n))
+        
+        self.wait(2)
+        # self.wait(60)
+        
+        
         
         
         
