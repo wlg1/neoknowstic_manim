@@ -194,8 +194,7 @@ class scene_5_2(Scene):
         ####################        
         '''These arrows that formed a path of step-by-step instructions are called Vectors, which are defined by a length, and a direction. You can place them between two coordinate points, from a tail point to a head point. '''
         
-        self.play(ShrinkToCenter(nose_group), ShrinkToCenter(ear_group), ShrinkToCenter(nose_group_11), ShrinkToCenter(ear_group_11))
-        # self.remove(nose_group, ear_group, nose_group_11, ear_group_11, nose_vec, ear_vec)
+        self.play(ShrinkToCenter(nose_group), ShrinkToCenter(ear_group), ShrinkToCenter(nose_group_11), ShrinkToCenter(ear_group_11), FadeOut(nose_vec, ear_vec))
         
         vector_1 = Vector([1,0,0], color=PURPLE)
         self.play(GrowArrow(vector_1))
@@ -254,6 +253,9 @@ class scene_5_2(Scene):
         
         self.wait(1)
         
+        #remake b/c shrunk
+        nose_group = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to([1,0,0])
+        ear_group = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.2).move_to([0,1,0])
         self.play(GrowFromPoint(nose_group, [1,0,0]), GrowFromPoint(ear_group, [0,1,0]))
         
         self.wait(1)

@@ -10,7 +10,7 @@ class scene_5_3(Scene):
         
         self.wait(1)
         
-        input_space_text = Text("Input Space").shift(UP+LEFT)
+        input_space_text = Text("Input Space").shift(UP)
         self.play(Write(input_space_text))
         
         self.wait(1)
