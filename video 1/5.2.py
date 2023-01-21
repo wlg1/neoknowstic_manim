@@ -75,7 +75,7 @@ class scene_5_2(Scene):
         
         nose_space = NumberLine(
             x_range=[-7, 7, 1],
-            include_numbers=True, label_direction=UP, color=BLUE)
+            include_numbers=True, label_direction=DOWN, color=BLUE)
         noseText = Text('Nose \nTip', 
             font_size=16).move_to([1, -1, 0])
         backgroundRectangle1 = BackgroundRectangle(noseText, color=BLACK, fill_opacity=1)
@@ -119,15 +119,15 @@ class scene_5_2(Scene):
         
         nose_space_2 = NumberLine(
             x_range=[-7, 7, 1],
-            include_numbers=True, label_direction=UP, color=BLUE, tick_size = 10)
+            include_numbers=True, label_direction=DOWN, color=BLUE, tick_size = 10)
         ear_space_vert_3 = NumberLine(
             x_range=[-7, 7, 1],
             rotation=90 * DEGREES, color=BLUE, tick_size = 10,
             include_numbers=True,
             label_direction=LEFT)
         numberplane = NumberPlane()
-        nose_space_2.z_index = 0   
-        ear_space_vert_3.z_index = 0
+        nose_space_2.z_index = 1   
+        ear_space_vert_3.z_index = 1
         numberplane.z_index = 0
         self.play(Transform(nose_space, nose_space_2), Transform(ear_space, ear_space_vert_3), FadeIn(numberplane))
         
@@ -153,9 +153,9 @@ class scene_5_2(Scene):
         Tom_pt.generate_target()
         Tom_pt.target.move_to([1,0,0])
         
-        nose_vec_line = Line([0,0,0],[1, 0, 0], color=RED)
+        nose_vec_line = Line([0,0,0],[0.8, 0, 0], color=RED)
         nose_vec_line.z_index = Tom_pt.z_index + 1
-        nose_vec_tip = Triangle(fill_color=RED, fill_opacity=1, color=RED).scale(0.1).rotate(-90*DEGREES).move_to([0.9,0,0])
+        nose_vec_tip = Triangle(fill_color=RED, fill_opacity=1, color=RED).scale(0.1).rotate(-90*DEGREES).move_to([0.8,0,0])
         nose_vec_tip.z_index = Tom_pt.z_index + 1
         nose_vec = VGroup(nose_vec_line, nose_vec_tip)
         
@@ -191,9 +191,207 @@ class scene_5_2(Scene):
         
         self.wait(1)
         
-        ####################
-        
+        ####################        
         '''These arrows that formed a path of step-by-step instructions are called Vectors, which are defined by a length, and a direction. You can place them between two coordinate points, from a tail point to a head point. '''
         
-        # self.play(FadeOut(nose_group, ear_group, nose_group_11, ear_group_11))
+        self.play(ShrinkToCenter(nose_group), ShrinkToCenter(ear_group), ShrinkToCenter(nose_group_11), ShrinkToCenter(ear_group_11))
+        # self.remove(nose_group, ear_group, nose_group_11, ear_group_11, nose_vec, ear_vec)
         
+        vector_1 = Vector([1,0,0], color=PURPLE)
+        self.play(GrowArrow(vector_1))
+        
+        self.wait(1)
+        vector_2 = Vector([2,0,0], color=PURPLE)
+        self.play(Transform(vector_1, vector_2))
+        
+        self.wait(1)
+        vector_3 = Vector([2,2,0], color=PURPLE)
+        self.play(Transform(vector_1, vector_3))
+        
+        tail = Dot([0,0,0], radius=0.1, color=GOLD)
+        tail.generate_target()
+        tail.target.move_to([2,2,0])
+        
+        self.wait(1)
+        self.play(FadeIn(tail))
+        self.wait(1)
+        self.play(MoveToTarget(tail))
+        self.wait(1)
+        
+        ####################        
+        '''Unlike the coordinate points, which are permanently fixed where they are, the vectors can be moved anywhere in coordinate space. '''
+        
+        dot1 = Dot([0,0,0], radius=0.1, color=GOLD)
+        dot1_text = Text('(0, 0)', font_size=16).next_to([0,0,0], 0.3*LEFT+DOWN)
+        dot2 = Dot([2,2,0], radius=0.1, color=GOLD)
+        dot2_text = Text('(2, 2)', font_size=16).next_to([2,2,0], 0.3*LEFT+UP)
+        self.play(FadeIn(dot1, dot1_text, dot2, dot2_text))
+        self.remove(tail)
+        
+        vector_4 = Arrow([2,0,0],[4,2,0], color=PURPLE, buff=0)
+        self.play(Transform(vector_1, vector_4))
+        
+        self.wait(1)
+        
+        '''This right-facing vector of length 1 is the SAME one that's been moved here. But it is not the same as this vector, or this one.'''
+        
+        vector_5 = Arrow([3,1,0],[5,3,0], color=PURPLE, buff=0)
+        self.play(Transform(vector_1, vector_5))        
+        self.wait(1)
+        
+        vector_6 = Arrow([3,1,0],[5.5,3.5,0], color=PURPLE, buff=0)
+        self.play(Transform(vector_1, vector_6))        
+        self.wait(1)
+        
+        vector_7 = Arrow([3,1,0],[5.828,1,0], color=PURPLE, buff=0)
+        self.play(Transform(vector_1, vector_7))        
+        self.wait(1)
+        
+        ####################
+        '''Since the vectors can be moved, it seems like there's no fixed association between a vector and a Data Measurement. But for the ease of demonstration, we'll informally say there is to help us get a high-level understanding of how vectors add features together.'''
+        
+        self.play(FadeOut(dot1, dot1_text, dot2, dot2_text))
+        
+        self.wait(1)
+        
+        self.play(GrowFromPoint(nose_group, [1,0,0]), GrowFromPoint(ear_group, [0,1,0]))
+        
+        self.wait(1)
+        
+        ########## Show equations for imgs 
+        
+        '''Looking back at our example with Tom'''
+               
+        eqn_background = Rectangle(color=WHITE, height=1.4, width=4, fill_color=BLACK, fill_opacity=1, stroke_width=2)
+        eqn_background.move_to(np.array([3.7, 1, 0]))
+        
+        equal_sign = Text('=', font_size=32)
+        equal_sign.move_to(np.array([2, 1, 0]))
+        
+        nose_group_eqn = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to(np.array([3, 1, 0]))
+        
+        plus_sign = Text('+', font_size=32)
+        plus_sign.move_to(np.array([4, 1, 0]))
+                
+        ears_eqn = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.2).move_to(np.array([5, 1, 0]))
+        
+        self.remove(vector_1)
+        self.play(FadeIn(eqn_background, nose_group_eqn, ears_eqn))
+        
+        self.wait(1)
+        
+        ######### Show vector equations for [1,1]
+        
+        ''', we'll represent our vectors using matrix brackets, whose values describe the head of a vector, with its tail on the origin.'''
+        
+        eqn_background_2 = Rectangle(color=WHITE, height=1.4, width=4, fill_color=BLACK, fill_opacity=1, stroke_width=2)
+        eqn_background_2.move_to(np.array([3.7, -1, 0]))
+        
+        equal_sign_2 = Text('=', font_size=32)
+        equal_sign_2.move_to(np.array([2, -1, 0]))
+        
+        mat_1 = MathTex(r"\begin{bmatrix} 1 \\ 0 \end{bmatrix}")
+        mat_1.move_to(np.array([3, -1, 0])).scale(0.85)
+        
+        plus_sign_2 = Text('+', font_size=32)
+        plus_sign_2.move_to(np.array([4, -1, 0]))
+        
+        mat_2 = MathTex(r"\begin{bmatrix} 0 \\ 1 \end{bmatrix}")
+        mat_2.move_to(np.array([5, -1, 0])).scale(0.85)
+        
+        ear_vec_line = Line([0,0,0],[0, 0.8, 0], color=BLUE)
+        ear_vec_line.z_index = Tom_pt.z_index + 1
+        ear_vec_tip = Triangle(fill_color=BLUE, fill_opacity=1, color=BLUE).scale(0.1).rotate(360*DEGREES).move_to([0, 0.8, 0])
+        ear_vec_tip.z_index = Tom_pt.z_index + 1
+        ear_vec = VGroup(ear_vec_line, ear_vec_tip)
+                
+        self.play(FadeOut(backgroundRectangle1, backgroundRectangle2_vert, noseText, earText, earText_vert), GrowFromPoint(nose_vec, [0,0,0]), GrowFromPoint(ear_vec, [0,0,0]), FadeIn(eqn_background_2, equal_sign_2, mat_1, mat_2, shift=DOWN))
+        
+        self.wait(1)
+                
+        ###############
+        
+        '''We'll show that adding these two features together is the same as adding the two vectors pointing to these features'''
+                
+        Tom_pt = Dot([0,0,0], radius=0.1, color=PURPLE)
+        Tom_pt.z_index = 4
+        self.play(FadeIn(Tom_pt))
+
+        '''When a vector's tail is on the origin, this vector points to the same Data Measurement as point (1,0). So far, we have this Data Measurement as a partial Data Measurement.'''
+                
+        Tom_pt.generate_target()
+        Tom_pt.target.move_to([1,0,0])
+        
+        nose_vec_line = Line([0,0,0],[1, 0, 0], color=RED)
+        nose_vec_line.z_index = Tom_pt.z_index + 1
+        nose_vec_tip = Triangle(fill_color=RED, fill_opacity=1, color=RED).scale(0.1).rotate(-90*DEGREES).move_to([0.9,0,0])
+        nose_vec_tip.z_index = Tom_pt.z_index + 1
+        nose_vec = VGroup(nose_vec_line, nose_vec_tip)
+        
+        self.play(MoveToTarget(Tom_pt))
+        
+        self.wait(1)
+        
+        '''When you add it to the vector going up to (0, 1),'''
+        
+        ear_vec_line_2 = Line([1,0,0],[1, 0.8, 0], color=BLUE)
+        ear_vec_line_2.z_index = Tom_pt.z_index + 1
+        ear_vec_tip_2 = Triangle(fill_color=BLUE, fill_opacity=1, color=BLUE).scale(0.1).rotate(360*DEGREES).move_to([1, 0.8, 0])
+        ear_vec_tip_2.z_index = Tom_pt.z_index + 1
+        ear_vec_2 = VGroup(ear_vec_line_2, ear_vec_tip_2)
+        
+        self.play(Transform(ear_vec, ear_vec_2), FadeIn(plus_sign, plus_sign_2))
+        
+        self.wait(1)
+
+        ######### Sum up vectors to get [1,1]
+        
+        '''it's as if you're given an instruction to add the partial Data Measurement on [1, 0] with the Data Measurement on [0, 1].'''
+        
+        dot3_text = Text('(1, 1)', font_size=16).next_to([1, 1, 0], 0.3*LEFT+DOWN*2.5)
+                             
+        mat_3 = MathTex(r"\begin{bmatrix} 1 \\ 1 \end{bmatrix}")
+        mat_3.move_to(np.array([3, -1, 0])).scale(0.85)
+        
+        #########
+        
+        Tom_pt_11 = Tom_pt.copy().move_to([1,1,0])        
+        nose_group_11 = nose_group.copy()
+        ear_group_11 = ear_group.copy()
+        nose_group_11.remove(nose_group_11[-1])
+        ear_group_11.remove(ear_group_11[-1])
+        self.add(nose_group_11, ear_group_11)
+        nose_group_11.generate_target()
+        nose_group_11.target.move_to([1,0.975,0])
+        ear_group_11.generate_target()
+        ear_group_11.target.move_to([1,1,0])
+                        
+        self.remove(mat_1, mat_2)
+        self.play(FadeOut(plus_sign_2, mat_2, shift=LEFT*2), Transform(mat_1, mat_3), Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group_11), MoveToTarget(ear_group_11), FadeIn(equal_sign))
+        
+        self.wait(1)
+        self.play(FadeOut(Tom_pt))
+        
+        self.wait(1)
+        
+        '''Therefore, Tom is on vector [1,1]. You can get to Tom either by the path of these two added vectors, or by the vector pointing to [1,1].'''
+        
+        # Tom_vec = Vector([1,1,0], color= PURPLE)        
+        tom_vec_line = Line([0,0,0],[0.8, 0.8, 0], color=PURPLE)
+        tom_vec_line.z_index = Tom_pt.z_index + 1
+        tom_tip = Triangle(fill_color=PURPLE, fill_opacity=1, color=PURPLE).scale(0.1).rotate(-45*DEGREES).move_to([0.8, 0.8, 0])
+        tom_tip.z_index = Tom_pt.z_index + 1
+        Tom_vec = VGroup(tom_vec_line, tom_tip)
+        
+        self.play(GrowFromPoint(Tom_vec, [0,0,0]))
+        
+        self.wait(1)
+        
+        '''Because this combination of nose tip and ear length describes our cat people input, we call this 2D coordinate space our Input Space.'''
+        
+        # self.play([FadeOut(mob)for mob in self.mobjects if mob != numberplane])
+        
+        # input_space_text = Text("Input Space").shift(UP+LEFT)
+        # self.play(Write(input_space_text))
+        
+        # self.wait(1)
