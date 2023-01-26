@@ -168,7 +168,7 @@ class scene_6_1(Scene):
         # self.wait(2)
         
         ########################################
-        '''And visually speaking, '''
+        '''The Data Measurement at point 1 in ear is sent to point 0.5 in Nap, '''
         
         ear_space = NumberLine(
             x_range=[0, 4, 1],
@@ -244,6 +244,7 @@ class scene_6_1(Scene):
         # ear_nose_objs = VGroup(eqn_1, ear_space, nap_space, earName, napName, ear_unit_1, ear_group_1, ear_unit_1_copy, ear_group_1_copy, both_conns)  
         # self.play(ScaleInPlace(ear_nose_objs, 0.5))
         ##################
+        '''just like how the Data Measurement at point 1 in nose was sent to point 2 in Nap.'''
 
         eqn_2 = Tex("(2) * (1 Nose) = 2 Nap", font_size=53).shift(DOWN*1.5+RIGHT*3.5).scale(0.75)
         self.play(FadeIn(eqn_2))
@@ -305,3 +306,37 @@ class scene_6_1(Scene):
         self.play(Transform(both_conns, weight_line))
 
         self.wait(2)
+
+        ################
+        '''And since studies on cat people suggest that nose tip and ear length can independently build on top of each other to predict nap enjoyment, we can add them together:'''
+
+        eqn_3a = Tex("(2)*(1 Nose) + (0.5)*(1 Ear)", font_size=53).shift(UP*0.6+RIGHT*4.3).scale(0.7)
+        # eqn_3b = Tex("(0.5)*(1 Ear)", font_size=53).shift(RIGHT*3.5).scale(0.75)
+        eqn_3c = Tex("= ? Nap", font_size=53).shift(UP*0.1+RIGHT*4.3).scale(0.7)
+        self.play(Transform(eqn_1, eqn_3a), Transform(eqn_2, eqn_3a), Transform(napName, eqn_3c))
+
+        self.wait(2)
+
+        ################
+
+        ear_group_2_b = ear_group_1.copy().move_to(nap_space.number_to_point(0.5))
+        ear_unit_2_b = Line(nap_space.number_to_point(0), nap_space.number_to_point(0.5), stroke_width=10, color='#ADD8E6')
+        # nap_dot = Dot(nap_space.number_to_point(0.5), radius=0.01)
+        # conn_2 = Line(mid_dot, nap_dot)
+        # self.play(Transform(ear_unit_1_copy, ear_unit_2_b), Transform(ear_group_1_copy, ear_group_2_b), GrowFromPoint(conn_2, ear_group_2))
+
+        add_ear_unit_1_copy = ear_unit_1_copy.copy()
+        add_ear_group_1_copy = ear_group_1_copy.copy()
+        self.add(add_ear_unit_1_copy, add_ear_group_1_copy)
+        
+        add_ear_group_1_copy.generate_target()
+        add_ear_group_1_copy.target.move_to(nap_space.number_to_point(3)).shift(DOWN*0.2)
+
+        add_ear_unit_1_copy_2 = Line(nap_space.number_to_point(0), nap_space.number_to_point(3), stroke_width=10, color='#ADD8E6').shift(DOWN*0.2)
+        add_ear_unit_1_copy_2.z_index = 1
+
+        self.play(MoveToTarget(add_ear_group_1_copy), Transform(add_ear_unit_1_copy, add_ear_unit_1_copy))
+
+        # both_conns
+
+        self.wait(1)
