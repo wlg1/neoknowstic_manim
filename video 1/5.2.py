@@ -106,16 +106,16 @@ class scene_5_2(Scene):
         # backgroundRectangle2_vert.z_index = 1
                       
         self.play(FadeIn(nose_space, noseText, backgroundRectangle1), GrowFromPoint(nose_group, nose_group.get_center()))
-        self.wait(1)  
+        self.wait(2)  
         self.play(FadeIn(ear_space, earText, backgroundRectangle2), GrowFromPoint(ear_group, ear_group.get_center()))
-        self.wait(1)  
+        self.wait(2)  
                 
         ear_group_unit = VGroup(ear_space, ear_group, earText, backgroundRectangle2)
         ear_group_unit_vert = VGroup(ear_space_vert, ear_group_vert, earText_vert, backgroundRectangle2_vert)
         self.play(Transform(ear_group_unit, ear_group_unit_vert))
         # self.play(Rotate(ear_space, angle=PI/2))
         
-        self.wait(1)
+        self.wait(2)
         
         nose_space_2 = NumberLine(
             x_range=[-7, 7, 1],
@@ -131,7 +131,7 @@ class scene_5_2(Scene):
         numberplane.z_index = 0
         self.play(Transform(nose_space, nose_space_2), Transform(ear_space, ear_space_vert_3), FadeIn(numberplane))
         
-        self.wait(1)
+        self.wait(2)
         
         ####################
         '''Now, how can we add together the Nose Tip and Ear Length Data Measurements to describe a Cat Person? '''
@@ -162,7 +162,7 @@ class scene_5_2(Scene):
         # self.play(MoveToTarget(Tom_pt), GrowArrow(nose_vec))
         self.play(MoveToTarget(Tom_pt), GrowFromPoint(nose_vec, [0,0,0]))
         
-        self.wait(1)
+        self.wait(2)
         
         '''Then we find his ears are 1 unit long, so we move up from (1,0) to (1,1).'''
         
@@ -186,10 +186,10 @@ class scene_5_2(Scene):
         
         self.play(Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group_11), MoveToTarget(ear_group_11), GrowFromPoint(ear_vec, [1,0,0]))
         
-        self.wait(1)
+        self.wait(2)
         self.play(FadeOut(Tom_pt))
         
-        self.wait(1)
+        self.wait(2)
         
         ####################        
         '''These arrows that formed a path of step-by-step instructions are called Vectors, which are defined by a length, and a direction. You can place them between two coordinate points, from a tail point to a head point. '''
@@ -199,11 +199,11 @@ class scene_5_2(Scene):
         vector_1 = Vector([1,0,0], color=PURPLE)
         self.play(GrowArrow(vector_1))
         
-        self.wait(1)
+        self.wait(2)
         vector_2 = Vector([2,0,0], color=PURPLE)
         self.play(Transform(vector_1, vector_2))
         
-        self.wait(1)
+        self.wait(2)
         vector_3 = Vector([2,2,0], color=PURPLE)
         self.play(Transform(vector_1, vector_3))
         
@@ -211,11 +211,11 @@ class scene_5_2(Scene):
         tail.generate_target()
         tail.target.move_to([2,2,0])
         
-        self.wait(1)
+        self.wait(2)
         self.play(FadeIn(tail))
-        self.wait(1)
+        self.wait(2)
         self.play(MoveToTarget(tail))
-        self.wait(1)
+        self.wait(2)
         
         ####################        
         '''Unlike the coordinate points, which are permanently fixed where they are, the vectors can be moved anywhere in coordinate space. '''
@@ -230,35 +230,35 @@ class scene_5_2(Scene):
         vector_4 = Arrow([2,0,0],[4,2,0], color=PURPLE, buff=0)
         self.play(Transform(vector_1, vector_4))
         
-        self.wait(1)
+        self.wait(2)
         
         '''This right-facing vector of length 1 is the SAME one that's been moved here. But it is not the same as this vector, or this one.'''
         
         vector_5 = Arrow([3,1,0],[5,3,0], color=PURPLE, buff=0)
         self.play(Transform(vector_1, vector_5))        
-        self.wait(1)
+        self.wait(2)
         
         vector_6 = Arrow([3,1,0],[5.5,3.5,0], color=PURPLE, buff=0)
         self.play(Transform(vector_1, vector_6))        
-        self.wait(1)
+        self.wait(2)
         
         vector_7 = Arrow([3,1,0],[5.828,1,0], color=PURPLE, buff=0)
         self.play(Transform(vector_1, vector_7))        
-        self.wait(1)
+        self.wait(2)
         
         ####################
         '''Since the vectors can be moved, it seems like there's no fixed association between a vector and a Data Measurement. But for the ease of demonstration, we'll informally say there is to help us get a high-level understanding of how vectors add features together.'''
         
         self.play(FadeOut(dot1, dot1_text, dot2, dot2_text))
         
-        self.wait(1)
+        self.wait(2)
         
         #remake b/c shrunk
         nose_group = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to([1,0,0])
         ear_group = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.2).move_to([0,1,0])
         self.play(GrowFromPoint(nose_group, [1,0,0]), GrowFromPoint(ear_group, [0,1,0]))
         
-        self.wait(1)
+        self.wait(2)
         
         ########## Show equations for imgs 
         
@@ -280,7 +280,7 @@ class scene_5_2(Scene):
         self.remove(vector_1)
         self.play(FadeIn(eqn_background, nose_group_eqn, ears_eqn))
         
-        self.wait(1)
+        self.wait(2)
         
         ######### Show vector equations for [1,1]
         
@@ -309,7 +309,7 @@ class scene_5_2(Scene):
                 
         self.play(FadeOut(backgroundRectangle1, backgroundRectangle2_vert, noseText, earText, earText_vert), GrowFromPoint(nose_vec, [0,0,0]), GrowFromPoint(ear_vec, [0,0,0]), FadeIn(eqn_background_2, equal_sign_2, mat_1, mat_2, shift=DOWN))
         
-        self.wait(1)
+        self.wait(2)
                 
         ###############
         
@@ -332,7 +332,7 @@ class scene_5_2(Scene):
         
         self.play(MoveToTarget(Tom_pt))
         
-        self.wait(1)
+        self.wait(2)
         
         '''When you add it to the vector going up to (0, 1),'''
         
@@ -344,7 +344,7 @@ class scene_5_2(Scene):
         
         self.play(Transform(ear_vec, ear_vec_2), FadeIn(plus_sign, plus_sign_2))
         
-        self.wait(1)
+        self.wait(2)
 
         ######### Sum up vectors to get [1,1]
         
@@ -371,10 +371,10 @@ class scene_5_2(Scene):
         self.remove(mat_1, mat_2)
         self.play(FadeOut(plus_sign_2, mat_2, shift=LEFT*2), Transform(mat_1, mat_3), Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group_11), MoveToTarget(ear_group_11), FadeIn(equal_sign))
         
-        self.wait(1)
+        self.wait(2)
         self.play(FadeOut(Tom_pt))
         
-        self.wait(1)
+        self.wait(2)
         
         '''Therefore, Tom is on vector [1,1]. You can get to Tom either by the path of these two added vectors, or by the vector pointing to [1,1].'''
         
@@ -387,7 +387,7 @@ class scene_5_2(Scene):
         
         self.play(GrowFromPoint(Tom_vec, [0,0,0]))
         
-        self.wait(1)
+        self.wait(2)
         
         '''Because this combination of nose tip and ear length describes our cat people input, we call this 2D coordinate space our Input Space.'''
         
@@ -396,4 +396,4 @@ class scene_5_2(Scene):
         # input_space_text = Text("Input Space").shift(UP+LEFT)
         # self.play(Write(input_space_text))
         
-        # self.wait(1)
+        # self.wait(2)

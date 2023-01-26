@@ -94,7 +94,7 @@ class scene_5_1(Scene):
         self.add(faceBlack)
         self.play(FadeIn(text_2, cat_person_1_zzz))
         
-        self.wait(1)
+        self.wait(2)
                         
         '''while Lauren also has a nose of 1 unit, yet has a Nap Smile of 3.5. '''
         
@@ -134,7 +134,7 @@ class scene_5_1(Scene):
         self.add(faceBlack)
         self.play(FadeIn(text_4, cat_person_2_zzz))
                         
-        self.wait(1)
+        self.wait(2)
         
         # self.add(text_1, text_2, text_3, text_4, into, into_2, cat_person_1, cat_person_1_zzz, cat_person_2, cat_person_2_zzz)
         
@@ -144,14 +144,22 @@ class scene_5_1(Scene):
         
         cat_person_1 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), box.copy()).scale(0.7).shift(LEFT*5) 
         faceBlack = cat_person_1[0].copy()
-        faceBlack.color=BLACK
-        self.add(faceBlack)
+        # faceBlack.color=BLACK
+        # faceBlack.z_index = 4
+        # self.add(faceBlack)
+        # for item in cat_person_1:
+            # item.z_index = 5
+        # cat_person_1[3].z_index = 3   
+        # cat_person_1[4].z_index = 3
+        # cat_person_1[-1].z_index = -1
         
-        self.play(FadeIn(cat_person_1))
+        self.play(GrowFromPoint(cat_person_1, cat_person_1.get_center()))
         
-        nose_group_1 = VGroup(cat_person_1[0].copy(), cat_person_1[5].copy(), cat_person_1[-1].copy())   
+        nose_group_1 = VGroup(cat_person_1[0].copy(), cat_person_1[5].copy(), cat_person_1[-1].copy())  
+        nose_group_1[0].z_index = 2    
         
         ear_group = VGroup(cat_person_1[0].copy(), cat_person_1[3].copy(), cat_person_1[4].copy(), cat_person_1[-1].copy()) 
+        ear_group[0].z_index = 2
         # ear_group = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.7) 
         
         # self.play(FadeIn(nose_box))
@@ -164,7 +172,7 @@ class scene_5_1(Scene):
         ear_group.generate_target()
         ear_group.target.shift(RIGHT*10)
         self.play(MoveToTarget(ear_group))  
-        self.wait(1)
+        self.wait(2)
         
         ####################
         
@@ -189,12 +197,12 @@ class scene_5_1(Scene):
         earSpaceName = Text('Ear Space', font_size=40).shift(DOWN*2.5)
         self.play(Write(earSpaceName))
         
-        self.wait(1)
+        self.wait(2)
                 
         ####################
         '''Just like with nose tip, we also have an ear length of 1 unit, 2 units, and 3 units'''
         
-        self.wait(1)
+        self.wait(2)
         
         ear_length = 1
         left_ear_1_2 = Line([-1.5, 0, 0], [-1, ear_length+1.5, 0])
@@ -214,7 +222,7 @@ class scene_5_1(Scene):
                 
         self.play(Transform(ear_group, ear_group_2))
         
-        self.wait(1)
+        self.wait(2)
         
         ear_length = 1.5
         left_ear_1_3 = Line([-1.5, 0, 0], [-1, ear_length+1.5, 0])
@@ -233,12 +241,12 @@ class scene_5_1(Scene):
                 
         self.play(Transform(ear_group, ear_group_3))
         
-        self.wait(1)
+        self.wait(2)
         
         ####################
         
         self.play(FadeIn(ear_group_1, ear_group_2))
         
-        self.wait(1)
+        self.wait(2)
         
         
