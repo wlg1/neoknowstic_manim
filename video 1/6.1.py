@@ -66,7 +66,7 @@ class scene_6_1(Scene):
         zzz = Text("...zZz...", font_size = 35, color=WHITE).move_to([2.2, 1.8,0])
         zzz.z_index=3
         
-        box = Rectangle(color=BLACK, height=5.7, width=6, stroke_width=1, fill_color=BLACK).shift(UP*0.33)
+        box = Rectangle(color=BLACK, height=5.7, width=6, stroke_width=0.01, fill_color=BLACK).shift(UP*0.33)
         box.z_index = -2
                 
         ####################
@@ -165,19 +165,19 @@ class scene_6_1(Scene):
             x_range=[0, 5, 1],
             include_numbers=True,
             label_direction=UP,
-        ).scale(1.2).shift(UP*2.5+LEFT*1.5)
+        ).scale(1.2).shift(UP*2.5+LEFT*1.6)
         
         nap_space = NumberLine(
             x_range=[0, 5, 1],
             include_numbers=True,
             label_direction=DOWN,
-        ).scale(1.2).shift(LEFT*1.5)
+        ).scale(1.2).shift(LEFT*1.6)
         
-        earName = Text("Ear").shift(UP*2.5+RIGHT*5).scale(0.75)
-        napName = Text("Nap").shift(RIGHT*5).scale(0.75)
+        earName = Text("Ear").shift(UP*2.5+RIGHT*4.2).scale(0.75)
+        napName = Text("Nap").shift(RIGHT*4.2).scale(0.75)
         
         eqn_1_top = eqn_1.copy() 
-        eqn_1_top.shift(UP*1.5+RIGHT*3.5).scale(0.75)
+        eqn_1_top.shift(UP*1.5+RIGHT*4).scale(0.75)
         weight_1 = Tex("0.75 * ", font_size=53).move_to(ear_space.number_to_point(1)).shift(DOWN*1).scale(0.75)
         
         eqn_1_copy = eqn_1.copy()
@@ -253,16 +253,16 @@ class scene_6_1(Scene):
         ##################
         '''just like how the Data Measurement at point 1 in nose was sent to point 2 in Nap.'''
 
-        eqn_2 = Tex("(2) * (1 Nose) = 2 Nap", font_size=53).shift(DOWN*1.5+RIGHT*3.5).scale(0.75)
+        eqn_2 = Tex("(2) * (1 Nose) = 2 Nap", font_size=53).shift(DOWN*1.5+RIGHT*4).scale(0.75)
         self.play(FadeIn(eqn_2))
 
         nose_space = NumberLine(
             x_range=[0, 5, 1],
             include_numbers=True,
             label_direction=DOWN,
-        ).scale(1.2).shift(DOWN*2.5+LEFT*1.5)
+        ).scale(1.2).shift(DOWN*2.5+LEFT*1.6)
 
-        noseName = Text("Nose").shift(DOWN*2.5+RIGHT*5).scale(0.75)
+        noseName = Text("Nose").shift(DOWN*2.5+RIGHT*4.2).scale(0.75)
         
         weight_2 = Tex("2 * ", font_size=53).move_to(nose_space.number_to_point(1)).shift(UP*1).scale(0.75)
         
@@ -364,4 +364,25 @@ class scene_6_1(Scene):
 
         self.play(MoveToTarget(ear_group_1_copy), Transform(ear_unit_1_copy, ear_vec_add), Transform(both_conns_ear, weight_line_ear_add))
              
+        self.wait(2)
+
+        ################
+
+        nose_group_1_copy.generate_target()
+        targ_dot = Dot(nap_space.number_to_point(2.75)).shift(UP*0.2)
+        nose_group_1_copy.target.move_to(targ_dot.get_center())
+              
+        weight_line_nose_add = Line(nose_dot, targ_dot)
+
+        self.play(MoveToTarget(nose_group_1_copy), Transform(both_conns_nose, weight_line_nose_add))
+
+        purp_vec_line = Line(nap_space.number_to_point(0), nap_space.number_to_point(2.7), color='#CF9FFF', fill_opacity=1)
+        purp_vec_line.z_index = 5
+        purp_vec_tip = Triangle(fill_color='#CF9FFF', fill_opacity=1, color='#CF9FFF').scale(0.07).rotate(-90*DEGREES).move_to(nap_space.number_to_point(2.7))
+        purp_vec_tip.z_index = 5
+        purp_vec = VGroup(purp_vec_line, purp_vec_tip)
+
+        self.play(Transform(nose_unit_1_copy, purp_vec))
+        self.remove(ear_vec_add)
+                     
         self.wait(2)

@@ -65,7 +65,7 @@ class scene_5_1(Scene):
         zzz = Text("...zZz...", font_size = 35, color=WHITE).move_to([2.2, 1.8,0])
         zzz.z_index=3
         
-        box = Rectangle(color=BLACK, height=5.7, width=6, stroke_width=1, fill_color=BLACK).shift(UP*0.33)
+        box = Rectangle(color=BLACK, height=5.7, width=6, stroke_width=0.01, fill_color=BLACK).shift(UP*0.33)
         box.z_index = -1
         
         ####################
