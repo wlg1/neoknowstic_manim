@@ -344,7 +344,7 @@ class scene_5_2(Scene):
         self.play(FadeIn(Tom_pt))
 
         ###        
-        op_lv = 0.5
+        op_lv = 0.4
         face_outline_op = Circle(radius=1.75, color=WHITE, fill_color=BLACK, fill_opacity=1, stroke_width=2, stroke_opacity = op_lv).move_to([0, 0, 0])
 
         nose_line_1 = Line([-0.5, 0, 0], [0.5, 0, 0], stroke_opacity = op_lv)
@@ -431,17 +431,18 @@ class scene_5_2(Scene):
         # ear_group_11.generate_target()
         # ear_group_11.target.move_to([1,1,0])
 
-        nose_group_11.generate_target()
-        nose_group_11.target.move_to([1,1,0])
+        nose_group.generate_target()
+        nose_group.target.move_to([1,1,0])
                                
         self.remove(mat_1, mat_2)
         # self.play(FadeOut(plus_sign_2, mat_2, shift=LEFT*2), Transform(mat_1, mat_3), Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group_11), MoveToTarget(ear_group_11), FadeIn(equal_sign))
-        self.play(FadeOut(plus_sign_2, mat_2, shift=LEFT*2), Transform(mat_1, mat_3), Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group_11), FadeIn(equal_sign))
+        self.play(FadeOut(plus_sign_2, mat_2, shift=LEFT*2), Transform(mat_1, mat_3), Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group), FadeIn(equal_sign))
         
         self.wait(2)
 
-        nose_group_11_nofade = nose_group.copy().move_to([1,1,0])
-        ear_group_11_nofade = ear_group.copy().move_to([1,1,0])
+        # don't copy nose_group b/c now it's faded
+        nose_group_11_nofade = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to([1,1,0])
+        ear_group_11_nofade = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.2).move_to([1,1,0])
 
         # always transform the original transformed obj
         self.play(FadeOut(Tom_pt), Transform(nose_group, nose_group_11_nofade), Transform(ear_group, ear_group_11_nofade))
