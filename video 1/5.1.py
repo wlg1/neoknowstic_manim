@@ -71,9 +71,9 @@ class scene_5_1(Scene):
         ####################
         '''When using our equation to predict nap enjoyment, we find that there's cases where using nose isn't enough. '''
                                 
-        '''We found that Tom has a nose of 1 unit, yet has a Nap Smile of 2.25, '''                        
+        '''We found that Tom has a nose of 1 unit, yet has a Nap Smile of 2.75, '''                        
         text_1 = Text("1").shift(LEFT*2+UP*1.5)
-        text_2 = Text("2.5").shift(RIGHT*2+UP*1.5)
+        text_2 = Text("2.75").shift(RIGHT*2+UP*1.5)
                 
         cat_person_1 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), box.copy()).scale(0.4).shift(LEFT*4+UP*1.5)
         faceBlack = cat_person_1[0].copy()
@@ -85,8 +85,8 @@ class scene_5_1(Scene):
         into = Arrow([0,0,0],[1,0,0]).scale(4).shift(LEFT*0.5+UP*1.5)
         self.play(FadeIn(into))
         
-        #mouth smile 2.25
-        mouth_smile_3 = mouth_smile.copy().scale(1.625) # +scale of 0.5 is 1 unit
+        #mouth smile 2.75
+        mouth_smile_3 = mouth_smile.copy().scale(1.875) # +scale of 0.5 is 1 unit
                 
         cat_person_1_zzz = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), mouth_smile_3.copy(), zzz.copy(), box.copy()).scale(0.4).shift(RIGHT*4+UP*1.5)
         faceBlack = cat_person_1_zzz[0].copy()
@@ -126,8 +126,8 @@ class scene_5_1(Scene):
         into_2 = Arrow([0,0,0],[1,0,0]).scale(4).shift(LEFT*0.5+DOWN*1.5)
         self.play(FadeIn(into_2))
         
-        #3.5 is 1+(0.5*2 + 0.5/2)
-        mouth_smile_4 = mouth_smile.copy().scale(2.25)
+        #3.5 is 1+(0.5*2 + 0.75/2)
+        mouth_smile_4 = mouth_smile.copy().scale(2.375)
         
         cat_person_2_zzz = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear_2.copy(), right_ear_2.copy(), nose.copy(), whiskers.copy(), mouth_smile_4.copy(), zzz.copy(), box.copy()).scale(0.4).shift(RIGHT*4+DOWN*1.5)
         faceBlack = cat_person_2_zzz[0].copy()
@@ -142,7 +142,7 @@ class scene_5_1(Scene):
         
         ####################
         
-        self.play(*[FadeOut(mob)for mob in self.mobjects])
+        self.play(FadeOut(into, into_2), *[ShrinkToCenter(mob)for mob in self.mobjects if mob not in [into, into_2]])
         
         cat_person_1 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), box.copy()).scale(0.7).shift(LEFT*5) 
         faceBlack = cat_person_1[0].copy()
@@ -178,7 +178,7 @@ class scene_5_1(Scene):
         
         ####################
         
-        self.play(FadeOut(cat_person_1, nose_group_1))
+        self.play(ShrinkToCenter(cat_person_1), ShrinkToCenter(nose_group_1))
         self.remove(faceBlack)
         
         ear_group_1 = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.3) 
@@ -198,9 +198,7 @@ class scene_5_1(Scene):
         
         earSpaceName = Text('Ear Space', font_size=40).shift(DOWN*2.5)
         self.play(Write(earSpaceName))
-        
-        self.wait(2)
-                
+                        
         ####################
         '''Just like with nose tip, we also have an ear length of 1 unit, 2 units, and 3 units'''
         
@@ -247,7 +245,7 @@ class scene_5_1(Scene):
         
         ####################
         
-        self.play(FadeIn(ear_group_1, ear_group_2))
+        self.play(GrowFromCenter(ear_group_1), GrowFromCenter(ear_group_2))
         
         self.wait(2)
         

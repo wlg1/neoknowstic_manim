@@ -151,7 +151,7 @@ class scene_6_1(Scene):
         eqn_1 = Tex("(0.75) * (1 Ear) = 0.75 Nap", font_size=53)
         self.play(FadeIn(eqn_1))
 
-        self.wait(1)
+        self.wait(2)
 
         # eqn_w = Tex("W * (0.5 Ear) = W*(0.5) Nap", font_size=53)
         # self.play(Transform(eqn_1, eqn_w))
@@ -223,7 +223,7 @@ class scene_6_1(Scene):
         self.play(Transform(ear_unit_1_copy, ear_unit_2), Transform(ear_group_1_copy, ear_group_2), Transform(eqn_1_copy, ear_unit_2), GrowFromPoint(conn_1, ear_space.number_to_point(1)))
         self.add(mid_dot)
         
-        self.wait(1)
+        self.wait(2)
                 
         # move and connect from middle to nap space        
         ear_group_2_b = ear_group_1.copy().move_to(nap_space.number_to_point(0.75)).shift(UP*0.2)
@@ -239,13 +239,13 @@ class scene_6_1(Scene):
         self.remove(weight_1, eqn_1_copy) #else will leave behind
         self.play(Transform(ear_unit_1_copy, ear_unit_2_b), Transform(ear_group_1_copy, ear_group_2_b), GrowFromPoint(conn_2, ear_group_2))
         
-        self.wait(1)
+        self.wait(2)
         weight_line_ear = Line(ear_dot, nap_dot)
         both_conns_ear = VGroup(conn_1, conn_2)
         self.remove(mid_dot)
         self.play(Transform(both_conns_ear, weight_line_ear))
         
-        self.wait(1)
+        self.wait(2)
 
         ##################
         # ear_nose_objs = VGroup(eqn_1, ear_space, nap_space, earName, napName, ear_unit_1, ear_group_1, ear_unit_1_copy, ear_group_1_copy, both_conns)  
@@ -268,7 +268,7 @@ class scene_6_1(Scene):
         
         self.play(GrowFromPoint(nose_space, eqn_2), GrowFromPoint(weight_2, eqn_2), FadeIn(noseName))
         
-        self.wait(1)
+        self.wait(2)
 
         nose_group_1 = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to(nose_space.number_to_point(1)).shift(UP*0.2)     
 
@@ -309,7 +309,7 @@ class scene_6_1(Scene):
         
         # self.remove(nose_unit_1_copy)
 
-        self.wait(1)
+        self.wait(2)
                 
         # move and connect from middle to nap space        
         nose_group_2_b = nose_group_1.copy().move_to(nap_space.number_to_point(2)).shift(UP*0.2)
@@ -330,7 +330,7 @@ class scene_6_1(Scene):
         self.remove(weight_2) #else will leave behind
         self.play(Transform(nose_unit_1_copy, nose_unit_2_b), Transform(nose_group_1_copy, nose_group_2_b), GrowFromPoint(conn_2, nose_group_2))
         
-        self.wait(1)
+        self.wait(2)
         weight_line_nose = Line(nose_dot, nap_dot)
         both_conns_nose = VGroup(conn_1, conn_2)
         self.remove(mid_dot)
@@ -349,6 +349,10 @@ class scene_6_1(Scene):
         self.wait(2)
 
         ################
+
+        Tom_pt = Dot(nap_space.number_to_point(0), radius=0.1, color=PURPLE)
+        Tom_pt.z_index = 4
+        self.play(FadeIn(Tom_pt))
 
         ear_group_1_copy.generate_target()
         targ_dot = Dot(nap_space.number_to_point(2.75)).shift(UP*0.2)
@@ -375,6 +379,8 @@ class scene_6_1(Scene):
         weight_line_nose_add = Line(nose_dot, targ_dot)
 
         self.play(MoveToTarget(nose_group_1_copy), Transform(both_conns_nose, weight_line_nose_add))
+
+        self.wait(2)
 
         purp_vec_line = Line(nap_space.number_to_point(0), nap_space.number_to_point(2.7), color='#CF9FFF', fill_opacity=1)
         purp_vec_line.z_index = 5

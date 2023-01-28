@@ -142,6 +142,8 @@ class scene_5_2(Scene):
         Tom_pt.z_index = 4
         self.play(FadeIn(Tom_pt))
 
+        self.wait(2)
+
         '''We find that his nose tip is 1 unit, so we move from the origin to (1,0).'''
         
         # don't use vector or arrow b/c always falls behind all other objs except coord space, even in vectorscene
@@ -198,16 +200,18 @@ class scene_5_2(Scene):
         
         vector_1 = Vector([1,0,0], color=PURPLE)
         self.play(GrowArrow(vector_1))
-        
+                
+        # a length
         self.wait(2)
         vector_2 = Vector([2,0,0], color=PURPLE)
         self.play(Transform(vector_1, vector_2))
-        
+
+        # and a direction
         self.wait(2)
         vector_3 = Vector([2,2,0], color=PURPLE)
         self.play(Transform(vector_1, vector_3))
         
-        tail = Dot([0,0,0], radius=0.1, color=GOLD)
+        tail = Dot([0,0,0], radius=0.1, color='#50c878')
         tail.generate_target()
         tail.target.move_to([2,2,0])
         
@@ -216,33 +220,47 @@ class scene_5_2(Scene):
         self.wait(2)
         self.play(MoveToTarget(tail))
         self.wait(2)
+
+        ####################
+        '''We'll use vectors to tell us where we go from one coordinate point to another, and by how much. To add vectors together, we just move the tail of one vector to the head of another.'''
+
+        add_vector = Vector([1,0,0], color=RED)
+        self.play(GrowArrow(add_vector))
+
+        add_vector_2 = Arrow([2,2,0], [3,2,0], color=RED, buff=0)
+        self.play(Transform(add_vector, add_vector_2))
+
+        self.wait(2)
+        self.play(FadeOut(add_vector))
         
         ####################        
         '''Unlike the coordinate points, which are permanently fixed where they are, the vectors can be moved anywhere in coordinate space. '''
         
-        dot1 = Dot([0,0,0], radius=0.1, color=GOLD)
-        dot1_text = Text('(0, 0)', font_size=16).next_to([0,0,0], 0.3*LEFT+DOWN)
-        dot2 = Dot([2,2,0], radius=0.1, color=GOLD)
+        dot1 = Dot([0,0,0], radius=0.1, color='#50c878')
+        dot1_text = Text('(0, 0)', font_size=16).next_to([0,0,0], 0.4*LEFT+UP)
+        dot2 = Dot([2,2,0], radius=0.1, color='#50c878')
         dot2_text = Text('(2, 2)', font_size=16).next_to([2,2,0], 0.3*LEFT+UP)
         self.play(FadeIn(dot1, dot1_text, dot2, dot2_text))
         self.remove(tail)
         
+        self.wait(2)
+
         vector_4 = Arrow([2,0,0],[4,2,0], color=PURPLE, buff=0)
         self.play(Transform(vector_1, vector_4))
         
         self.wait(2)
         
-        '''This right-facing vector of length 1 is the SAME one that's been moved here. But it is not the same as this vector, or this one.'''
+        '''This vector is the SAME one that's been moved here. But it is not the same as this vector, or this one.'''
         
         vector_5 = Arrow([3,1,0],[5,3,0], color=PURPLE, buff=0)
         self.play(Transform(vector_1, vector_5))        
         self.wait(2)
         
-        vector_6 = Arrow([3,1,0],[5.5,3.5,0], color=PURPLE, buff=0)
+        vector_6 = Arrow([3,1,0],[5.82843, 1, 0], color=PURPLE, buff=0)
         self.play(Transform(vector_1, vector_6))        
         self.wait(2)
         
-        vector_7 = Arrow([3,1,0],[5.828,1,0], color=PURPLE, buff=0)
+        vector_7 = Arrow([3,1,0],[4,1,0], color=PURPLE, buff=0)
         self.play(Transform(vector_1, vector_7))        
         self.wait(2)
         
@@ -301,6 +319,12 @@ class scene_5_2(Scene):
         mat_2 = MathTex(r"\begin{bmatrix} 0 \\ 1 \end{bmatrix}")
         mat_2.move_to(np.array([5, -1, 0])).scale(0.85)
         
+        nose_vec_line = Line([0,0,0],[1, 0, 0], color=RED)
+        nose_vec_line.z_index = Tom_pt.z_index + 1
+        nose_vec_tip = Triangle(fill_color=RED, fill_opacity=1, color=RED).scale(0.1).rotate(-90*DEGREES).move_to([0.9,0,0])
+        nose_vec_tip.z_index = Tom_pt.z_index + 1
+        nose_vec = VGroup(nose_vec_line, nose_vec_tip)
+
         ear_vec_line = Line([0,0,0],[0, 0.8, 0], color=BLUE)
         ear_vec_line.z_index = Tom_pt.z_index + 1
         ear_vec_tip = Triangle(fill_color=BLUE, fill_opacity=1, color=BLUE).scale(0.1).rotate(360*DEGREES).move_to([0, 0.8, 0])
@@ -315,22 +339,43 @@ class scene_5_2(Scene):
         
         '''We'll show that adding these two features together is the same as adding the two vectors pointing to these features'''
                 
-        Tom_pt = Dot([0,0,0], radius=0.1, color=PURPLE)
+        Tom_pt = Dot([0,0,0], radius=0.1, color=PURPLE, fill_opacity=0.9)
         Tom_pt.z_index = 4
         self.play(FadeIn(Tom_pt))
+
+        ###        
+        op_lv = 0.5
+        face_outline_op = Circle(radius=1.75, color=WHITE, fill_color=BLACK, fill_opacity=1, stroke_width=2, stroke_opacity = op_lv).move_to([0, 0, 0])
+
+        nose_line_1 = Line([-0.5, 0, 0], [0.5, 0, 0], stroke_opacity = op_lv)
+        nose_line_2 = Line([-0.5, 0, 0], [0, nose_tip, 0], stroke_opacity = op_lv)
+        nose_line_3 = Line([0, nose_tip, 0], [0.5, 0, 0], stroke_opacity = op_lv)
+        nose_op = VGroup(nose_line_1, nose_line_2, nose_line_3)
+
+        left_ear_1 = Line([-1.5, 0, 0], [-1, ear_length+1.5, 0], stroke_opacity = op_lv)
+        left_ear_2 = Line([-1, ear_length+1.5, 0], [0, 0, 0], stroke_opacity = op_lv)
+        left_ear_op = VGroup(left_ear_1, left_ear_2)
+        
+        right_ear_1 = Line([1.5, 0, 0], [1, ear_length+1.5, 0], stroke_opacity = op_lv)
+        right_ear_2 = Line([1, ear_length+1.5, 0], [0, 0, 0], stroke_opacity = op_lv)
+        right_ear_op = VGroup(right_ear_1, right_ear_2)
+
+        for nl in nose_op:
+            nl.z_index=5
+            nl.stroke_width=2  #default is 4
+        face_outline_op.z_index=3
+        left_ear_op.z_index=1
+        right_ear_op.z_index=1
+        ###
 
         '''When a vector's tail is on the origin, this vector points to the same Data Measurement as point (1,0). So far, we have this Data Measurement as a partial Data Measurement.'''
                 
         Tom_pt.generate_target()
         Tom_pt.target.move_to([1,0,0])
         
-        nose_vec_line = Line([0,0,0],[1, 0, 0], color=RED)
-        nose_vec_line.z_index = Tom_pt.z_index + 1
-        nose_vec_tip = Triangle(fill_color=RED, fill_opacity=1, color=RED).scale(0.1).rotate(-90*DEGREES).move_to([0.9,0,0])
-        nose_vec_tip.z_index = Tom_pt.z_index + 1
-        nose_vec = VGroup(nose_vec_line, nose_vec_tip)
+        nose_group_11 = VGroup(face_outline_op.copy(), nose_op.copy(), box.copy()).scale(0.2).move_to([1,0,0])
         
-        self.play(MoveToTarget(Tom_pt))
+        self.play(MoveToTarget(Tom_pt), Transform(nose_group, nose_group_11))
         
         self.wait(2)
         
@@ -342,7 +387,27 @@ class scene_5_2(Scene):
         ear_vec_tip_2.z_index = Tom_pt.z_index + 1
         ear_vec_2 = VGroup(ear_vec_line_2, ear_vec_tip_2)
         
-        self.play(Transform(ear_vec, ear_vec_2), FadeIn(plus_sign, plus_sign_2))
+        # faceBlack = ear_group[0].copy()
+        # # .move_to([1,1,0])
+        # faceBlack.color=BLACK
+        # faceBlack.z_index = 2
+        # ear_group_11 = ear_group.copy()
+        # for e in ear_group_11:
+        #     if e!= ear_group_11[-1]:
+        #         # e.stroke_opacity = op_lv
+        #         e.color = '#D3D3D3'
+        # ear_group_11.add(faceBlack)
+        # ear_group_11.move_to([1,1,0])
+        # ear_group.generate_target()
+        # ear_group.target.move_to([1,1,0])
+        # nose_group_11 = nose_group.copy()
+        # for e in nose_group_11:
+        #     if e!= nose_group_11[-1]:
+        #         e.set_opacity(0.5)
+        
+        ear_group_11 = VGroup(face_outline_op.copy(), left_ear_op.copy(), right_ear_op.copy(), box.copy()).scale(0.2).move_to([1,1,0])
+
+        self.play(Transform(ear_vec, ear_vec_2), FadeIn(plus_sign, plus_sign_2), Transform(ear_group, ear_group_11))
         
         self.wait(2)
 
@@ -350,35 +415,41 @@ class scene_5_2(Scene):
         
         '''it's as if you're given an instruction to add the partial Data Measurement on [1, 0] with the Data Measurement on [0, 1].'''
         
-        dot3_text = Text('(1, 1)', font_size=16).next_to([1, 1, 0], 0.3*LEFT+DOWN*2.5)
-                             
         mat_3 = MathTex(r"\begin{bmatrix} 1 \\ 1 \end{bmatrix}")
         mat_3.move_to(np.array([3, -1, 0])).scale(0.85)
         
         #########
         
         Tom_pt_11 = Tom_pt.copy().move_to([1,1,0])        
-        nose_group_11 = nose_group.copy()
-        ear_group_11 = ear_group.copy()
-        nose_group_11.remove(nose_group_11[-1])
-        ear_group_11.remove(ear_group_11[-1])
-        self.add(nose_group_11, ear_group_11)
+        # nose_group_11 = nose_group.copy()
+        # ear_group_11 = ear_group.copy()
+        # nose_group_11.remove(nose_group_11[-1])
+        # ear_group_11.remove(ear_group_11[-1])
+        # self.add(nose_group_11, ear_group_11)
+        # nose_group_11.generate_target()
+        # nose_group_11.target.move_to([1,0.975,0])
+        # ear_group_11.generate_target()
+        # ear_group_11.target.move_to([1,1,0])
+
         nose_group_11.generate_target()
-        nose_group_11.target.move_to([1,0.975,0])
-        ear_group_11.generate_target()
-        ear_group_11.target.move_to([1,1,0])
-                        
+        nose_group_11.target.move_to([1,1,0])
+                               
         self.remove(mat_1, mat_2)
-        self.play(FadeOut(plus_sign_2, mat_2, shift=LEFT*2), Transform(mat_1, mat_3), Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group_11), MoveToTarget(ear_group_11), FadeIn(equal_sign))
+        # self.play(FadeOut(plus_sign_2, mat_2, shift=LEFT*2), Transform(mat_1, mat_3), Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group_11), MoveToTarget(ear_group_11), FadeIn(equal_sign))
+        self.play(FadeOut(plus_sign_2, mat_2, shift=LEFT*2), Transform(mat_1, mat_3), Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group_11), FadeIn(equal_sign))
         
         self.wait(2)
-        self.play(FadeOut(Tom_pt))
+
+        nose_group_11_nofade = nose_group.copy().move_to([1,1,0])
+        ear_group_11_nofade = ear_group.copy().move_to([1,1,0])
+
+        # always transform the original transformed obj
+        self.play(FadeOut(Tom_pt), Transform(nose_group, nose_group_11_nofade), Transform(ear_group, ear_group_11_nofade))
         
         self.wait(2)
         
         '''Therefore, Tom is on vector [1,1]. You can get to Tom either by the path of these two added vectors, or by the vector pointing to [1,1].'''
-        
-        # Tom_vec = Vector([1,1,0], color= PURPLE)        
+           
         tom_vec_line = Line([0,0,0],[0.8, 0.8, 0], color=PURPLE)
         tom_vec_line.z_index = Tom_pt.z_index + 1
         tom_tip = Triangle(fill_color=PURPLE, fill_opacity=1, color=PURPLE).scale(0.1).rotate(-45*DEGREES).move_to([0.8, 0.8, 0])
