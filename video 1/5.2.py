@@ -234,7 +234,7 @@ class scene_5_2(Scene):
         self.play(FadeOut(add_vector))
         
         ####################        
-        '''Unlike the coordinate points, which are permanently fixed where they are, the vectors can be moved anywhere in coordinate space. '''
+        '''Because unlike the coordinate points, which are permanently fixed where they are, the vectors can be moved anywhere in coordinate space. '''
         
         dot1 = Dot([0,0,0], radius=0.1, color='#50c878')
         dot1_text = Text('(0, 0)', font_size=16).next_to([0,0,0], 0.4*LEFT+UP)
@@ -438,14 +438,16 @@ class scene_5_2(Scene):
         # self.play(FadeOut(plus_sign_2, mat_2, shift=LEFT*2), Transform(mat_1, mat_3), Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group_11), MoveToTarget(ear_group_11), FadeIn(equal_sign))
         self.play(FadeOut(plus_sign_2, mat_2, shift=LEFT*2), Transform(mat_1, mat_3), Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group), FadeIn(equal_sign))
         
-        self.wait(2)
-
         # don't copy nose_group b/c now it's faded
         nose_group_11_nofade = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to([1,1,0])
         ear_group_11_nofade = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.2).move_to([1,1,0])
-
+        
         # always transform the original transformed obj
-        self.play(FadeOut(Tom_pt), Transform(nose_group, nose_group_11_nofade), Transform(ear_group, ear_group_11_nofade))
+        self.play(Transform(nose_group, nose_group_11_nofade), Transform(ear_group, ear_group_11_nofade))
+
+        self.wait(1)
+
+        self.play(FadeOut(Tom_pt))
         
         self.wait(2)
         

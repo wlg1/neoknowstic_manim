@@ -348,15 +348,51 @@ class scene_6_1(Scene):
 
         self.wait(2)
 
+        ###        
+        op_lv = 0.4
+        face_outline_op = Circle(radius=1.75, color=WHITE, fill_color=BLACK, fill_opacity=1, stroke_width=2, stroke_opacity = op_lv).move_to([0, 0, 0])
+
+        nose_line_1 = Line([-0.5, 0, 0], [0.5, 0, 0], stroke_opacity = op_lv)
+        nose_line_2 = Line([-0.5, 0, 0], [0, nose_tip, 0], stroke_opacity = op_lv)
+        nose_line_3 = Line([0, nose_tip, 0], [0.5, 0, 0], stroke_opacity = op_lv)
+        nose_op = VGroup(nose_line_1, nose_line_2, nose_line_3)
+
+        ear_length = 0.5
+        left_ear_1 = Line([-1.5, 0, 0], [-1, ear_length+1.5, 0], stroke_opacity = op_lv)
+        left_ear_2 = Line([-1, ear_length+1.5, 0], [0, 0, 0], stroke_opacity = op_lv)
+        left_ear_op = VGroup(left_ear_1, left_ear_2)
+        
+        right_ear_1 = Line([1.5, 0, 0], [1, ear_length+1.5, 0], stroke_opacity = op_lv)
+        right_ear_2 = Line([1, ear_length+1.5, 0], [0, 0, 0], stroke_opacity = op_lv)
+        right_ear_op = VGroup(right_ear_1, right_ear_2)
+
+        for nl in nose_op:
+            nl.z_index=5
+            nl.stroke_width=2  #default is 4
+        face_outline_op.z_index=3
+        left_ear_op.z_index=1
+        right_ear_op.z_index=1
+
         ################
 
-        Tom_pt = Dot(nap_space.number_to_point(0), radius=0.1, color=PURPLE)
+        Tom_pt = Dot(nap_space.number_to_point(0), radius=0.1, color=PURPLE, fill_opacity=1)
         Tom_pt.z_index = 4
         self.play(FadeIn(Tom_pt))
 
-        ear_group_1_copy.generate_target()
         targ_dot = Dot(nap_space.number_to_point(2.75)).shift(UP*0.2)
-        ear_group_1_copy.target.move_to(targ_dot.get_center())
+        # ear_group_1_copy.generate_target()
+        # ear_group_1_copy.target.move_to(targ_dot.get_center())
+
+        nose_group_11 = VGroup(face_outline_op.copy(), nose_op.copy(), box.copy()).scale(0.2).move_to(nap_space.number_to_point(2)).shift(UP*0.2)
+
+        Tom_pt.generate_target()
+        Tom_pt.target.move_to(nap_space.number_to_point(2))
+
+        self.wait(2)
+        self.play(MoveToTarget(Tom_pt), Transform(nose_group_1_copy, nose_group_11))
+
+        ####
+        ear_group_11 = VGroup(face_outline_op.copy(), left_ear_op.copy(), right_ear_op.copy(), box.copy()).scale(0.2).move_to(targ_dot.get_center())
       
         ear_vec_line_add = Line(nap_space.number_to_point(2) ,nap_space.number_to_point(2.7), color='#ADD8E6', fill_opacity=0.9)
         ear_vec_line_add.z_index = 4
@@ -365,20 +401,27 @@ class scene_6_1(Scene):
         ear_vec_add = VGroup(ear_vec_line_add, ear_vec_tip_add)
         
         weight_line_ear_add = Line(ear_dot, targ_dot)
-
-        self.play(MoveToTarget(ear_group_1_copy), Transform(ear_unit_1_copy, ear_vec_add), Transform(both_conns_ear, weight_line_ear_add))
+        
+        self.wait(2)
+        # self.play(MoveToTarget(ear_group_1_copy), Transform(ear_unit_1_copy, ear_vec_add), Transform(both_conns_ear, weight_line_ear_add))
+        self.play(Transform(ear_group_1_copy, ear_group_11), Transform(ear_unit_1_copy, ear_vec_add), Transform(both_conns_ear, weight_line_ear_add))
              
         self.wait(2)
 
         ################
-
         nose_group_1_copy.generate_target()
-        targ_dot = Dot(nap_space.number_to_point(2.75)).shift(UP*0.2)
         nose_group_1_copy.target.move_to(targ_dot.get_center())
+        Tom_pt.generate_target()
+        Tom_pt.target.move_to(nap_space.number_to_point(2.75))
               
         weight_line_nose_add = Line(nose_dot, targ_dot)
 
-        self.play(MoveToTarget(nose_group_1_copy), Transform(both_conns_nose, weight_line_nose_add))
+        nose_group_11_nofade = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to(targ_dot.get_center())
+        ear_group_11_nofade = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.2).move_to(targ_dot.get_center())
+
+        self.play(MoveToTarget(nose_group_1_copy), Transform(both_conns_nose, weight_line_nose_add), MoveToTarget(Tom_pt))
+
+        self.play(Transform(nose_group_1_copy, nose_group_11_nofade), Transform(ear_group_1_copy, ear_group_11_nofade), FadeOut(Tom_pt))
 
         self.wait(2)
 
