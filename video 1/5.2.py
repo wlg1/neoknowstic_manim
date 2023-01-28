@@ -463,11 +463,15 @@ class scene_5_2(Scene):
         
         self.wait(2)
         
+        ##############
         '''Because this combination of nose tip and ear length describes our cat people input, we call this 2D coordinate space our Input Space.'''
+
+        self.play(*[FadeOut(mob) for mob in [Tom_vec, nose_vec, ear_vec, nose_space, ear_space]])
+        self.play(*[ShrinkToCenter(mob) for mob in self.mobjects if mob != numberplane])
         
-        # self.play([FadeOut(mob)for mob in self.mobjects if mob != numberplane])
+        self.wait(2)
         
-        # input_space_text = Text("Input Space").shift(UP+LEFT)
-        # self.play(Write(input_space_text))
+        input_space_text = Text("Input Space").shift(UP)
+        self.play(Write(input_space_text))
         
-        # self.wait(2)
+        self.wait(2)
