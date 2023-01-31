@@ -72,17 +72,22 @@ class scene_6_2(Scene):
         ####################
         # objects: spaces, vectors, DMs, connections
 
-        ear_space = NumberLine(
-            x_range=[0, 5, 1],
-            include_numbers=True,
-            label_direction=UP,
-        ).scale(1.2).shift(UP*2.5+LEFT*1.6)
-
         nap_space = NumberLine(
             x_range=[0, 5, 1],
             include_numbers=True,
             label_direction=DOWN,
         ).scale(1.2).shift(LEFT*1.6)
+
+        ear_group_nap = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.2).move_to(nap_space.number_to_point(0.75)).shift(UP*0.2)
+
+        nose_group_nap = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to(nap_space.number_to_point(2)).shift(UP*0.2)     
+
+        ###
+        ear_space = NumberLine(
+            x_range=[0, 5, 1],
+            include_numbers=True,
+            label_direction=UP,
+        ).scale(1.2).shift(UP*2.5+LEFT*1.6)
         
         ear_group_1 = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.2).move_to(ear_space.number_to_point(1)).shift(UP*0.2)   
 
@@ -91,22 +96,50 @@ class scene_6_2(Scene):
         ear_vec_tip = Triangle(fill_color=BLUE, fill_opacity=0.9, color=BLUE).scale(0.07).rotate(-90*DEGREES).move_to(ear_space.number_to_point(0.95))
         ear_vec_tip.z_index = 4
         ear_unit_1 = VGroup(ear_vec_line, ear_vec_tip)
-        
-        # self.add(ear_space, nap_space, ear_group_1, ear_unit_1)
 
-        ####################
+        nap_dot = Dot(nap_space.number_to_point(0.75), radius=0.01).shift(UP*0.2)
+        conn_ear_0 = Line(ear_group_1.get_center(), nap_dot)
+
+        ear_group_unit = VGroup(ear_space, ear_group_1, ear_unit_1, conn_ear_0)
+
+        ###
+        nose_space = NumberLine(
+            x_range=[0, 5, 1],
+            include_numbers=True,
+            label_direction=DOWN,
+        ).scale(1.2).shift(DOWN*2.5+LEFT*1.6)
+
+        nose_group_1 = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to(nose_space.number_to_point(1)).shift(UP*0.2)     
+
+        nose_vec_line = Line(nose_space.number_to_point(0), nose_space.number_to_point(0.95), color=RED, fill_opacity=0.9)
+        nose_vec_line.z_index = 4
+        nose_vec_tip = Triangle(fill_color=RED, fill_opacity=0.9, color=RED).scale(0.07).rotate(-90*DEGREES).move_to(nose_space.number_to_point(0.95))
+        nose_vec_tip.z_index = 4
+        nose_unit_1 = VGroup(nose_vec_line, nose_vec_tip)
+        
+        nap_dot_nose_0 = Dot(nap_space.number_to_point(2), radius=0.01).shift(UP*0.2)
+        conn_nose_0 = Line(nose_group_1.get_center(), nap_dot_nose_0)
+
+        nose_group_unit = VGroup(nose_space, nose_group_1, nose_unit_1, conn_nose_0)
+
+        ###
+        self.add(nap_space, ear_group_nap, conn_ear_0, ear_space, ear_group_1, ear_unit_1, nose_group_nap, conn_nose_0, nose_space, nose_group_1, nose_unit_1)
+
+        ################################
+        # set up objs for 'transf to 2D'
         numberplane = NumberPlane()
 
         Tom_pt = Dot([0,0,0], radius=0.1, color=PURPLE)
         Tom_pt.z_index = 4
 
-        nose_vec_line = Line([0,0,0],[0.8, 0, 0], color=RED)
-        nose_vec_line.z_index = Tom_pt.z_index + 1
-        nose_vec_tip = Triangle(fill_color=RED, fill_opacity=1, color=RED).scale(0.1).rotate(-90*DEGREES).move_to([0.8,0,0])
-        nose_vec_tip.z_index = Tom_pt.z_index + 1
-        nose_vec = VGroup(nose_vec_line, nose_vec_tip)
-
-        ear_group = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.2).move_to([0,1,0])
+        ###
+        ear_space_vert = NumberLine(
+            x_range=[-7, 7, 1],
+            rotation=90 * DEGREES,
+            include_numbers=True,
+            label_direction=LEFT)
+            
+        ear_group_vert = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.2).move_to([0,1,0])
 
         ear_vec_line = Line([0,0,0],[0, 0.8, 0], color=BLUE)
         ear_vec_line.z_index = Tom_pt.z_index + 1
@@ -114,8 +147,30 @@ class scene_6_2(Scene):
         ear_vec_tip.z_index = Tom_pt.z_index + 1
         ear_vec = VGroup(ear_vec_line, ear_vec_tip)
 
-        ###
+        conn_ear_1 = Line(ear_group_vert.get_center(), nap_dot)
 
+        ear_group_unit_vert = VGroup(ear_space_vert, ear_group_vert, ear_vec, conn_ear_1)
+
+        ###
+        nose_space_axis = NumberLine(
+            x_range=[-7, 7, 1],
+            include_numbers=True,
+            label_direction=DOWN)
+
+        nose_group_axis = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to(nose_space_axis.number_to_point(1)).shift(UP*0.2)     
+
+        nose_vec_line = Line(nose_space_axis.number_to_point(0), nose_space_axis.number_to_point(0.95), color=RED, fill_opacity=0.9)
+        nose_vec_line.z_index = 4
+        nose_vec_tip = Triangle(fill_color=RED, fill_opacity=0.9, color=RED).scale(0.07).rotate(-90*DEGREES).move_to(nose_space_axis.number_to_point(0.95))
+        nose_vec_tip.z_index = 4
+        nose_vec = VGroup(nose_vec_line, nose_vec_tip)
+        
+        # nap_dot_nose_1 = Dot(nap_space.number_to_point(2), radius=0.01).shift(UP*0.2)
+        # conn_nose_1 = Line(nose_group_axis.get_center(), nap_dot_nose_1)
+
+        # nose_group_unit_axis = VGroup(nose_space_axis, nose_group_axis, nose_vec, conn_nose_1)
+
+        ###
         nap_space_IS = VGroup(Line([0,0,0], [5, 0, 0], color=WHITE, stroke_width=1))
         for x in range(6):
             nap_space_IS.add(Line([x, 0.1,0], [x, -0.1, 0], color=WHITE, stroke_width=1))
@@ -136,7 +191,8 @@ class scene_6_2(Scene):
             label_direction=DOWN,
         ).scale(1.2).shift(2.5*RIGHT).move_to(np.array([3.7, 2.5, 0]))
 
-        ear_group_nap = ear_group_1.copy().move_to(nap_space_2.number_to_point(0.75)).shift(UP*0.2)
+        ###
+        ear_group_nap_2 = ear_group_1.copy().move_to(nap_space_2.number_to_point(0.75)).shift(UP*0.2)
         
         ear_vec_line_nap = Line(nap_space_2.number_to_point(0), nap_space_2.number_to_point(0.7), color='#ADD8E6', fill_opacity=0.9)
         ear_vec_line_nap.z_index = 5
@@ -146,13 +202,28 @@ class scene_6_2(Scene):
 
         # use dots b/c shifts down/up, not exactly on pt
         # mid_dot = Dot(ear_space.number_to_point(0.75), radius=0.01).shift(DOWN*1) 
-        nap_dot = Dot(nap_space_2.number_to_point(0.75), radius=0.01).shift(UP*0.2)
-        conn_ear = Line([0,1,0], nap_dot)
+        nap_dot_2 = Dot(nap_space_2.number_to_point(0.75), radius=0.01).shift(UP*0.2)
+        conn_ear_2 = Line([0,1,0], nap_dot_2)
 
-        self.add(nap_space)
-        self.play(Transform(nap_space, nap_space_2), run_time=2)
-        self.play(FadeIn(numberplane, ear_group, ear_vec, NS_bg, nap_space_IS))
+        ##        
+        nose_group_nap_2 = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to(nap_space_2.number_to_point(2)).shift(UP*0.2)   
 
-        self.play(GrowFromPoint(ear_group_nap, ear_group_nap.get_center()), FadeIn(ear_unit_nap), GrowFromPoint(conn_ear, [0,1,0]), run_time=2)
+        nap_dot_nose_1 = Dot(nap_space_2.number_to_point(2), radius=0.01).shift(UP*0.2)
+        conn_nose_1 = Line(nose_group_axis.get_center(), nap_dot_nose_1)
+
+        nose_group_unit_axis = VGroup(nose_space_axis, nose_group_axis, nose_vec, conn_nose_1)
+
+        ###############
+        # play anim for 'transf to 2D'
+
+        # rotate ear space to vert
+        self.play(Transform(ear_group_unit, ear_group_unit_vert), run_time=2)
+        self.wait(2)
         
+        # move nose space to axis and nap space to top right
+        self.play(Transform(nose_group_unit, nose_group_unit_axis), Transform(nap_space, nap_space_2), Transform(conn_ear_0, conn_ear_2), Transform(ear_group_nap, ear_group_nap_2), Transform(nose_group_nap, nose_group_nap_2), Transform(conn_nose_0, conn_nose_1), run_time=2)
+        self.wait(2)
+
+        # fade in number plane
+        self.play(FadeIn(numberplane, NS_bg, nap_space_IS, conn_ear_2, conn_nose_1), run_time=2)
         self.wait(2)
