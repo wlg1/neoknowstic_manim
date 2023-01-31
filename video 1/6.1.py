@@ -342,9 +342,8 @@ class scene_6_1(Scene):
         '''And since studies on cat people suggest that nose tip and ear length can independently build on top of each other to predict nap enjoyment, we can add them together:'''
 
         eqn_3a = Tex("(2)*(1 Nose) + (0.75)*(1 Ear)", font_size=53).shift(UP*0.6+RIGHT*4.4).scale(0.7)
-        # eqn_3b = Tex("(0.5)*(1 Ear)", font_size=53).shift(RIGHT*3.5).scale(0.75)
-        eqn_3c = Tex("= ? Nap", font_size=53).shift(UP*0.1+RIGHT*4.3).scale(0.7)
-        self.play(Transform(eqn_1, eqn_3a), Transform(eqn_2, eqn_3a), Transform(napName, eqn_3c))
+        eqn_3b = Tex("= ? Nap", font_size=53).shift(UP*0.1+RIGHT*4.3).scale(0.7)
+        self.play(Transform(eqn_1, eqn_3a), Transform(eqn_2, eqn_3a), Transform(napName, eqn_3b))
 
         self.wait(2)
 
@@ -431,7 +430,9 @@ class scene_6_1(Scene):
         purp_vec_tip.z_index = 5
         purp_vec = VGroup(purp_vec_line, purp_vec_tip)
 
-        self.play(Transform(nose_unit_1_copy, purp_vec))
+        eqn_3c = Tex("= 2.75 Nap", font_size=53).shift(UP*0.1+RIGHT*4.3).scale(0.7)
+
+        self.play(Transform(nose_unit_1_copy, purp_vec), Transform(napName, eqn_3c))
         self.remove(ear_vec_add)
                      
         self.wait(2)
