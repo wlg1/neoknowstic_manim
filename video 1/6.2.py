@@ -330,7 +330,14 @@ class scene_6_2(Scene):
         nose_group_1.generate_target()
         nose_group_1.target.move_to([1,1,0])
 
-        self.play(Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group_1))
+        Tom_pt_nap.generate_target()
+        Tom_pt_nap.target.move_to(nap_space.number_to_point(2.75))
+
+        nose_group_nap.generate_target()
+        nose_group_nap.target.move_to(nap_space.number_to_point(2.75)).shift(UP*0.2)
+              
+        self.remove(conn_nose_1)
+        self.play(Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group_1), MoveToTarget(nose_group_nap), Transform(conn_nose_0, weight_line_ear_add), MoveToTarget(Tom_pt_nap))
 
         self.wait(1)
 
@@ -338,27 +345,40 @@ class scene_6_2(Scene):
         nose_group_11_nofade = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to([1,1,0])
         ear_group_11_nofade = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.2).move_to([1,1,0])
         
-        self.play(Transform(nose_group_1, nose_group_11_nofade), Transform(ear_group_1, ear_group_11_nofade))
+        nose_group_11_nofade_nap = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to(nap_space.number_to_point(2.75)).shift(UP*0.2)
+        ear_group_11_nofade_nap = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.2).move_to(nap_space.number_to_point(2.75)).shift(UP*0.2)
 
-        self.play(FadeOut(Tom_pt))
+        self.play(Transform(nose_group_1, nose_group_11_nofade), Transform(ear_group_1, ear_group_11_nofade), Transform(nose_group_nap, nose_group_11_nofade_nap), Transform(ear_group_nap, ear_group_11_nofade_nap))
+        
+        # self.play(FadeOut(Tom_pt), FadeOut(Tom_pt_nap)) #causes ear on nap to temp fade
+        # self.play(ShrinkToCenter(Tom_pt), ShrinkToCenter(Tom_pt_nap))  #causes ear on nap to temp fade        
+        self.remove(Tom_pt, Tom_pt_nap)
 
         self.wait(2)
 
-        nose_group_nap.generate_target()
-        nose_group_nap.target.move_to(targ_dot.get_center())
-        Tom_pt.generate_target()
-        Tom_pt.target.move_to(nap_space.number_to_point(2.75))
-              
-        weight_line_nose_add = Line([1,1,0], targ_dot)
-
-        nose_group_11_nofade = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to(targ_dot.get_center())
-        ear_group_11_nofade = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.2).move_to(targ_dot.get_center())
-
-        self.play(MoveToTarget(nose_group_1_copy), Transform(both_conns_nose, weight_line_nose_add), MoveToTarget(Tom_pt))
-
-        self.play(Transform(nose_group_1_copy, nose_group_11_nofade), Transform(ear_group_1_copy, ear_group_11_nofade), FadeOut(Tom_pt))
-
         ### purple vector appears in both spaces
+        tom_vec_line = Line([0,0,0],[0.8, 0.8, 0], color=PURPLE)
+        tom_vec_line.z_index = Tom_pt.z_index + 1
+        tom_tip = Triangle(fill_color=PURPLE, fill_opacity=1, color=PURPLE).scale(0.1).rotate(-45*DEGREES).move_to([0.8, 0.8, 0])
+        tom_tip.z_index = Tom_pt.z_index + 1
+        Tom_vec = VGroup(tom_vec_line, tom_tip)
+        
+        purp_vec_line = Line(nap_space.number_to_point(0), nap_space.number_to_point(2.7), color='#CF9FFF', fill_opacity=1)
+        purp_vec_line.z_index = 5
+        purp_vec_tip = Triangle(fill_color='#CF9FFF', fill_opacity=1, color='#CF9FFF').scale(0.07).rotate(-90*DEGREES).move_to(nap_space.number_to_point(2.7))
+        purp_vec_tip.z_index = 5
+        purp_vec = VGroup(purp_vec_line, purp_vec_tip).shift(UP*0.1)
+
+        self.play(GrowFromPoint(Tom_vec, [0,0,0]), GrowFromPoint(purp_vec, nap_space.number_to_point(0)))
+
+        self.wait(2)
 
         ### fade napping cat into ONLY nap space ? don't do this b/c doesn't show mapping DMs back
         '''now, pay attention closely to the next part. notice the napping cat only appears in'''
+
+        mouth_smile_2 = mouth_smile.copy().scale(1.5)
+        cat_person_zzz = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), zzz.copy(), box.copy(), mouth_smile_2).scale(0.2).move_to(nose_group_11_nofade_nap.get_center())
+
+        self.play(FadeIn(cat_person_zzz))
+        
+        self.wait(2)
