@@ -375,7 +375,7 @@ class scene_5_2(Scene):
         
         nose_group_11 = VGroup(face_outline_op.copy(), nose_op.copy(), box.copy()).scale(0.2).move_to([1,0,0])
         
-        self.play(MoveToTarget(Tom_pt), Transform(nose_group, nose_group_11))
+        self.play(MoveToTarget(Tom_pt), Transform(nose_group, nose_group_11), run_time=2)
         
         self.wait(2)
         
@@ -407,7 +407,7 @@ class scene_5_2(Scene):
         
         ear_group_11 = VGroup(face_outline_op.copy(), left_ear_op.copy(), right_ear_op.copy(), box.copy()).scale(0.2).move_to([1,1,0])
 
-        self.play(Transform(ear_vec, ear_vec_2), FadeIn(plus_sign, plus_sign_2), Transform(ear_group, ear_group_11))
+        self.play(Transform(ear_vec, ear_vec_2), FadeIn(plus_sign, plus_sign_2), Transform(ear_group, ear_group_11), run_time=2)
         
         self.wait(2)
 

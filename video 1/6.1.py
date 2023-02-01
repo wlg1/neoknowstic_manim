@@ -374,7 +374,7 @@ class scene_6_1(Scene):
 
         ################
 
-        Tom_pt = Dot(nap_space.number_to_point(0), radius=0.1, color=PURPLE, fill_opacity=1)
+        Tom_pt = Dot(nap_space.number_to_point(0), radius=0.1, color='#CBC3E3', fill_opacity=1)
         Tom_pt.z_index = 4
         self.play(FadeIn(Tom_pt))
 
@@ -388,7 +388,7 @@ class scene_6_1(Scene):
         Tom_pt.target.move_to(nap_space.number_to_point(2))
 
         self.wait(2)
-        self.play(MoveToTarget(Tom_pt), Transform(nose_group_1_copy, nose_group_11))
+        self.play(MoveToTarget(Tom_pt), Transform(nose_group_1_copy, nose_group_11), run_time=2)
 
         ####
         ear_group_11 = VGroup(face_outline_op.copy(), left_ear_op.copy(), right_ear_op.copy(), box.copy()).scale(0.2).move_to(targ_dot.get_center())
@@ -403,7 +403,7 @@ class scene_6_1(Scene):
         
         self.wait(2)
         # self.play(MoveToTarget(ear_group_1_copy), Transform(ear_unit_1_copy, ear_vec_add), Transform(both_conns_ear, weight_line_ear_add))
-        self.play(Transform(ear_group_1_copy, ear_group_11), Transform(ear_unit_1_copy, ear_vec_add), Transform(both_conns_ear, weight_line_ear_add))
+        self.play(Transform(ear_group_1_copy, ear_group_11), Transform(ear_unit_1_copy, ear_vec_add), Transform(both_conns_ear, weight_line_ear_add), run_time=2)
              
         self.wait(2)
 
