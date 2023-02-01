@@ -8,7 +8,7 @@ class KleinBottleTransformation(Scene):
                 3 * np.cos(u) * (1 + np.sin(u)) + (2 * (1 - np.cos(u) / 2)) * np.cos(u) * np.cos(v),
                 3 * np.sin(u) * (1 + np.sin(u)) + (2 * (1 - np.cos(u) / 2)) * np.sin(u) * np.cos(v),
                 -2 * (1 - np.cos(u) / 2) * np.sin(v)
-            ]), u_range = [ -np.pi, np.pi], v_range = [-np.pi, np.pi], checkerboard_colors=[YELLOW_E, BLUE],
+            ]), u_range = [ -np.pi, np.pi], v_range = [-np.pi, np.pi], checkerboard_colors=[RED_C, BLUE],
             resolution=(15, 32)).scale(0.5)
             # ]), u_min=-np.pi, u_max=np.pi, v_min=-np.pi, v_max=np.pi, checkerboard_colors=[YELLOW_E, BLUE],
             # resolution=(15, 32)).scale(0.5)
@@ -19,7 +19,7 @@ class KleinBottleTransformation(Scene):
         self.add(klein_bottle)
         
         # Create a transformation for the Klein bottle
-        transform = Rotate(klein_bottle, about_point=ORIGIN, axis=UP, angle=2*PI, rate_func=linear)
+        transform = Rotate(klein_bottle, about_point=ORIGIN, axis=UP, angle=2.5*PI, rate_func=linear)
         
         # Show the transformation animation
         self.play(transform, run_time=5)
