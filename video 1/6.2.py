@@ -80,7 +80,19 @@ class scene_6_2(Scene):
 
         ear_group_nap = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.2).move_to(nap_space.number_to_point(0.75)).shift(UP*0.2)
 
+        ear_vec_line_nap = Line(nap_space.number_to_point(0), nap_space.number_to_point(0.7), color='#ADD8E6', fill_opacity=0.9)
+        ear_vec_line_nap.z_index = 5
+        ear_vec_tip_nap = Triangle(fill_color='#ADD8E6', fill_opacity=0.9, color='#ADD8E6').scale(0.07).rotate(-90*DEGREES).move_to(nap_space.number_to_point(0.7))
+        ear_vec_tip_nap.z_index = 5
+        ear_unit_nap = VGroup(ear_vec_line_nap, ear_vec_tip_nap).shift(UP*0.1)
+
         nose_group_nap = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to(nap_space.number_to_point(2)).shift(UP*0.2)     
+
+        nose_vec_line_nap = Line(nap_space.number_to_point(0), nap_space.number_to_point(1.95), color='#FF8BA0', fill_opacity=0.9)
+        nose_vec_line_nap.z_index = 4
+        nose_vec_tip_nap = Triangle(fill_color='#FF8BA0', fill_opacity=0.9, color='#FF8BA0').scale(0.07).rotate(-90*DEGREES).move_to(nap_space.number_to_point(1.95))
+        nose_vec_tip_nap.z_index = 4
+        nose_unit_nap = VGroup(nose_vec_line_nap, nose_vec_tip_nap)
 
         ###
         ear_space = NumberLine(
@@ -123,7 +135,7 @@ class scene_6_2(Scene):
         nose_group_unit = VGroup(nose_space, nose_group_1, nose_unit_1, conn_nose_0)
 
         ###
-        self.add(nap_space, ear_group_nap, conn_ear_0, ear_space, ear_group_1, ear_unit_1, nose_group_nap, conn_nose_0, nose_space, nose_group_1, nose_unit_1)
+        self.add(nap_space, ear_group_nap, ear_unit_nap, conn_ear_0, ear_space, ear_group_1, ear_unit_1, nose_group_nap, nose_unit_nap, conn_nose_0, nose_space, nose_group_1, nose_unit_1)
 
         ################################
         # set up objs for 'transf to 2D'
@@ -194,11 +206,11 @@ class scene_6_2(Scene):
         ###
         ear_group_nap_2 = ear_group_1.copy().move_to(nap_space_2.number_to_point(0.75)).shift(UP*0.2)
         
-        ear_vec_line_nap = Line(nap_space_2.number_to_point(0), nap_space_2.number_to_point(0.7), color='#ADD8E6', fill_opacity=0.9)
-        ear_vec_line_nap.z_index = 5
-        ear_vec_tip_nap = Triangle(fill_color='#ADD8E6', fill_opacity=0.9, color='#ADD8E6').scale(0.07).rotate(-90*DEGREES).move_to(nap_space_2.number_to_point(0.7))
-        ear_vec_tip_nap.z_index = 5
-        ear_unit_nap = VGroup(ear_vec_line_nap, ear_vec_tip_nap).shift(UP*0.1)
+        ear_vec_line_nap_2 = Line(nap_space_2.number_to_point(0), nap_space_2.number_to_point(0.7), color='#ADD8E6', fill_opacity=0.9)
+        ear_vec_line_nap_2.z_index = 5
+        ear_vec_tip_nap_2 = Triangle(fill_color='#ADD8E6', fill_opacity=0.9, color='#ADD8E6').scale(0.07).rotate(-90*DEGREES).move_to(nap_space_2.number_to_point(0.7))
+        ear_vec_tip_nap_2.z_index = 5
+        ear_unit_nap_2 = VGroup(ear_vec_line_nap_2, ear_vec_tip_nap_2).shift(UP*0.1)
 
         # use dots b/c shifts down/up, not exactly on pt
         # mid_dot = Dot(ear_space.number_to_point(0.75), radius=0.01).shift(DOWN*1) 
@@ -207,6 +219,12 @@ class scene_6_2(Scene):
 
         ##        
         nose_group_nap_2 = VGroup(face_outline.copy(), nose.copy(), box.copy()).scale(0.2).move_to(nap_space_2.number_to_point(2)).shift(UP*0.2)   
+
+        nose_vec_line_nap_2 = Line(nap_space_2.number_to_point(0), nap_space_2.number_to_point(1.95), color='#FF8BA0', fill_opacity=0.9)
+        nose_vec_line_nap_2.z_index = 4
+        nose_vec_tip_nap_2 = Triangle(fill_color='#FF8BA0', fill_opacity=0.9, color='#FF8BA0').scale(0.07).rotate(-90*DEGREES).move_to(nap_space_2.number_to_point(1.95))
+        nose_vec_tip_nap_2.z_index = 4
+        nose_unit_nap_2 = VGroup(nose_vec_line_nap_2, nose_vec_tip_nap_2)
 
         nap_dot_nose_1 = Dot(nap_space_2.number_to_point(2), radius=0.01).shift(UP*0.2)
         conn_nose_1 = Line(nose_group_axis.get_center(), nap_dot_nose_1)
@@ -221,9 +239,22 @@ class scene_6_2(Scene):
         self.wait(2)
         
         # move nose space to axis and nap space to top right
-        self.play(Transform(nose_group_unit, nose_group_unit_axis), Transform(nap_space, nap_space_2), Transform(conn_ear_0, conn_ear_2), Transform(ear_group_nap, ear_group_nap_2), Transform(nose_group_nap, nose_group_nap_2), Transform(conn_nose_0, conn_nose_1), run_time=2)
+        self.play(Transform(nose_group_unit, nose_group_unit_axis), Transform(nap_space, nap_space_2), Transform(conn_ear_0, conn_ear_2), Transform(ear_group_nap, ear_group_nap_2), Transform(ear_unit_nap, ear_unit_nap_2), Transform(nose_group_nap, nose_group_nap_2), Transform(conn_nose_0, conn_nose_1), Transform(nose_unit_nap, nose_unit_nap_2), run_time=2)
         self.wait(2)
 
         # fade in number plane
         self.play(FadeIn(numberplane, NS_bg, nap_space_IS, conn_ear_2, conn_nose_1), run_time=2)
         self.wait(2)
+
+        ###
+        # dot appears in both spaces
+
+
+        # dot moves to nose in both spaces
+
+        # dot moves to ear in both spaces
+
+        # purple vector appears in both spaces
+
+        # fade napping cat into ONLY nap space ? don't do this b/c doesn't show mapping DMs back
+        '''now, pay attention closely to the next part. notice the napping cat only appears in'''
