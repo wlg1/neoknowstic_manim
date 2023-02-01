@@ -17,5 +17,5 @@ file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/6.
 file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/6.2/1080p60/partial_movie_files/scene_6_2/1672018281_125286499_502612153.mp4'
 file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/6.2/1080p60/partial_movie_files/scene_6_2/1672018281_1716827214_1371444136.mp4'
 file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/6.2/1080p60/partial_movie_files/scene_6_2/1672018281_125286499_1859700633.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/6.2/1080p60/partial_movie_files/scene_6_2/1672018281_2971957690_151524731.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/6.2/1080p60/partial_movie_files/scene_6_2/1672018281_125286499_359609771.mp4'
+file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/6.2/1080p60/partial_movie_files/scene_6_2/1672018281_625916336_151524731.mp4'
+file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/6.2/1080p60/partial_movie_files/scene_6_2/1672018281_125286499_1040433643.mp4'

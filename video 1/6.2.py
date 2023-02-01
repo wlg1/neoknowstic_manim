@@ -376,7 +376,7 @@ class scene_6_2(Scene):
         ### fade napping cat into ONLY nap space ? don't do this b/c doesn't show mapping DMs back
         '''now, pay attention closely to the next part. notice the napping cat only appears in'''
 
-        mouth_smile_2 = mouth_smile.copy().scale(1.5)
+        mouth_smile_2 = mouth_smile.copy().scale(1.875)
         cat_person_zzz = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), zzz.copy(), box.copy(), mouth_smile_2).scale(0.2).move_to(nose_group_11_nofade_nap.get_center())
 
         self.play(FadeIn(cat_person_zzz))
