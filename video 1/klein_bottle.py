@@ -19,10 +19,10 @@ class KleinBottleTransformation(Scene):
         self.add(klein_bottle)
         
         # Create a transformation for the Klein bottle
-        transform = Rotate(klein_bottle, about_point=ORIGIN, axis=UP, angle=2.5*PI, rate_func=linear)
+        transform = Rotate(klein_bottle, about_point=ORIGIN, axis=UP, angle=3*PI, rate_func=linear)
         
         # Show the transformation animation
-        self.play(transform, run_time=5)
+        self.play(transform, run_time=6)
 
 
 
