@@ -1,9 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/2.2/1080p60/partial_movie_files/scene_2_2/1413466013_3073779459_631829896.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/2.2/1080p60/partial_movie_files/scene_2_2/1413466013_3075864630_752097473.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/2.2/1080p60/partial_movie_files/scene_2_2/1672018281_125286499_778315810.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/2.2/1080p60/partial_movie_files/scene_2_2/1672018281_2667425506_1691180328.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/2.2/1080p60/partial_movie_files/scene_2_2/1672018281_125286499_3973131871.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/2.2/1080p60/partial_movie_files/scene_2_2/1672018281_1837969845_1333909578.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/2.2/1080p60/partial_movie_files/scene_2_2/1672018281_3948111176_1333909578.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/2.2/1080p60/partial_movie_files/scene_2_2/1672018281_1076466279_989270006.mp4'

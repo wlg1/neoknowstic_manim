@@ -1,6 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/2.2/1080p60/partial_movie_files/ManimScene/1413466013_3073779459_631829896.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/2.2/1080p60/partial_movie_files/ManimScene/1413466013_1180075917_3836247388.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/2.2/1080p60/partial_movie_files/ManimScene/1672018281_125286499_2571519217.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/2.2/1080p60/partial_movie_files/ManimScene/1672018281_1959292109_1503730705.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/2.2/1080p60/partial_movie_files/ManimScene/1672018281_2358420384_2604577503.mp4'

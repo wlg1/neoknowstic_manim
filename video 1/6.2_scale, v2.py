@@ -391,7 +391,7 @@ class scene_6_2_scaled(Scene):
             "[0.75 \ Ear]": '#ADD8E6'
         }).move_to(np.array([4.5, 0, 0])).scale(0.85)
                 
-        self.play(FadeIn(eqn_background_2, scalar_1, mat_1, scalar_2, plus_sign_2, mat_2, shift=DOWN))
+        self.play(FadeIn(eqn_background_2, scalar_1, mat_1, scalar_2, plus_sign_2, mat_2, shift=DOWN), Transform(eqn_nap, eqn_nap_3))
         
         self.wait(2)
 

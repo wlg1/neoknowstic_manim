@@ -1,4 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:D:/Documents/_prog/prog_cust/manim/ch2.1/2.2.2/media/videos/z_plus_alphan_cob_onlyOne/1080p60/partial_movie_files/test/450974505_975719245_2214767386.mp4'
-file 'file:D:/Documents/_prog/prog_cust/manim/ch2.1/2.2.2/media/videos/z_plus_alphan_cob_onlyOne/1080p60/partial_movie_files/test/34786186_3420007304_2303230615.mp4'
-file 'file:D:/Documents/_prog/prog_cust/manim/ch2.1/2.2.2/media/videos/z_plus_alphan_cob_onlyOne/1080p60/partial_movie_files/test/34786186_3419179428_1166746939.mp4'

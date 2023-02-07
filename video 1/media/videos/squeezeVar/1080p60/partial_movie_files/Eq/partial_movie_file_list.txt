@@ -1,5 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/squeezeVar/1080p60/partial_movie_files/Eq/1413466013_2089144551_223132457.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/squeezeVar/1080p60/partial_movie_files/Eq/1672018281_125286499_3141253156.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/squeezeVar/1080p60/partial_movie_files/Eq/1672018281_3912867202_3949580982.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/squeezeVar/1080p60/partial_movie_files/Eq/1672018281_630290007_2454642744.mp4'

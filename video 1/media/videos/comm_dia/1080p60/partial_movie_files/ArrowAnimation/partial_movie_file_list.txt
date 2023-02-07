@@ -1,6 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/comm_dia/1080p60/partial_movie_files/ArrowAnimation/1413466013_1781313349_544234079.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/comm_dia/1080p60/partial_movie_files/ArrowAnimation/1672018281_593255350_2876236164.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/comm_dia/1080p60/partial_movie_files/ArrowAnimation/1672018281_921655797_2255416322.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/comm_dia/1080p60/partial_movie_files/ArrowAnimation/1672018281_667445289_2255416322.mp4'
-file 'file:D:/Documents/_prog/my_repos/neoknowstic_manim/video 1/media/videos/comm_dia/1080p60/partial_movie_files/ArrowAnimation/1672018281_2358420384_2282228504.mp4'
