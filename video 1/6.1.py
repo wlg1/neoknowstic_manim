@@ -73,20 +73,20 @@ class scene_6_1(Scene):
         '''First, let's see how to predict Nap Smile using Ear Length. We notice that the longer a cat person's ears are, the more they enjoy naps. But relatively speaking, ear length doesn't have as much impact on nap enjoyment as nose tip does. For example, a cat person with an ear length of 2 would only enjoy naps by 0.75 units more than a cat person with an length of 1. '''
 
         cat_person_1 = VGroup(face_outline.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.4).shift(LEFT*4+UP*1.5)
-        faceBlack = cat_person_1[0].copy()
-        faceBlack.color=BLACK
-        faceBlack.z_index = 2
-        self.add(faceBlack)
+        faceBlack_0 = cat_person_1[0].copy()
+        faceBlack_0.color=BLACK
+        faceBlack_0.z_index = 2
+        self.add(faceBlack_0)
         
         into = Arrow([0,0,0],[1,0,0]).scale(4).shift(LEFT*0.5+UP*1.5)
 
         mouth_smile_2 = mouth_smile.copy().scale(0.7)
                 
         cat_person_1_zzz = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), mouth_smile_2.copy(), zzz.copy(), box.copy()).scale(0.4).shift(RIGHT*4+UP*1.5)
-        faceBlack = cat_person_1_zzz[0].copy()
-        faceBlack.color=BLACK
-        faceBlack.z_index = 2
-        self.add(faceBlack)
+        faceBlack_1 = cat_person_1_zzz[0].copy()
+        faceBlack_1.color=BLACK
+        faceBlack_1.z_index = 2
+        self.add(faceBlack_1)
                         
         text_1 = Text("1").shift(LEFT*2+UP*1.5)
         text_2 = Text("0.75").shift(RIGHT*2+UP*1.5)
@@ -121,10 +121,10 @@ class scene_6_1(Scene):
         mouth_smile_4 = mouth_smile.copy().scale(1.25)
         
         cat_person_2_zzz = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear_2.copy(), right_ear_2.copy(), nose.copy(), whiskers.copy(), mouth_smile_4.copy(), zzz.copy(), box.copy()).scale(0.4).shift(RIGHT*4+DOWN*1.5)
-        faceBlack = cat_person_2_zzz[0].copy()
-        faceBlack.color=BLACK
-        faceBlack.z_index = 2
-        self.add(faceBlack)
+        faceBlack_2 = cat_person_2_zzz[0].copy()
+        faceBlack_2.color=BLACK
+        faceBlack_2.z_index = 2
+        self.add(faceBlack_2)
                
         #########
         
@@ -146,7 +146,7 @@ class scene_6_1(Scene):
         ########################################
         '''So we get the equation: (0.75) * ear = nap'''
         
-        self.play(*[FadeOut(mob)for mob in self.mobjects])
+        self.play(*[FadeOut(mob)for mob in [text_1, text_2, text_3, text_4, into, into_2]], *[ShrinkToCenter(mob)for mob in [cat_person_1, cat_person_2, cat_person_1_zzz, cat_person_2_zzz, faceBlack, faceBlack_2, faceBlack_0, faceBlack_1]])
         
         eqn_1 = Tex("(0.75) * (1 Ear) = 0.75 Nap", font_size=53)
         self.play(FadeIn(eqn_1))
