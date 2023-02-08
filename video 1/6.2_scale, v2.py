@@ -74,7 +74,7 @@ class scene_6_2_scaled(Scene):
 
         nap_space = NumberLine(
             x_range=[-3, 2, 1],
-            include_numbers=False,
+            include_numbers=True,
             label_direction=DOWN,
         ).scale(1.2).shift(LEFT*1.6)
 
@@ -187,9 +187,6 @@ class scene_6_2_scaled(Scene):
         nap_space_2 = NumberLine(
             x_range=[-3, 2, 1],
             include_numbers=True,
-            color=BLACK,
-            stroke_color=BLACK,
-            fill_color=BLACK,
             label_direction=DOWN,
         ).scale(1.2).move_to(np.array([3.5, 2.75, 0]))
 
@@ -269,6 +266,10 @@ class scene_6_2_scaled(Scene):
             nl.stroke_width=2  #default is 4
         left_ear_scaled.z_index=1
         right_ear_scaled.z_index=1
+        for er in left_ear_scaled:
+            er.stroke_width=2
+        for er in right_ear_scaled:
+            er.stroke_width=2
 
         ########################
         # create faded objects         
@@ -294,6 +295,10 @@ class scene_6_2_scaled(Scene):
         face_outline_op.z_index=3
         left_ear_op.z_index=1
         right_ear_op.z_index=1
+        for er in left_ear_op:
+            er.stroke_width=2
+        for er in right_ear_op:
+            er.stroke_width=2
 
         ########################
         # nap eqn
@@ -305,10 +310,10 @@ class scene_6_2_scaled(Scene):
         conn_nose_0 = Line(nose_group_axis.get_center(), nap_dot_nose_1)
         conn_ear_0 = Line([0,1,0], nap_dot_2)
 
-        nap_eqn_bg = Rectangle(color=WHITE, height=1.7, width=4.5, fill_color=BLACK, 
+        nap_eqn_bg = Rectangle(color=WHITE, height=1.6, width=4.3, fill_color=BLACK, 
         fill_opacity=1, stroke_width=2).move_to(np.array([4.5, 0, 0]))
 
-        eqn_nap = MathTex(r"\begin{bmatrix} 2 \ \frac{Nap}{Nose} \end{bmatrix} * [1 \ Nose] + \\ \begin{bmatrix} 0.75 \ \frac{Nap}{Ear} \end{bmatrix} * [1 \ Ear]", tex_to_color_map={
+        eqn_nap = MathTex(r"\begin{bmatrix} 2 \ \frac{Nap}{Nose} \end{bmatrix} * [1 \ Nose] \ + \\ \begin{bmatrix} 0.75 \ \frac{Nap}{Ear} \end{bmatrix} * [1 \ Ear]", tex_to_color_map={
             "[1 \ Nose]": RED,
             "[1 \ Ear]": BLUE
         }).move_to(np.array([4.5, 0, 0])).scale(0.85)
@@ -319,8 +324,8 @@ class scene_6_2_scaled(Scene):
 
         self.wait(1)
 
-        eqn_nap_1 = MathTex(r"[2 \ Nose] + \\ \begin{bmatrix} 0.75 \ \frac{Nap}{Ear} \end{bmatrix} * [1 \ Ear]", tex_to_color_map={
-            "[2 \ Nose]": '#FF8BA0',
+        eqn_nap_1 = MathTex(r"[2 \ Nap] \ + \\ \begin{bmatrix} 0.75 \ \frac{Nap}{Ear} \end{bmatrix} * [1 \ Ear]", tex_to_color_map={
+            "[2 \ Nap]": '#FF8BA0',
             "[1 \ Ear]": BLUE
         }).move_to(np.array([4.5, 0, 0])).scale(0.85)
 
@@ -328,9 +333,9 @@ class scene_6_2_scaled(Scene):
 
         self.wait(1)
         
-        eqn_nap_2 = MathTex(r"[2 \ Nose] + [0.75 \ Ear]", tex_to_color_map={
-            "[2 \ Nose]": '#FF8BA0',
-            "[0.75 \ Ear]": '#ADD8E6'
+        eqn_nap_2 = MathTex(r"[2 \ Nap] \ + \\ [0.75 \ Nap]", tex_to_color_map={
+            "[2 \ Nap]": '#FF8BA0',
+            "[0.75 \ Nap]": '#ADD8E6'
         }).move_to(np.array([4.5, 0, 0])).scale(0.85)
         
         self.play(Transform(eqn_nap, eqn_nap_2), GrowFromPoint(conn_ear_0, [0,1,0]))
@@ -373,7 +378,7 @@ class scene_6_2_scaled(Scene):
         scalar_1 = MathTex(r"-1 \ * \ ")
         scalar_1.move_to(np.array([-5.7, 0, 0])).scale(0.7)
         
-        mat_1 = MathTex(r"\begin{bmatrix} 1 \\ 0 \end{bmatrix}")
+        mat_1 = MathTex(r"\begin{bmatrix} 1 \\ 0 \end{bmatrix}", color = RED)
         mat_1.move_to(np.array([-4.9, 0, 0])).scale(0.85)
         
         plus_sign_2 = Text('+', font_size=32)
@@ -382,13 +387,13 @@ class scene_6_2_scaled(Scene):
         scalar_2 = MathTex(r"2 \ * \ ")
         scalar_2.move_to(np.array([-3.6, 0, 0])).scale(0.7)
         
-        mat_2 = MathTex(r"\begin{bmatrix} 0 \\ 1 \end{bmatrix}")
+        mat_2 = MathTex(r"\begin{bmatrix} 0 \\ 1 \end{bmatrix}", color = BLUE)
         mat_2.move_to(np.array([-2.8, 0, 0])).scale(0.85)
 
         ###
-        eqn_nap_3 = MathTex(r"-1 * [2 \ Nose] + 2 * [0.75 \ Ear]", tex_to_color_map={
-            "[2 \ Nose]": '#FF8BA0',
-            "[0.75 \ Ear]": '#ADD8E6'
+        eqn_nap_3 = MathTex(r"-1 * [2 \ Nap] \ + \\ 2 * [0.75 \ Nap]", tex_to_color_map={
+            "[2 \ Nap]": '#FF8BA0',
+            "[0.75 \ Nap]": '#ADD8E6'
         }).move_to(np.array([4.5, 0, 0])).scale(0.85)
                 
         self.play(FadeIn(eqn_background_2, scalar_1, mat_1, scalar_2, plus_sign_2, mat_2, shift=DOWN), Transform(eqn_nap, eqn_nap_3))
@@ -446,10 +451,10 @@ class scene_6_2_scaled(Scene):
         nose_group_eqn_2 = nose_group_axis_2.copy().move_to(np.array([-4.9, 2, 0]))
         ears_eqn_2 = ear_group_vert_2.copy().move_to(np.array([-2.8, 2, 0]))
         
-        mat_1_2 = MathTex(r"\begin{bmatrix} -1 \\ 0 \end{bmatrix}")
+        mat_1_2 = MathTex(r"\begin{bmatrix} -1 \\ 0 \end{bmatrix}", color = RED)
         mat_1_2.move_to(np.array([-4.9, 0, 0])).scale(0.85)
         
-        mat_2_2 = MathTex(r"\begin{bmatrix} 0 \\ 2 \end{bmatrix}")
+        mat_2_2 = MathTex(r"\begin{bmatrix} 0 \\ 2 \end{bmatrix}", color = BLUE)
         mat_2_2.move_to(np.array([-2.8, 0, 0])).scale(0.85)
         
         plus_sign_a = Text('+', font_size=32).move_to(np.array([-3.8, 2, 0]))
@@ -458,12 +463,22 @@ class scene_6_2_scaled(Scene):
         ##########
         # play scaling of imgs and eqns
 
+        eqn_nap_4 = MathTex(r"[-2 \ Nap] \ + \\ 2 * [0.75 \ Ear]", tex_to_color_map={
+            "[-2 \ Nap]": '#FF8BA0',
+            "[0.75 \ Ear]": '#ADD8E6'
+        }).move_to(np.array([4.5, 0, 0])).scale(0.85)
+
         self.remove(conn_nose_1)
-        self.play(Transform(nose_group_1, nose_group_axis_2), Transform(nose_unit_1, nose_vec_axis_2), Transform(nose_group_nap, nose_group_nap_2), Transform(nose_unit_nap, nose_unit_nap_2_2), Transform(conn_nose_0, conn_nose_2_2), FadeOut(scalar_1, scalar_1_face, shift=RIGHT), Transform(mat_1, mat_1_2), Transform(nose_group_eqn, nose_group_eqn_2))
+        self.play(Transform(nose_group_1, nose_group_axis_2), Transform(nose_unit_1, nose_vec_axis_2), Transform(nose_group_nap, nose_group_nap_2), Transform(nose_unit_nap, nose_unit_nap_2_2), Transform(conn_nose_0, conn_nose_2_2), FadeOut(scalar_1, scalar_1_face, shift=RIGHT), Transform(mat_1, mat_1_2), Transform(nose_group_eqn, nose_group_eqn_2), Transform(eqn_nap, eqn_nap_4))
         self.play(FadeIn(conn_nose_2_2))
+
+        eqn_nap_5 = MathTex(r"[-2 \ Nap] \ + \\ [1.5 \ Nap]", tex_to_color_map={
+            "[-2 \ Nap]": '#FF8BA0',
+            "[1.5 \ Nap]": '#ADD8E6'
+        }).move_to(np.array([4.5, 0, 0])).scale(0.85)
         
         self.remove(conn_ear_2)
-        self.play(Transform(ear_group_1, ear_group_vert_2), Transform(ear_unit_1, ear_vec_vert_2), Transform(ear_group_nap, ear_group_nap_2_2), Transform(ear_unit_nap, ear_unit_nap_2_2), Transform(conn_ear_0, conn_ear_2_2), FadeOut(scalar_2, scalar_2_body, shift=RIGHT), Transform(mat_2, mat_2_2), Transform(ears_eqn, ears_eqn_2), Transform(plus_sign, plus_sign_a), Transform(plus_sign_2, plus_sign_b))
+        self.play(Transform(ear_group_1, ear_group_vert_2), Transform(ear_unit_1, ear_vec_vert_2), Transform(ear_group_nap, ear_group_nap_2_2), Transform(ear_unit_nap, ear_unit_nap_2_2), Transform(conn_ear_0, conn_ear_2_2), FadeOut(scalar_2, scalar_2_body, shift=RIGHT), Transform(mat_2, mat_2_2), Transform(ears_eqn, ears_eqn_2), Transform(plus_sign, plus_sign_a), Transform(plus_sign_2, plus_sign_b), Transform(eqn_nap, eqn_nap_5))
         self.play(FadeIn(conn_ear_2_2))
 
         self.wait(2)  
@@ -538,11 +553,15 @@ class scene_6_2_scaled(Scene):
         nose_group_nap.generate_target()
         nose_group_nap.target.move_to(nap_space.number_to_point(new_nap)).shift(UP*0.2)
 
-        mat_3 = MathTex(r"\begin{bmatrix} -1 \\ 2 \end{bmatrix}").move_to(np.array([-4.9, 0, 0])).scale(0.85)
+        mat_3 = MathTex(r"\begin{bmatrix} -1 \\ 2 \end{bmatrix}", color = PURPLE).move_to(np.array([-4.9, 0, 0])).scale(0.85)
+
+        eqn_nap_5 = MathTex(r"[-0.5 \ Nap]", tex_to_color_map={
+            "[-0.5 \ Nap]": '#CF9FFF'
+        }).move_to(np.array([4.5, 0, 0])).scale(0.85)
               
         ###   
         self.remove(conn_nose_2_2, mat_1, mat_2)
-        self.play(Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group_1), MoveToTarget(nose_group_nap), Transform(conn_nose_0, weight_line_ear_add), MoveToTarget(Tom_pt_nap), FadeOut(plus_sign_2, mat_2_2, shift=LEFT*2), Transform(mat_1_2, mat_3))
+        self.play(Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group_1), MoveToTarget(nose_group_nap), Transform(conn_nose_0, weight_line_ear_add), MoveToTarget(Tom_pt_nap), FadeOut(plus_sign_2, mat_2_2, shift=LEFT*2), Transform(mat_1_2, mat_3), Transform(eqn_nap, eqn_nap_5))
 
         self.wait(1)
 
@@ -581,9 +600,23 @@ class scene_6_2_scaled(Scene):
         ### fade napping cat into ONLY nap space ? don't do this b/c doesn't show mapping DMs back
         '''now, pay attention closely to the next part. notice the napping cat only appears in'''
 
-        # mouth_smile_2 = mouth_smile.copy().scale(1.875)
-        # cat_person_zzz = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), zzz.copy(), box.copy(), mouth_smile_2).scale(0.2).move_to(nose_group_11_nofade_nap.get_center())
+        frown = ArcBetweenPoints([-0.5, -0.75,0], [0.5, -0.75,0], stroke_width=2).rotate(180*DEGREES).scale(0.5)
+        frown.z_index=3
+        cat_person_zzz = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear_scaled.copy(), left_ear_scaled.copy(), nose_scaled.copy(), whiskers.copy(), zzz.copy(), box.copy(), frown.copy()).scale(0.2).move_to(nose_group_11_nofade_nap.get_center())
 
-        # self.play(FadeIn(cat_person_zzz))
+        self.play(FadeIn(cat_person_zzz), FadeOut(nose_unit_nap, ear_unit_nap, purp_vec))
         
-        # self.wait(2)
+        self.wait(2)
+
+        nap_space_big = NumberLine(
+            x_range=[-3, 2, 1],
+            include_numbers=True,
+            label_direction=DOWN,
+        ).scale(3)
+
+        cat_person_zzz_big = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear_scaled.copy(), right_ear_scaled.copy(), nose_scaled.copy(), whiskers.copy(), zzz.copy(), box.copy(), frown).move_to(nap_space_big.number_to_point(-0.5)).scale(0.5).shift(UP*0.3)
+
+        # self.play(FadeOut(conn_ear_0, conn_nose_0, weight_line_ear_add, numberplane))
+        self.play(*[FadeOut(mob)for mob in self.mobjects if mob not in [cat_person_zzz, nap_space]], Transform(cat_person_zzz, cat_person_zzz_big), Transform(nap_space, nap_space_big))
+
+        self.wait(2)
