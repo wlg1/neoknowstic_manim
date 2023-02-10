@@ -1,0 +1,39 @@
+SCENE 8:
+
+Now the row in our weight matrix calculates Nap Smile. If we want to use nose and ear to calculate another value, such as their Luckiness, we just add another row in our matrix, which has its own conversion factors, giving us a system of equations.
+    second row fades in: (first as #s, tehn as vars)
+    W=[nosecat earcat  
+       noseRat earRat]
+
+    2, 0.75
+    -0.75, 2
+
+Visually, this just means each Data Measurement in 2D Input Space is sent to a point in Nap Space, and also to a point in Luck Space. Then we just rotate Luck Space vertically to get a 2D coordinate plane, and add nap and luck values into a 2D coordinate value.
+    anims sending to each, horiz
+
+    rotate, then add nap and Luck
+
+Every distance is transformed by the same amount, given by the weight matrix. No two distances use different weight matrices. Thus, all relationships are preserved under the matrix analogy.
+
+We'll go over this in more detail in our later videos, along with more complicated neural networks that don't use the Identity as their activation function.
+
+[Finally, use 4 inputs to get 4D space.]
+
+<<<<<<<<<<<<
+Conclusion
+
+[play end of wind in the rushes based on how long it takes to say this (ie if 30 secs, play last 30secs)]
+
+We talked about using different sets of dimensions in Latent Space to represent our data. But there's still many questions about Latent Space to answer. In the next video of this series, we'll talk how models are analogies to relative relations between data samples, but that they're not the data samples themselves. To not confuse the map with the territory, we must beware of False Friends in the Matrix.
+    vector transform to another?
+    fade in images of geschenk
+    map != territory (put only in 2nd)
+
+For now, we've figured out how to predict which cat people enjoy naps, so we can just put that to rest.
+
+<<
+[cat person naps while comm dia is created, fading out until only square is left. music fades out
+
+use the commutative diagram logo as an 'end proof' square, which begins moving as everything else fades, and is the last thing staying.
+
+bottomright, fade in then out: "As above, so below" like in cowboy bebop? ]

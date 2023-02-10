@@ -222,13 +222,7 @@ class scene_4_1(Scene):
         self.play(Transform(nose_group_1, nose_group_1_N1), Transform(weight_line, weight_line_NN))
         
         self.wait(1) 
-        
-        N1 = nose_group_1[0].copy()
-        N1.fill_color=WHITE
-        N2 = cat_person_zzz[0].copy()
-        N2.fill_color=WHITE
-        self.play(Transform(nose_group_1, N1), Transform(cat_person_zzz, N2))
-             
+                     
         NN = VGroup(nose_group_1, weight_line, cat_person_zzz)
         
         NN.generate_target()
@@ -241,9 +235,45 @@ class scene_4_1(Scene):
         
         self.wait(1)
         
+        N1 = nose_group_1[0].copy()
+        N1.fill_color=WHITE
+        N2 = cat_person_zzz[0].copy()
+        N2.fill_color=WHITE
+        self.play(Transform(nose_group_1, N1), Transform(cat_person_zzz, N2))
         
+        self.wait(1)
         
+        ############
+        '''W contains weight connections that the X inputs are multiplied with, and A contains the neuron activations, which in our case, is the nap neuron. '''
+
+        w_copy = MathTex("w").move_to(eqn_5[1].get_center())
+        w_copy_2 = w_copy.copy().next_to(weight_line).shift(UP*0.4+LEFT*2.5)
+        x_copy = MathTex("x").move_to(eqn_5[2].get_center())
+        x_copy_2 = x_copy.copy().next_to(nose_group_1).shift(LEFT*2)
+        a_copy =  MathTex("a").move_to(eqn_5[-1].get_center())
+        a_copy_2 = a_copy.copy().next_to(cat_person_zzz).shift(RIGHT*0.2)
         
+        self.play(Transform(w_copy, w_copy_2), Transform(x_copy, x_copy_2), Transform(a_copy, a_copy_2))
         
-        
-        
+        self.wait(1)
+        '''In this case, the matrix W actually just consists of a single weight variable lower case w, also called w one. Same for the X  and A matrices.'''
+
+        eqn_6 = MathTex("I(", "[w_1]", "[x_1]", " + [0]", ")", "=", "[a_1]", font_size=42, tex_to_color_map={"+ [0]": '#00FFFF', "I(": ORANGE, ")":ORANGE}).shift(UP)
+
+        w_copy_3 = MathTex("w_1").next_to(weight_line).shift(UP*0.4+LEFT*2.5)
+        x_copy_3 = MathTex("x_1").next_to(nose_group_1).shift(LEFT*2)
+        a_copy_3 =  MathTex("a_1").next_to(cat_person_zzz).shift(RIGHT*0.2)
+
+        self.play(TransformMatchingShapes(eqn_5, eqn_6), Transform(w_copy, w_copy_3), Transform(x_copy, x_copy_3), Transform(a_copy, a_copy_3))       
+
+        self.wait(1)
+        '''Or with two neurons, if you think of the input as a nose neuron represented by the equation 1*x.'''
+
+        noseNN_eqn = MathTex("I(", "[1]", "[x_1]", " + [0]", ")", "=", font_size=42, tex_to_color_map={"+ [0]": '#00FFFF', "I(": ORANGE, ")":ORANGE}).next_to(x_copy_3).shift(LEFT*6)
+
+        self.play(FadeIn(noseNN_eqn))
+
+        self.wait(1)
+
+        #####################
+        '''So a neural network can be viewed as a function that's composed of many smaller functions....'''

@@ -1,0 +1,123 @@
+SCENE 6:
+
+So now we know how to describe a cat person using both nose tip and ear length. How do we use both of these features to calculate Nap Smile?
+
+First, let's see how to predict Nap Smile using Ear Length. We notice that the longer a cat person's ears are, the more they enjoy naps. But relatively speaking, ear length doesn't have as much impact on nap enjoyment as nose tip does. For example, a cat person with an ear length of 2 would only enjoy naps by 0.75 units more than a cat person with an length of 1.
+    1 ear -> 0.75 nap
+    2 ear -> 1.5 nap
+
+So we get the equation: (0.75) * 1 ear = (0.75) nap
+
+The Data Measurement at point 1 in ear is sent to point 0.75 in Nap, just like how the Data Measurement at point 1 in nose was sent to point 2 in Nap.
+    show nose to nap animation again, and move the dm
+
+    show ear copy rotating from vertical to horizontal, then place it below nap, 
+
+    "Similarly,"- also moving its dm to nap
+
+And since studies on cat people suggest that nose tip and ear length can independently build on top of each other to predict nap enjoyment, we can add them together:
+    (2)*nose + (0.75)*ear = nap
+
+How do we add these two features to get nap smile? By using the exact same vector addition that we used in our Input Space.
+
+<<<
+[first show each full screen, then both at same time in half screen, pausing for a while at the end. finally, show them both at same time in full seq]
+
+Now when we add together the vectors in our 2D coordinate plane,
+    move 2D tail to head, ready to add
+
+we are also adding together their analogous vectors found in our 1D Nap Space.
+    move vector from ear to nap right so it's tail to head
+
+    eqn at top: transform  w1*nose = nap to  w1*nose + (w2) * ear = nap
+
+When we add them together, we get the same data point, which is where our cat person Tom is at. 
+    transf to Tom
+
+Our Nap Space says Tom has a nap enjoyment level of 2.75.
+    transf Tom to zleeping cat with smile
+
+<<<<<<<<<<
+Let's say a nose tip that faces down has a value of -1 units. The lower the tip points, the lower the value. 
+
+In our Input Space, it's easy to see how we can add together nose tips and ear lengths of different units.
+
+[Notice the 3 places it changes] 
+
+Let's take a nose tip of -1 units, and a ear length of 2 units, and add them together. When we do so, we're also scaling the vectors in both Input Space and Nap Space. 
+    Scale nose tip down, then ear length up, by moving data pt to become new pt, and move those two into (0.5, 2) such that they overlap. Same eqns. For vectors, start with 2 * [1,0], then move scalar inside and at same time, move 2 into img (layer behind) to shrink it.
+
+    -1*(2) + 2(0.75) = -2 + 1.5 = -0.5
+    w (2, 0.75) in white and outside the entire time. -1, 2 are in light red and blue. for vectors, red adn blue.
+
+We scale nose length by -1, and ear length by 1. To add a negative vector, we just go left, instead of right. 
+
+Adding them up, we get a Nap Smile of -1.25, which means that cat person doesn't like naps that much.
+    frown anim
+
+<<<<<<<<<<
+Notice that we're just adding together scaled versions of [1,0] and [0,1]. We call these vectors that are mapped to basic measuring units of 1 'basis vectors', because they're basic buildings blocks we can scale and add together to get any other vector in our input space. They're like an alphabet used to form words in a language.
+    re-play the basis vector animations w/ labels
+    write out words 'basis vectors' on screen
+        overlay it using another manim file
+
+    analogous show basis vectors adding like words adding
+
+The basic measuring units labeled by the basis vectors in our Input Space are mapped to the vectors of length 2 and 3 in Nap Space. But these are no longer the basis vectors in Nap Space. The basis vector in Nap Space is a Nap Smile of Unit 1.
+    map them
+
+    Nap space's true basis vector appears
+
+So even though these two spaces are both calculating Tom, they are describing Tom using different basis vectors, where the Input Space talks about Tom in terms of Nose units and Ear units, while the Nap Space expresses Tom in terms of Nap units. 
+
+He simultaneously exists in both sets of dimensions at once, but he looks different in each one because they're just looking at him from different perspectives, like seeing his shadow at different angles.
+
+<<<<<<<<<<<<<<<<<<<<
+For our nose to nap equation, we can go from nap smile to nose tip by multiplying nap smile by one half. The Data Measurement on 2 in Nap Space is always on 1 in Nose Space, and on 1 is always on 0.5.
+    1 nose = (0.5) * 2 nap 
+    0.5 nose = (0.5) * 1 nap
+    
+But in some cases, there are multiple points in Input Space that can go to the same point in output space. Let's take our equation from Input Space to Nap Space.
+    2*nose + (0.75)*ear = nap
+
+First, we'll take points that go into Nap Space and place them back in Input Space. 
+    [first go from 2 to other pts:
+    2*(1) + 0 = 2
+    2*(2) + (0.75)y = 2 
+
+    color code all sent to same colored pt. 
+    ]
+
+We know that [1, 0] in Input Space maps to 2 in Nap Space. But if we plug in any value of nose, we can also find a value of ear that allows the combination of nose and ear values to be sent to 2 in Nap Space.
+
+    
+    2* (0.5 nose) + 0.75 (y ear) = 2 ; y = 1.3333
+    2*(0.5 + 1.3333 nose) + 0.75 (0) = 3.666
+
+    2* (2 nose) + 0.75 (y ear) = 2
+    2* (3 nose) + 0.75 (y ear) = 2
+    
+Solving for ear, we get
+    y = -8/3 
+
+Note that the nose,ear mapping of our data measurement at point 2 in Nap Space is not on point 2 in Input Space. This is just like how, for our nose to nap equation, a data measurement on point 2 in Nap Space was now on point 1 in Nose Space.
+
+Because Nap Space is just a 1 dimensional line of points, the analogous Nap Space in Input Space is just a line. 
+    2D to 1D collapse animation
+
+But what are the coordinate values for this point? We'll find them using orthogonal projection, which we'll go into detail in a later video.
+    (4/4.5625, 1.5/4.5625)
+    2*(4/4.5625) + (0.75)*(1.5/4.5625) = 2
+
+    2*(2/4.5625) + (0.75)*(0.75/4.5625) = 1
+
+    [call (4/4.5625, 1.5/4.5625) the 'image']
+
+All the points found along the Nap Space line embedded into Input Space can be found by just scaling [2, 0.75], which is sent to 4.(9/16). 
+
+In summary, this means that (1,0) is sent to the point (4/4.5625, 1.5/4.5625), which is a point in Input Space that's also sent to Nap Space. (0,1) is also crammed in here with another point, (2, -8/3). 
+
+All these points in 2D Space are crammed into a 1D Nap Space. When this occurs, the conversion mapping, or the weight matrix, is described as being non-invertible.
+
+<<<
+(when mapping to embedded nap, MOVE the DMs, don't just link them!)
