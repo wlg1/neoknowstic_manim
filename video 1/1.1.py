@@ -97,14 +97,18 @@ class scene_1_1(Scene):
 
         ##################################################
 
-        book_top_left = Line([-3, 2, 0], [0, 1, 0], color=BLUE)
-        book_top_right = Line([3, 2, 0], [0, 1, 0], color=BLUE)
-        book_left = Line([-3, 2, 0], [-3, -1, 0], color=BLUE)
-        book_bot_left = Line([-3, -1, 0], [0, -3, 0], color=BLUE)
-        book_bot_right = Line([3, -1, 0], [0, -3, 0], color=BLUE)
-        book_right = Line([3, 2, 0], [3, -1, 0], color=BLUE)
-        book_mid = Line([0, 1, 0], [0, -3, 0], color=BLUE)
-        book = VGroup(book_top_left, book_top_right, book_left, book_bot_left, book_bot_right, book_right, book_mid)
+        # book_top_left = Line([-3, 2, 0], [0, 1, 0], color=BLUE)
+        # book_top_right = Line([3, 2, 0], [0, 1, 0], color=BLUE)
+        # book_left = Line([-3, 2, 0], [-3, -1, 0], color=BLUE)
+        # book_bot_left = Line([-3, -1, 0], [0, -3, 0], color=BLUE)
+        # book_bot_right = Line([3, -1, 0], [0, -3, 0], color=BLUE)
+        # book_right = Line([3, 2, 0], [3, -1, 0], color=BLUE)
+        # book_mid = Line([0, 1, 0], [0, -3, 0], color=BLUE)
+        # book = VGroup(book_top_left, book_top_right, book_left, book_bot_left, book_bot_right, book_right, book_mid)
+
+        book_l = Polygon(*[[-3, 2, 0], [0, 1, 0], [0, -3, 0], [-3, -1, 0]], color='#ADD8E6', fill_color='#00008B', fill_opacity = 1)
+        book_r = Polygon(*[[3, 2, 0], [0, 1, 0], [0, -3, 0], [3, -1, 0]], color='#ADD8E6', fill_color='#00008B', fill_opacity = 1)
+        book = VGroup(book_l, book_r)
         
         ##################################################
         # cat_face = face_group.copy().move_to([1, -1.5, 0]).scale(0.65)

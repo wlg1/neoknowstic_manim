@@ -2,8 +2,8 @@ from manim import *
 
 class CatFace(Scene):
     def construct(self):    
-        ear_length = 1.5  #lowest is 0.5. each +1 is 0.5; largest is 1.5
-        nose_tip = 0.75  # each unit of 1 is 0.25. 3 is 0.75, etc
+        ear_length = 1  #lowest is 0.5. each +1 is 0.5; largest is 1.5
+        nose_tip = -0.5  # each unit of 1 is 0.25. 3 is 0.75, etc
         
         # ear_length = 2.25  #lowest is 2. each +1 is 0.25
         # nose_tip = 0.25  # each unit of 1 is 0.25. 3 is 0.75, etc

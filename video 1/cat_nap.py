@@ -5,7 +5,7 @@ class ManimScene(Scene):
     
         ###### Make the cat person ############
         ear_length = 2.75  #lowest is 2. each +1 is 0.25
-        nose_tip = 0.5  # each unit of 1 is 0.25. 3 is 0.75, etc
+        nose_tip = -0.5  # each unit of 1 is 0.25. 3 is 0.75, etc
         
         #############
         left_ear_1 = Line([-1.5, 0, 0], [-1, ear_length, 0])
@@ -41,9 +41,9 @@ class ManimScene(Scene):
         
         zzz = Text("...zZz...", font_size = 40, color=WHITE).move_to([2.2, 1.8,0])
         
-        self.play(Write(zzz))
-        self.wait(1)
-        self.play(Unwrite(zzz))
+        # self.play(Write(zzz))
+        # self.wait(1)
+        # self.play(Unwrite(zzz))
         
         # for i in range(3):
             # self.play(FadeIn(zzz, shift=RIGHT))
