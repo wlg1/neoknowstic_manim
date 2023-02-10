@@ -235,13 +235,13 @@ class scene_4_1(Scene):
         
         self.wait(1)
         
-        N1 = nose_group_1[0].copy()
-        N1.fill_color=WHITE
-        N2 = cat_person_zzz[0].copy()
-        N2.fill_color=WHITE
-        self.play(Transform(nose_group_1, N1), Transform(cat_person_zzz, N2))
+        # N1 = nose_group_1[0].copy()
+        # N1.fill_color=WHITE
+        # N2 = cat_person_zzz[0].copy()
+        # N2.fill_color=WHITE
+        # self.play(Transform(nose_group_1, N1), Transform(cat_person_zzz, N2))
         
-        self.wait(1)
+        # self.wait(1)
         
         ############
         '''W contains weight connections that the X inputs are multiplied with, and A contains the neuron activations, which in our case, is the nap neuron. '''
@@ -249,9 +249,9 @@ class scene_4_1(Scene):
         w_copy = MathTex("w").move_to(eqn_5[1].get_center())
         w_copy_2 = w_copy.copy().next_to(weight_line).shift(UP*0.4+LEFT*2.5)
         x_copy = MathTex("x").move_to(eqn_5[2].get_center())
-        x_copy_2 = x_copy.copy().next_to(nose_group_1).shift(LEFT*2)
+        x_copy_2 = x_copy.copy().next_to(nose_group_1).shift(UP*0.6+LEFT*2.2)
         a_copy =  MathTex("a").move_to(eqn_5[-1].get_center())
-        a_copy_2 = a_copy.copy().next_to(cat_person_zzz).shift(RIGHT*0.2)
+        a_copy_2 = a_copy.copy().next_to(cat_person_zzz).shift(UP*0.6)
         
         self.play(Transform(w_copy, w_copy_2), Transform(x_copy, x_copy_2), Transform(a_copy, a_copy_2))
         
@@ -261,19 +261,95 @@ class scene_4_1(Scene):
         eqn_6 = MathTex("I(", "[w_1]", "[x_1]", " + [0]", ")", "=", "[a_1]", font_size=42, tex_to_color_map={"+ [0]": '#00FFFF', "I(": ORANGE, ")":ORANGE}).shift(UP)
 
         w_copy_3 = MathTex("w_1").next_to(weight_line).shift(UP*0.4+LEFT*2.5)
-        x_copy_3 = MathTex("x_1").next_to(nose_group_1).shift(LEFT*2)
-        a_copy_3 =  MathTex("a_1").next_to(cat_person_zzz).shift(RIGHT*0.2)
+        x_copy_3 = MathTex("x_1").next_to(nose_group_1).shift(UP*0.6+LEFT*2.2)
+        a_copy_3 =  MathTex("a_1").next_to(cat_person_zzz).shift(UP*0.6)
 
         self.play(TransformMatchingShapes(eqn_5, eqn_6), Transform(w_copy, w_copy_3), Transform(x_copy, x_copy_3), Transform(a_copy, a_copy_3))       
 
         self.wait(1)
         '''Or with two neurons, if you think of the input as a nose neuron represented by the equation 1*x.'''
 
-        noseNN_eqn = MathTex("I(", "[1]", "[x_1]", " + [0]", ")", "=", font_size=42, tex_to_color_map={"+ [0]": '#00FFFF', "I(": ORANGE, ")":ORANGE}).next_to(x_copy_3).shift(LEFT*6)
+        noseNN_eqn = MathTex("I(", "[1]", "[x_1]", " + [0]", ")", "=", font_size=42, tex_to_color_map={"+ [0]": '#00FFFF', "I(": ORANGE, ")":ORANGE}).next_to(x_copy_3).shift(LEFT*4)
 
-        self.play(FadeIn(noseNN_eqn))
+        x_copy_4 = MathTex("[x_1]").next_to(nose_group_1).shift(UP*0.6+LEFT*2.2)
+
+        self.play(FadeIn(noseNN_eqn), Transform(x_copy, x_copy_4))
 
         self.wait(1)
 
         #####################
         '''So a neural network can be viewed as a function that's composed of many smaller functions....'''
+
+        NN_2  = NN.copy().scale(0.6).shift(UP*2.8)
+        eqn_6.generate_target()
+        eqn_6.target.shift(UP*2)
+        eqn_n.generate_target()
+        eqn_n.target.shift(UP*2)
+        self.play(FadeOut(x_copy, w_copy, a_copy, noseNN_eqn), Transform(NN, NN_2), MoveToTarget(eqn_6), MoveToTarget(eqn_n))
+        
+        self.wait(1)
+
+        #####
+        inNode_1 = Circle(radius=0.5, fill_color=GRAY, fill_opacity=1,  color=GRAY, stroke_width=1).move_to([-3, 2, 0])
+        inNode_2 = Circle(radius=0.5, fill_color=GRAY, fill_opacity=1,  color=GRAY, stroke_width=1).move_to([-3, 0, 0])
+        inNode_3 = Circle(radius=0.5, fill_color=GRAY, fill_opacity=1,  color=GRAY, stroke_width=1).move_to([-3, -2, 0])
+
+        midNode_1 = Circle(radius=0.5, fill_color=GRAY, fill_opacity=1,  color=GRAY, stroke_width=1).move_to([0, 1, 0])
+        midNode_2 = Circle(radius=0.5, fill_color=GRAY, fill_opacity=1,  color=GRAY, stroke_width=1).move_to([0, -1, 0])
+
+        outNode_1 = Circle(radius=0.5, fill_color=GRAY, fill_opacity=1,  color=GRAY, stroke_width=1).move_to([3, 2, 0])
+        outNode_2 = Circle(radius=0.5, fill_color=GRAY, fill_opacity=1,  color=GRAY, stroke_width=1).move_to([3, 0, 0])
+        outNode_3 = Circle(radius=0.5, fill_color=GRAY, fill_opacity=1,  color=GRAY, stroke_width=1).move_to([3, -2, 0])
+        
+        conn_1 = Line(inNode_1.get_center(), midNode_1.get_center(), color=GRAY)
+        conn_2 = Line(inNode_2.get_center(), midNode_1.get_center(), color=GRAY)
+        conn_3 = Line(inNode_3.get_center(), midNode_1.get_center(), color=GRAY)
+        conn_4 = Line(inNode_1.get_center(), midNode_2.get_center(), color=GRAY)
+        conn_5 = Line(inNode_2.get_center(), midNode_2.get_center(), color=GRAY)
+        conn_6 = Line(inNode_3.get_center(), midNode_2.get_center(), color=GRAY)
+        conn_7 = Line(midNode_1.get_center(), outNode_1.get_center(), color=GRAY)
+        conn_8 = Line(midNode_1.get_center(), outNode_2.get_center(), color=GRAY)
+        conn_9 = Line(midNode_1.get_center(), outNode_3.get_center(), color=GRAY)
+        conn_10 = Line(midNode_2.get_center(), outNode_1.get_center(), color=GRAY)
+        conn_11 = Line(midNode_2.get_center(), outNode_2.get_center(), color=GRAY)
+        conn_12 = Line(midNode_2.get_center(), outNode_3.get_center(), color=GRAY)
+                
+        bigNN = VGroup(conn_1, conn_2, conn_3, conn_4, conn_5, conn_6, conn_7, conn_8, conn_9, conn_10, conn_11, conn_12, inNode_1, inNode_2, inNode_3, midNode_1, midNode_2, outNode_1, outNode_2, outNode_3).scale(0.75).shift(DOWN*1.3)
+        
+        self.play(FadeIn(bigNN))
+
+        self.wait(1)
+
+        #####        
+        N1 = nose_group_1[0].copy()
+        N1.fill_color=WHITE
+        N2 = cat_person_zzz[0].copy()
+        N2.fill_color=WHITE
+        self.play(Transform(nose_group_1, N1), Transform(cat_person_zzz, N2))
+        
+        self.wait(1)
+
+        ####
+
+        inNode_1_b = inNode_1.copy()
+        inNode_1_b.color = WHITE
+        conn_1_b = conn_1.copy()
+        conn_1_b.color = WHITE
+        midNode_1_b = midNode_1.copy()
+        midNode_1_b.color = WHITE
+
+        NN_embed = VGroup(inNode_1_b, conn_1_b, midNode_1_b)
+
+        self.play(Transform(NN, NN_embed))
+        
+        self.wait(1)
+
+        ######
+        '''Of course, a neural network is more than just this equation, so rather than saying this equation is a neural network, we can say it's analogous to a neural network.'''
+
+        eqn_7 = eqn_6.copy().shift(DOWN+LEFT*2)
+        eqn_n3 = eqn_n2.copy.shift(RIGHT*2)
+
+        self.play(Transform(eqn_6, eqn_7), Transform(eqn_n2, eqn_n3))
+        
+        self.wait(1)
