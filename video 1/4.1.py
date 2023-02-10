@@ -335,21 +335,42 @@ class scene_4_1(Scene):
         inNode_1_b.color = WHITE
         conn_1_b = conn_1.copy()
         conn_1_b.color = WHITE
+        conn_1_b.z_index = 5
         midNode_1_b = midNode_1.copy()
         midNode_1_b.color = WHITE
 
         NN_embed = VGroup(inNode_1_b, conn_1_b, midNode_1_b)
 
         self.play(Transform(NN, NN_embed))
+        self.add(conn_1_b)
         
         self.wait(1)
 
         ######
         '''Of course, a neural network is more than just this equation, so rather than saying this equation is a neural network, we can say it's analogous to a neural network.'''
 
-        eqn_7 = eqn_6.copy().shift(DOWN+LEFT*2)
-        eqn_n3 = eqn_n2.copy.shift(RIGHT*2)
+        eqn_7 = MathTex("I(", "w_1 *", "x_1", " + 0", ")", "=", "a_1", font_size=42, tex_to_color_map={"+ 0": '#00FFFF', "I(": ORANGE, ")":ORANGE}).shift(UP*3)
+        eqn_7.shift(DOWN+LEFT*2.75)
+        # eqn_7 = eqn_6.copy().shift(DOWN+LEFT*3)
+        eqn_n3 = eqn_n2.copy().next_to(eqn_7).shift(RIGHT*1.5)
+        approx = Tex(r"$\approx$").next_to(eqn_7).shift(RIGHT*0.5)
 
-        self.play(Transform(eqn_6, eqn_7), Transform(eqn_n2, eqn_n3))
+        self.play(Transform(eqn_6, eqn_7), Transform(eqn_n, eqn_n3))
+        self.play(FadeIn(approx))
+        
+        self.wait(1)
+
+        ######
+        '''But what allows large neural networks to do complex tasks that a simple neural network can't do? Let's see what happens when we add more connections to our network, starting by just adding one more.'''
+
+        self.play(FadeOut(eqn_6, approx, eqn_n))
+
+        inNode_2_b = inNode_2.copy()
+        inNode_2_b.color = WHITE
+        conn_2_b = conn_2.copy()
+        conn_2_b.color = WHITE
+
+        self.play(FadeIn(inNode_2_b, conn_2_b))
+        self.play(FadeOut(bigNN))
         
         self.wait(1)
