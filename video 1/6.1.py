@@ -147,13 +147,15 @@ class scene_6_1(Scene):
         '''So we get the equation: (0.75) * ear = nap'''
         
         self.play(*[FadeOut(mob)for mob in [text_1, text_2, text_3, text_4, into, into_2]], *[ShrinkToCenter(mob)for mob in [cat_person_1, cat_person_2, cat_person_1_zzz, cat_person_2_zzz, faceBlack, faceBlack_2, faceBlack_0, faceBlack_1]])
-        
-        eqn_1 = Tex("(0.75) * (1 Ear) = 0.75 Nap", font_size=53)
+                
+        eqn_1 = MathTex(r"0.75 \ \frac{Nap}{Ear} * (1 \ Ear) = 0.75 \ Nap", font_size=45, tex_to_color_map={
+            "(1 \ Ear)": BLUE
+        })
         self.play(FadeIn(eqn_1))
 
         self.wait(2)
 
-        # eqn_w = Tex("W * (0.5 Ear) = W*(0.5) Nap", font_size=53)
+        # eqn_w = Tex("W * (0.5 Ear) = W*(0.5) Nap", font_size=45)
         # self.play(Transform(eqn_1, eqn_w))
 
         # self.wait(2)
@@ -177,8 +179,8 @@ class scene_6_1(Scene):
         napName = Text("Nap").shift(RIGHT*4.2).scale(0.75)
         
         eqn_1_top = eqn_1.copy() 
-        eqn_1_top.shift(UP*1.5+RIGHT*4).scale(0.75)
-        weight_1 = Tex("0.75 * ", font_size=53).move_to(ear_space.number_to_point(1)).shift(DOWN*1).scale(0.75)
+        eqn_1_top.shift(UP*1.5+RIGHT*3.7).scale(0.75)
+        weight_1 = Tex("0.75 * ", font_size=45).move_to(ear_space.number_to_point(1)).shift(DOWN*1).scale(0.75)
         
         eqn_1_copy = eqn_1.copy()
         self.play(Transform(eqn_1, eqn_1_top), GrowFromPoint(ear_space, eqn_1), GrowFromPoint(nap_space, eqn_1), Transform(eqn_1_copy, weight_1), FadeIn(earName, napName))
@@ -253,7 +255,9 @@ class scene_6_1(Scene):
         ##################
         '''just like how the Data Measurement at point 1 in nose was sent to point 2 in Nap.'''
 
-        eqn_2 = Tex("(2) * (1 Nose) = 2 Nap", font_size=53).shift(DOWN*1.5+RIGHT*4).scale(0.75)
+        eqn_2 = MathTex(r"2 \ \frac{Nap}{Nose} * (1 \ Nose) = 2 \ Nap", font_size=45, tex_to_color_map={
+            "(1 \ Nose)": RED
+        }).shift(DOWN*1.5+RIGHT*3.7).scale(0.75)
         self.play(FadeIn(eqn_2))
 
         nose_space = NumberLine(
@@ -264,7 +268,7 @@ class scene_6_1(Scene):
 
         noseName = Text("Nose").shift(DOWN*2.5+RIGHT*4.2).scale(0.75)
         
-        weight_2 = Tex("2 * ", font_size=53).move_to(nose_space.number_to_point(1)).shift(UP*1).scale(0.75)
+        weight_2 = Tex("2 * ", font_size=45).move_to(nose_space.number_to_point(1)).shift(UP*1).scale(0.75)
         
         self.play(GrowFromPoint(nose_space, eqn_2), GrowFromPoint(weight_2, eqn_2), FadeIn(noseName))
         
@@ -341,8 +345,11 @@ class scene_6_1(Scene):
         ################
         '''And since studies on cat people suggest that nose tip and ear length can independently build on top of each other to predict nap enjoyment, we can add them together:'''
 
-        eqn_3a = Tex("(2)*(1 Nose) + (0.75)*(1 Ear)", font_size=53).shift(UP*0.6+RIGHT*4.4).scale(0.7)
-        eqn_3b = Tex("= ? Nap", font_size=53).shift(UP*0.1+RIGHT*4.3).scale(0.7)
+        eqn_3a = MathTex(r"2 \ \frac{Nap}{Nose} * (1 \ Nose) + 0.75 \ \frac{Nap}{Nose} * (1 \ Ear)", font_size=45, tex_to_color_map={
+            "(1 \ Nose)": RED,
+            "(1 \ Ear)": BLUE
+        }).shift(UP*0.9+RIGHT*4).scale(0.7)
+        eqn_3b = Tex("= ? Nap", font_size=45).shift(UP*0.1+RIGHT*3.8).scale(0.7)
         self.play(Transform(eqn_1, eqn_3a), Transform(eqn_2, eqn_3a), Transform(napName, eqn_3b))
 
         self.wait(2)
@@ -430,7 +437,7 @@ class scene_6_1(Scene):
         purp_vec_tip.z_index = 5
         purp_vec = VGroup(purp_vec_line, purp_vec_tip)
 
-        eqn_3c = Tex("= 2.75 Nap", font_size=53).shift(UP*0.1+RIGHT*4.3).scale(0.7)
+        eqn_3c = Tex("= 2.75 Nap", font_size=45).shift(UP*0.1+RIGHT*4.3).scale(0.7)
 
         self.play(Transform(nose_unit_1_copy, purp_vec), Transform(napName, eqn_3c))
         self.remove(ear_vec_add)

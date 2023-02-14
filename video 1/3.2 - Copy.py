@@ -108,7 +108,7 @@ class scene_3_2(Scene):
         
         self.play(*[FadeOut(mob)for mob in self.mobjects])
         
-        eqn_1 = MathTex(r"2 \ \frac{Nap}{Nose} * (1 \ Nose) = 2 \ Nap", font_size=45)
+        eqn_1 = Tex("2 * (1 Nose) = 2 Nap", font_size=53)
         self.play(FadeIn(eqn_1))
         
         self.wait(4)
@@ -132,8 +132,8 @@ class scene_3_2(Scene):
         napName = Text("Nap").shift(DOWN*2+RIGHT*5)
         
         eqn_1.generate_target()
-        eqn_1.target.shift(RIGHT*2.75)      
-        weight_2 = MathTex("2 * ", font_size=45).move_to(nose_space.number_to_point(1)).shift(DOWN*1.5)
+        eqn_1.target.shift(RIGHT*2.5)      
+        weight_2 = Tex("2 * ", font_size=53).move_to(nose_space.number_to_point(1)).shift(DOWN*1.5)
         
         # self.play(MoveToTarget(eqn_1), GrowFromPoint(nose_space, eqn_1), GrowFromPoint(nap_space, eqn_1), Transform(eqn_1.copy(), weight_2))
         # can't do above b/c no way to get rid of copy after transf
@@ -234,9 +234,9 @@ class scene_3_2(Scene):
         nose_group_1.move_to(nose_space.number_to_point(2))
         self.play(Transform(nose_unit_0, nose_unit_1), Transform(nose_group_0, nose_group_1))
         
-        eqn_1 = MathTex(r"2 \ \frac{Nap}{Nose} * (2 \ Nose) = 4 \ Nap", font_size=45).shift(LEFT*3)
+        eqn_1 = Tex("2 * (2 Nose) = 4 Nap", font_size=53).shift(LEFT*3)
         eqn_1_copy = eqn_1.copy()
-        weight_2 = MathTex("2 * ", font_size=45).move_to(nose_space.number_to_point(2)).shift(DOWN*1.5)
+        weight_2 = Tex("2 * ", font_size=53).move_to(nose_space.number_to_point(2)).shift(DOWN*1.5)
         # self.play(FadeIn(eqn_1))
         self.play(FadeIn(eqn_1_copy))
         self.play(Transform(eqn_1_copy, weight_2))
@@ -284,17 +284,17 @@ class scene_3_2(Scene):
         ##################################
         '''Our unit conversation factor of 2 can be represented, in general, as a variable W, which means how much we should weigh our nose value by to get our nap value. '''
         
-        eqn_1 = Tex("2 * (2 Nose) = 4 Nap", font_size=45).shift(LEFT*3)
+        eqn_1 = Tex("2 * (2 Nose) = 4 Nap", font_size=53).shift(LEFT*3)
         self.play(FadeIn(eqn_1))
         self.wait(2)
-        eqn_w = Tex("w * (2 Nose) = w*2 Nap", font_size=45).shift(LEFT*3)
+        eqn_w = Tex("W * (2 Nose) = W*2 Nap", font_size=53).shift(LEFT*3)
         self.play(Transform(eqn_1, eqn_w))
         self.wait(4)
         
         ##################################
         '''Let's also represent our input as a variable x'''
         
-        eqn_wx = Tex("w * (x Nose) = w*x Nap", font_size=45).shift(LEFT*3)
+        eqn_wx = Tex("W * (X Nose) = W*X Nap", font_size=53).shift(LEFT*3)
         self.play(Transform(eqn_1, eqn_wx))
         self.wait(4)
         

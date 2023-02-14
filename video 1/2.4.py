@@ -59,7 +59,7 @@ class scene_2_4(Scene):
         for whisk in whiskers:
             whisk.z_index=3
             
-        nose_box = Rectangle(color=WHITE, height=5.7, width=6, stroke_width=1, fill_color=BLACK).shift(UP*0.33)
+        nose_box = Rectangle(color=BLACK, height=5.7, width=6, stroke_width=0.01, fill_color=BLACK).shift(UP*0.33)
         nose_box.z_index = 0
         
         cat_person_1 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), nose_box.copy()).scale(0.7).shift(LEFT*5) 

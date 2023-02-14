@@ -72,7 +72,7 @@ class scene_3_1(Scene):
         # faceBlack.color=BLACK
         # self.add(faceBlack)
         
-        box = Rectangle(color=WHITE, height=5.7, width=6, stroke_width=1, fill_color=BLACK).shift(UP*0.33)
+        box = Rectangle(color=BLACK, height=5.7, width=6, stroke_width=0.01, fill_color=BLACK).shift(UP*0.33)
         box.z_index = 0
         
         cat_person_zzz = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), mouth_smile.copy(), zzz.copy(), box.copy()).scale(0.3)  

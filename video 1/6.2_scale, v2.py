@@ -612,7 +612,7 @@ class scene_6_2_scaled(Scene):
             x_range=[-3, 2, 1],
             include_numbers=True,
             label_direction=DOWN,
-        ).scale(3)
+        ).scale(2.5)
 
         cat_person_zzz_big = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear_scaled.copy(), right_ear_scaled.copy(), nose_scaled.copy(), whiskers.copy(), zzz.copy(), box.copy(), frown).move_to(nap_space_big.number_to_point(-0.5)).scale(0.5).shift(UP*0.3)
 

@@ -36,9 +36,9 @@ class CatFace(Scene):
         
         # mouth = Arc(angle= -PI).scale(0.5).move_to([0, -0.75, 0])
         # mouth = ArcBetweenPoints([-0.5, -0.75,0], [0.5, -0.75,0])
-        mouth = Ellipse(width=0.4, height=0.8, color=WHITE).move_to([0, -0.75, 0])
+        mouth = Ellipse(width=0.5, height=0.9, color=WHITE).move_to([0, -1.1, 0])
                                 
-        self.add(face, left_eye, right_eye, left_ear, right_ear)
+        self.add(face, left_eye, right_eye, left_ear, right_ear, mouth)
         self.add(whisker_1, whisker_2, whisker_3, whisker_4, whisker_5, whisker_6)
         self.add(nose_line_1, nose_line_2, nose_line_3)
         self.bring_to_back(left_ear, right_ear)
