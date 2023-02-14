@@ -82,7 +82,6 @@ class CatFace_shadow(ThreeDScene):
         self.set_camera_orientation(phi=70 * DEGREES)
 
         cat_face = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy())
-        # , box.copy())
 
         self.play(
             cat_face.animate.shift([0, 0, 2]),
@@ -94,52 +93,65 @@ class CatFace_shadow(ThreeDScene):
         shadow_node.z_index=3
 
         temp_catface = VGroup(shadow_node.copy(), left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy()).scale(0.3).move_to(np.array([-3, 1, 0]))   
+        temp_catface = VGroup(temp_catface[0].copy(), temp_catface[5].copy())
 
         shadow = VGroup(temp_catface.copy(), neck.copy(), body.copy(), left_arm.copy(), right_arm.copy(), left_leg.copy(), right_leg.copy()).scale(1.2).move_to([-2, -2, 0])  
 
         shadow_noFace = VGroup(shadow[0][0].copy(), shadow[1].copy(), shadow[2].copy(), shadow[3].copy(), shadow[4].copy(), shadow[5].copy(), shadow[6].copy())
-        
-        self.add(shadow_noFace)
-
-        cat_face_copy = cat_face.copy()
-        self.play(Transform(cat_face_copy, shadow[0]), run_time=2)
-        self.add(shadow)
-
-        self.wait(1)
 
         #######
-        # shadow_node_2 = Circle(radius=1.75, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=2)
-        # shadow_node_2.z_index=3
-        # temp_catface = VGroup(shadow_node.copy(), left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy()).scale(0.3).move_to(np.array([-3, 1, 0]))   
-        # shadow = VGroup(temp_catface[0].copy(), neck.copy(), body.copy(), left_arm.copy(), right_arm.copy(), left_leg.copy(), right_leg.copy()).scale(1.2).move_to([-2, -2, 0]) 
-        #    
-        # shadow_2 = VGroup(shadow_node_2.copy(), left_ear.copy(), right_ear.copy(), box.copy()).scale(0.65).move_to([2, -2, 0])        
+        shadow_node_2 = Circle(radius=1.75, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=2)
+        shadow_node_2.z_index=3
+        
+        temp_catface = VGroup(shadow_node_2.copy(), left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy()).scale(0.3).move_to(np.array([-3, 1, 0]))   
+        temp_catface = VGroup(temp_catface[0].copy(), temp_catface[3].copy(), temp_catface[4].copy())
 
+        shadow_2 = VGroup(temp_catface.copy(), neck.copy(), body.copy(), left_arm.copy(), right_arm.copy(), left_leg.copy(), right_leg.copy()).scale(1.2).move_to([2, -2, 0])  
+
+        shadow_2_noFace = VGroup(shadow_2[0][0].copy(), shadow_2[1].copy(), shadow_2[2].copy(), shadow_2[3].copy(), shadow_2[4].copy(), shadow_2[5].copy(), shadow_2[6].copy())
+        
+        #######
+        shadow_node_3 = Circle(radius=1.75, color=PURPLE, fill_color=BLACK, fill_opacity=1, stroke_width=2)        
+        shadow_node_3.z_index=3
+
+        temp_catface = VGroup(shadow_node_3.copy(), left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), mouth_smile.copy()).scale(0.3).move_to(np.array([-3, 1, 0]))   
+        temp_catface = VGroup(temp_catface[0].copy(), temp_catface[3].copy(), temp_catface[4].copy(), temp_catface[5].copy(), temp_catface[7].copy())
+
+        shadow_3 = VGroup(temp_catface.copy(), neck.copy(), body.copy(), left_arm.copy(), right_arm.copy(), left_leg.copy(), right_leg.copy()).scale(1.2).move_to([0, -4, 0])   
+
+        shadow_3_noFace = VGroup(shadow_3[0][0].copy(), shadow_3[1].copy(), shadow_3[2].copy(), shadow_3[3].copy(), shadow_3[4].copy(), shadow_3[5].copy(), shadow_3[6].copy())
 
         #######
-        # shadow_node_3 = Circle(radius=1.75, color=PURPLE, fill_color=BLACK, fill_opacity=1, stroke_width=2)        
-        # shadow_node_3.z_index=3
-        # shadow_3 = VGroup(shadow_node_3.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), mouth_smile.copy(), box.copy()).scale(0.65).move_to([0, -4, 0])   
-
-        # conn_1 = Line(shadow.get_center(), shadow_3.get_center())
-        # conn_2 = Line(shadow_2.get_center(), shadow_3.get_center())
-        # conn_1.z_index = -1
-        # conn_2.z_index = -1
+        conn_1 = Line(shadow[0].get_center(), shadow_3[0].get_center(), color = GRAY)
+        conn_2 = Line(shadow_2[0].get_center(), shadow_3[0].get_center(), color = GRAY)
+        conn_1.z_index = -1
+        conn_2.z_index = -1
         
-        # self.play(FadeIn(shadow, shadow_2[0], shadow_3[0]))
-        # self.play(GrowFromPoint(conn_1, shadow.get_center()), GrowFromPoint(conn_2, shadow_2.get_center()))
+        #######
+        self.play(FadeIn(shadow_noFace, shadow_2_noFace, shadow_3_noFace))
         
         # # Animate the cat_face rotating
         # self.begin_ambient_camera_rotation(rate=0.03)
 
-        # cat_face_copy = cat_face.copy()
-        # self.play(Transform(cat_face_copy, shadow[0]), run_time=2)
-        # self.add(shadow)  #scene 1 w/o, s8 w/
+        self.wait(2)
 
-        # cat_face_copy_2 = cat_face.copy()
-        # self.play(Transform(cat_face_copy_2, shadow_2[0]), run_time=2)
-        # self.add(shadow_2) #scene 1 w/o, s8 w/
+        cat_face_copy = cat_face.copy()
+        self.play(Transform(cat_face_copy, shadow[0][0]), run_time = 2)
+        self.add(shadow)  #scene 1 w/o, s8 w/
 
-        # self.play(GrowFromCenter(shadow_3.copy())) #scene 1 w/o, s8 w/
+        self.wait(2)
 
-        # self.wait(4)
+        cat_face_copy_2 = cat_face.copy()
+        self.play(Transform(cat_face_copy_2, shadow_2[0][0]), run_time = 2)
+        self.add(shadow_2) #scene 1 w/o, s8 w/
+
+        self.wait(2)
+
+        self.play(GrowFromPoint(conn_1, shadow[0].get_center()), GrowFromPoint(conn_2, shadow_2[0].get_center()), run_time = 2)
+        
+        node1 = shadow[0].copy()
+        node2 = shadow_2[0].copy()
+        self.play(Transform(node1, shadow_3[0]), Transform(node2, shadow_3[0][0]), run_time = 2)
+        self.add(shadow_3) #scene 1 w/o, s8 w/
+
+        self.wait(2)
