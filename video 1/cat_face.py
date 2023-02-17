@@ -2,8 +2,10 @@ from manim import *
 
 class CatFace(Scene):
     def construct(self):    
-        ear_length = 1  #lowest is 0.5. each +1 is 0.5; largest is 1.5
-        nose_tip = -0.5  # each unit of 1 is 0.25. 3 is 0.75, etc
+        # ear_length = 1  #lowest is 0.5. each +1 is 0.5; largest is 1.5
+        # nose_tip = -0.5  # each unit of 1 is 0.25. 3 is 0.75, etc
+        ear_length = 0.5  #lowest is 0.5. each +1 is 0.5; largest is 1.5
+        nose_tip = 0.3  # each unit of 1 is 0.25. 3 is 0.75, etc
         
         # ear_length = 2.25  #lowest is 2. each +1 is 0.25
         # nose_tip = 0.25  # each unit of 1 is 0.25. 3 is 0.75, etc
@@ -36,9 +38,9 @@ class CatFace(Scene):
         
         # mouth = Arc(angle= -PI).scale(0.5).move_to([0, -0.75, 0])
         # mouth = ArcBetweenPoints([-0.5, -0.75,0], [0.5, -0.75,0])
-        mouth = Ellipse(width=0.5, height=0.9, color=WHITE).move_to([0, -1.1, 0])
+        # mouth = Ellipse(width=0.5, height=0.9, color=WHITE).move_to([0, -1.1, 0])
                                 
-        self.add(face, left_eye, right_eye, left_ear, right_ear, mouth)
+        self.add(face, left_eye, right_eye, left_ear, right_ear)
         self.add(whisker_1, whisker_2, whisker_3, whisker_4, whisker_5, whisker_6)
         self.add(nose_line_1, nose_line_2, nose_line_3)
         self.bring_to_back(left_ear, right_ear)
