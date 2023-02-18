@@ -403,6 +403,7 @@ class scene_8_2(Scene):
         luck_nose_DM.generate_target()
         luck_nose_DM.target.move_to([w_11*new_x + w_12*new_y, w_21*new_x + w_22*new_y, 0])
         self.remove(nap_nose_DM)
+        self.play(MoveToTarget(luck_nose_DM))
 
         ##########################################
         final_vec = Vector([w_11*new_x + w_12*new_y, w_21*new_x + w_22*new_y, 0], color='#C4A484')

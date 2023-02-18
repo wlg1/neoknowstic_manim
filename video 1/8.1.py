@@ -109,8 +109,8 @@ class scene_8_1(Scene):
         ########################
         # USER INPUTS
 
-        new_x = 2
-        new_y = 3
+        new_x = 1
+        new_y = 1
 
         ########################
         # scaled objs
