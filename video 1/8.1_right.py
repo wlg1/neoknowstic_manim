@@ -92,6 +92,8 @@ class scene_8_1_right(Scene):
 
         w_11 = 2
         w_12 = 3
+        w_21 = -3
+        w_22 = 2
 
         new_x = 1
         new_y = 1
@@ -349,4 +351,200 @@ class scene_8_1_right(Scene):
         self.remove(mat_1, mat_2)
         self.play(MoveToTarget(nap_nose_DM), FadeOut(plus_sign_2, mat_2_2, shift=LEFT*2), Transform(mat_1_2, mat_3))
 
+        self.wait(1)
+
+        #######################################
+        # LUCK SPACE ADDITION
+
+        ########## Show vector equations         
+        eqn_background_luck = Rectangle(color=WHITE, height=1.3, width=5, fill_color=BLACK, fill_opacity=1, stroke_width=2)
+        eqn_background_luck.move_to(np.array([-4.1, 0, 0]))
+                
+        equal_sign_luck = Text('=', font_size=32)
+        equal_sign_luck.move_to(np.array([-6.5, 0, 0]))
+
+        scalar_1 = MathTex(str(new_x) + " \ * \ ")
+        scalar_1.move_to(np.array([-5.7, 0, 0])).scale(0.7)
+        
+        mat_1_luck = MathTex(r"\begin{bmatrix} 0 \\ " +str(w_21)+ r" \end{bmatrix}", color = '#FF8BA0')        
+        mat_1_luck.move_to(np.array([-4.9, 0, 0])).scale(0.85)
+        0.1
+        plus_sign_luck = Text('+', font_size=32)
+        plus_sign_luck.move_to(np.array([-4.1, 0, 0]))
+        
+        scalar_2 = MathTex(str(new_y) + " \ * \ ")
+        scalar_2.move_to(np.array([-3.6, 0, 0])).scale(0.7)
+        
+        mat_2_luck = MathTex(r"\begin{bmatrix} 0 \\ " +str(w_12)+ r" \end{bmatrix}", color = '#ADD8E6')      
+        mat_2_luck.move_to(np.array([-2.8, 0, 0])).scale(0.85)
+
+        eqn_grp_luck = VGroup(eqn_background_luck, scalar_1, mat_1_luck, scalar_2, plus_sign_luck, mat_2_luck).shift(DOWN*3+RIGHT*8.5)
+                
+        self.play(FadeIn(eqn_grp_luck, shift=DOWN))
+        
+        self.wait(1)
+
+        #################
+        # move x vec copy from left out-bounds to luck space
+
+        luck_nose_DM = VGroup(face_outline_op_0.copy(), nose_op_0.copy(), box.copy()).scale(0.2).move_to(ear_space.number_to_point(w_21))   
+
+        if w_21 < 0:
+            tip_dir = 180
+            incr_x = 0.05
+        else:
+            tip_dir = 360
+            incr_x = -0.05
+        nose_vec_line = Line(ear_space.number_to_point(0), ear_space.number_to_point(w_21 + incr_x), color='#FF8BA0', fill_opacity=0.9)
+        nose_vec_line.z_index = 5
+        nose_vec_tip = Triangle(fill_color='#FF8BA0', fill_opacity=0.9, color='#FF8BA0').scale(0.07).rotate(tip_dir*DEGREES).move_to(ear_space.number_to_point(w_21 + incr_x))
+        nose_vec_tip.z_index = 5
+        luck_nose_vec = VGroup(nose_vec_line, nose_vec_tip).shift(RIGHT*0.1)
+        
+        luck_nose_DM_unit = VGroup(luck_nose_DM, luck_nose_vec)
+        luck_nose_DM_unit_2 = VGroup(luck_nose_DM.copy(), luck_nose_vec.copy())
+        luck_nose_DM_unit.move_to([-10, 3, 0])
+
+        self.play(Transform(luck_nose_DM_unit, luck_nose_DM_unit_2, run_time=3))
+
+        self.wait(1)
+
+        ####
+        # move y vec copy from left out-bounds
+
+        luck_ear_DM = VGroup(face_outline_op_0.copy(), left_ear_op_0.copy(), right_ear_op_0.copy(), box.copy()).scale(0.2).move_to(ear_space.number_to_point(w_22))   
+        
+        if w_22 < 0:
+            tip_dir = 180
+            incr_x = 0.05
+        else:
+            tip_dir = 360
+            incr_x = -0.05
+        nose_vec_line = Line(ear_space.number_to_point(0), ear_space.number_to_point(w_22 + incr_x), color='#ADD8E6', fill_opacity=0.9)
+        nose_vec_line.z_index = 5
+        nose_vec_tip = Triangle(fill_color='#ADD8E6', fill_opacity=0.9, color='#ADD8E6').scale(0.07).rotate(tip_dir*DEGREES).move_to(ear_space.number_to_point(w_22 + incr_x))
+        nose_vec_tip.z_index = 5
+        luck_ear_vec = VGroup(nose_vec_line, nose_vec_tip).shift(LEFT*0.1)
+        
+        luck_ear_DM_unit = VGroup(luck_ear_DM, luck_ear_vec)
+        luck_ear_DM_unit_2 = VGroup(luck_ear_DM.copy(), luck_ear_vec.copy())
+        luck_ear_DM_unit.move_to([-10, 3, 0])
+
+        self.play(Transform(luck_ear_DM_unit, luck_ear_DM_unit_2, run_time=3))
+
+        self.wait(1)
+
+        self.remove(luck_nose_DM_unit)
+        self.add(luck_nose_DM_unit)
+
+        ################# 
+        # scale nose in nap
+
+        # must shift AFTER move_to, else it'd be erased by move_to
+        luck_nose_DM_2 = VGroup(face_outline_op.copy(), nose_op.copy(), box.copy()).scale(0.2).move_to([0, w_21 * new_x,0])
+
+        if w_21 * new_x < 0:
+            tip_dir = 180
+            incr = 0.05
+        else:
+            tip_dir = 360
+            incr = -0.05
+        nose_vec_line = Line([0,0,0],[0, w_21 * new_x + incr, 0], color='#FF8BA0')
+        nose_vec_line.z_index = 5
+        nose_vec_tip = Triangle(fill_color='#FF8BA0', fill_opacity=1, color='#FF8BA0').scale(0.07).rotate(tip_dir*DEGREES).move_to([0, w_21 * new_x + incr, 0])
+        nose_vec_tip.z_index = 5
+        luck_nose_vec_2 = VGroup(nose_vec_line, nose_vec_tip).shift(RIGHT*0.1)
+
+        # #################
+        # # scale ear in nap
+
+        luck_ear_DM_2 = VGroup(face_outline_op.copy(), left_ear_op.copy(), right_ear_op.copy(), box.copy()).scale(0.2).move_to([0, w_22 * new_y, 0])
+
+        if w_22 * new_y < 0:
+            tip_dir_y = 90
+            incr = 0.05
+        else:
+            tip_dir_y = -90
+            incr = -0.05
+        ear_vec_line = Line([0,0,0],[0, w_22 * new_y + incr, 0], color='#ADD8E6')
+        ear_vec_line.z_index = 5
+        ear_vec_tip = Triangle(fill_color='#ADD8E6', fill_opacity=1, color='#ADD8E6').scale(0.07).rotate(tip_dir_y*DEGREES).move_to([0, w_22 * new_y + incr, 0])
+        ear_vec_tip.z_index = 5
+        luck_ear_vec_2 = VGroup(ear_vec_line, ear_vec_tip).shift(LEFT*0.1)
+
+        # ####### Multiply scalars into vectors and imgs
+        
+        mat_1_luck_2 = MathTex(r"\begin{bmatrix} 0 \\ " +str(w_21*new_x)+ r" \end{bmatrix}", color = '#FF8BA0')        
+        mat_1_luck_2.move_to(np.array([-4.9, 0, 0])).scale(0.85)
+        
+        mat_2_luck_2 = MathTex(r"\begin{bmatrix} 0 \\ " +str(w_22*new_y)+ r" \end{bmatrix}", color = '#ADD8E6')        
+        mat_2_luck_2.move_to(np.array([-2.8, 0, 0])).scale(0.85)
+        
+        plus_sign_b = Text('+', font_size=32).move_to(np.array([-3.8, 0, 0]))
+
+        eqn_grp_luck_2 = VGroup(mat_1_luck_2, mat_2_luck_2, plus_sign_b).shift(DOWN*3+RIGHT*8.5)
+
+        # ##########
+        # # play scaling of imgs and eqns
+
+        self.play(Transform(luck_nose_DM, luck_nose_DM_2), Transform(luck_nose_vec, luck_nose_vec_2),  FadeOut(scalar_1,  shift=RIGHT), Transform(mat_1_luck, mat_1_luck_2))
+
+        self.play(Transform(luck_ear_DM, luck_ear_DM_2), Transform(luck_ear_vec, luck_ear_vec_2),FadeOut(scalar_2, shift=RIGHT), Transform(mat_2_luck, mat_2_luck_2), Transform(plus_sign_luck, plus_sign_b))
+
+        self.wait(1)  
+                
+        ### move ear vec to head of nose vec
+
+        luck_ear_DM_add = VGroup(face_outline_op.copy(), left_ear_op.copy(), right_ear_op.copy(), box.copy()).scale(0.2).move_to([0,w_21*new_x + w_22*new_y,0])   
+        
+        if w_22*new_y < 0:
+            tip_dir = 180
+            incr = 0.05
+        else:
+            tip_dir = 360
+            incr = -0.05
+        nose_vec_line = Line(ear_space.number_to_point(w_21*new_x), ear_space.number_to_point(w_21*new_x + w_22*new_y + incr), color='#ADD8E6', fill_opacity=0.9)
+        nose_vec_line.z_index = 5
+        nose_vec_tip = Triangle(fill_color='#ADD8E6', fill_opacity=0.9, color='#ADD8E6').scale(0.07).rotate(tip_dir*DEGREES).move_to(ear_space.number_to_point(w_21*new_x + w_22*new_y + incr))
+        nose_vec_tip.z_index = 5
+        luck_ear_vec_add = VGroup(nose_vec_line, nose_vec_tip).shift(LEFT*0.1)
+       
+        self.play(Transform(luck_ear_DM, luck_ear_DM_add), Transform(luck_ear_vec, luck_ear_vec_add))
+
+        ### move face DM to final pos 
+        luck_nose_DM.generate_target()
+        luck_nose_DM.target.move_to([0, w_21*new_x + w_22*new_y,0]) 
+
+        mat_3 = MathTex(r"\begin{bmatrix}" +str(0) + r" \\ " + str(w_21*new_x + w_22*new_y) + r" \end{bmatrix}", color = GREEN).move_to(np.array([-2.8, 0, 0])).scale(0.85)
+        mat_3.shift(DOWN*3+RIGHT*8.5)
+                      
+        self.remove(mat_1_luck, mat_2_luck)
+        self.play(MoveToTarget(luck_nose_DM), FadeOut(plus_sign_luck, mat_1_luck_2, shift=RIGHT*2), Transform(mat_1_luck_2, mat_3))
+
+        # transform added vectors and basis to green 
+
+        #
+
+        self.wait(1)
+
+        ##########################################
+
+        # move equations up
+        mat_3_copy = mat_3.copy().move_to(np.array([-2.8, 0, 0])).shift(UP*3+RIGHT*8.5)
+
+        self.play(Transform(mat_1_luck_2, mat_3_copy), FadeOut(eqn_background_luck))
+        self.wait(1)
+
+        # move axis DMs to center
+
+        luck_DM_group = VGroup(luck_nose_DM, luck_ear_DM)
+        nap_DM_group = VGroup(nap_nose_DM, nap_ear_DM)
+
+        luck_DM_group.generate_target()
+        luck_DM_group.target.move_to([w_11*new_x + w_12*new_y, w_21*new_x + w_22*new_y, 0])
+        nap_DM_group.generate_target()
+        nap_DM_group.target.move_to([w_11*new_x + w_12*new_y, w_21*new_x + w_22*new_y, 0])
+
+        self.play(MoveToTarget(luck_DM_group), MoveToTarget(nap_DM_group))
+        
         self.wait(1)
