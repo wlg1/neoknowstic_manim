@@ -210,7 +210,7 @@ class scene_8_1_right(Scene):
 
         eqn_grp = VGroup(eqn_background_2, scalar_1, mat_1, scalar_2, plus_sign_2, mat_2).shift(UP*3+RIGHT*8.5)
                 
-        self.play(FadeIn(eqn_grp, shift=DOWN))
+        # self.play(FadeIn(eqn_grp, shift=DOWN))
         
         self.wait(1)
 
@@ -235,7 +235,7 @@ class scene_8_1_right(Scene):
         nap_nose_DM_unit_2 = VGroup(nap_nose_DM.copy(), nap_nose_vec.copy())
         nap_nose_DM_unit.move_to([-10, 3, 0])
 
-        self.play(Transform(nap_nose_DM_unit, nap_nose_DM_unit_2, run_time=3))
+        self.play(FadeIn(eqn_background_2, scalar_1, mat_1, shift=DOWN), Transform(nap_nose_DM_unit, nap_nose_DM_unit_2, run_time=3))
 
         self.wait(1)
 
@@ -260,7 +260,7 @@ class scene_8_1_right(Scene):
         nap_ear_DM_unit_2 = VGroup(nap_ear_DM.copy(), nap_ear_vec.copy())
         nap_ear_DM_unit.move_to([-10, 3, 0])
 
-        self.play(Transform(nap_ear_DM_unit, nap_ear_DM_unit_2, run_time=3))
+        self.play(FadeIn(scalar_2, plus_sign_2, mat_2, shift=DOWN), Transform(nap_ear_DM_unit, nap_ear_DM_unit_2, run_time=3))
 
         self.wait(1)
 
@@ -353,6 +353,23 @@ class scene_8_1_right(Scene):
 
         self.wait(1)
 
+        # transform added vectors and basis to green 
+        if w_11*new_x + w_12*new_y < 0:
+            tip_dir = 90
+            incr = 0.05
+        else:
+            tip_dir = -90
+            incr = -0.05
+        nose_vec_line = Line(nose_space.number_to_point(0), nose_space.number_to_point(w_11*new_x + w_12*new_y + incr), color=ORANGE, fill_opacity=0.9)
+        nose_vec_line.z_index = 5
+        nose_vec_tip = Triangle(fill_color=ORANGE, fill_opacity=0.9, color=ORANGE).scale(0.07).rotate(tip_dir*DEGREES).move_to(nose_space.number_to_point(w_11*new_x + w_12*new_y + incr))
+        nose_vec_tip.z_index = 5
+        nap_vec_add = VGroup(nose_vec_line, nose_vec_tip)
+
+        self.play(Transform(nap_ear_vec, nap_vec_add), Transform(nap_nose_vec, nap_vec_add), Transform(nap_basis, nap_vec_add))
+
+        self.wait(1)
+
         #######################################
         # LUCK SPACE ADDITION
 
@@ -375,7 +392,7 @@ class scene_8_1_right(Scene):
         scalar_2 = MathTex(str(new_y) + " \ * \ ")
         scalar_2.move_to(np.array([-3.6, 0, 0])).scale(0.7)
         
-        mat_2_luck = MathTex(r"\begin{bmatrix} 0 \\ " +str(w_12)+ r" \end{bmatrix}", color = '#ADD8E6')      
+        mat_2_luck = MathTex(r"\begin{bmatrix} 0 \\ " +str(w_22)+ r" \end{bmatrix}", color = '#ADD8E6')      
         mat_2_luck.move_to(np.array([-2.8, 0, 0])).scale(0.85)
 
         eqn_grp_luck = VGroup(eqn_background_luck, scalar_1, mat_1_luck, scalar_2, plus_sign_luck, mat_2_luck).shift(DOWN*3+RIGHT*8.5)
@@ -519,11 +536,24 @@ class scene_8_1_right(Scene):
         mat_3.shift(DOWN*3+RIGHT*8.5)
                       
         self.remove(mat_1_luck, mat_2_luck)
-        self.play(MoveToTarget(luck_nose_DM), FadeOut(plus_sign_luck, mat_1_luck_2, shift=RIGHT*2), Transform(mat_1_luck_2, mat_3))
+        self.play(MoveToTarget(luck_nose_DM), FadeOut(plus_sign_luck, mat_1_luck_2, shift=RIGHT*2), Transform(mat_2_luck_2, mat_3))
+
+        self.wait(1)
 
         # transform added vectors and basis to green 
+        if w_21*new_x + w_22*new_y < 0:
+            tip_dir = 180
+            incr = 0.05
+        else:
+            tip_dir = 360
+            incr = -0.05
+        nose_vec_line = Line(ear_space.number_to_point(0), ear_space.number_to_point(w_21*new_x + w_22*new_y + incr), color=GREEN, fill_opacity=0.9)
+        nose_vec_line.z_index = 5
+        nose_vec_tip = Triangle(fill_color=GREEN, fill_opacity=0.9, color=GREEN).scale(0.07).rotate(tip_dir*DEGREES).move_to(ear_space.number_to_point(w_21*new_x + w_22*new_y + incr))
+        nose_vec_tip.z_index = 5
+        luck_vec_add = VGroup(nose_vec_line, nose_vec_tip)
 
-        #
+        self.play(Transform(luck_ear_vec, luck_vec_add), Transform(luck_nose_vec, luck_vec_add), Transform(luck_basis, luck_vec_add))
 
         self.wait(1)
 
@@ -532,10 +562,14 @@ class scene_8_1_right(Scene):
         # move equations up
         mat_3_copy = mat_3.copy().move_to(np.array([-2.8, 0, 0])).shift(UP*3+RIGHT*8.5)
 
-        self.play(Transform(mat_1_luck_2, mat_3_copy), FadeOut(eqn_background_luck))
+        plus_sign_2 = Text('+', font_size=32)
+        plus_sign_2.move_to(np.array([-4.1, 0, 0])).shift(UP*3+RIGHT*8.5)
+
+        self.play(Transform(mat_2_luck_2, mat_3_copy), FadeOut(eqn_background_luck))
+        self.play(FadeIn(plus_sign_2))
         self.wait(1)
 
-        # move axis DMs to center
+        # move axis DMs and green basis to center
 
         luck_DM_group = VGroup(luck_nose_DM, luck_ear_DM)
         nap_DM_group = VGroup(nap_nose_DM, nap_ear_DM)
@@ -545,6 +579,29 @@ class scene_8_1_right(Scene):
         nap_DM_group.generate_target()
         nap_DM_group.target.move_to([w_11*new_x + w_12*new_y, w_21*new_x + w_22*new_y, 0])
 
-        self.play(MoveToTarget(luck_DM_group), MoveToTarget(nap_DM_group))
+        if w_21*new_x + w_22*new_y < 0:
+            tip_dir = 180
+            incr = 0.05
+        else:
+            tip_dir = 360
+            incr = -0.05
+        nose_vec_line = Line([w_11*new_x + w_12*new_y, 0, 0], [w_11*new_x + w_12*new_y, w_21*new_x + w_22*new_y + incr, 0], color=GREEN, fill_opacity=0.9)
+        nose_vec_line.z_index = 5
+        nose_vec_tip = Triangle(fill_color=GREEN, fill_opacity=0.9, color=GREEN).scale(0.07).rotate(tip_dir*DEGREES).move_to([w_11*new_x + w_12*new_y, w_21*new_x + w_22*new_y + incr, 0])
+        nose_vec_tip.z_index = 5
+        luck_vec_add_2 = VGroup(nose_vec_line, nose_vec_tip)
+
+        self.remove(luck_ear_vec, luck_nose_vec)
+        self.play(MoveToTarget(luck_DM_group), MoveToTarget(nap_DM_group), Transform(luck_basis, luck_vec_add_2))
         
+        self.wait(1)
+
+        ### brown vector
+        final_vec = Vector([w_11*new_x + w_12*new_y, w_21*new_x + w_22*new_y, 0], color='#C4A484')
+        
+        mat_fin = MathTex(r"\begin{bmatrix}" +str(w_11*new_x + w_12*new_y) + r" \\ " + str(w_21*new_x + w_22*new_y) + r" \end{bmatrix}", color = '#C4A484').move_to(np.array([-4.1, 0, 0])).scale(0.85)
+        mat_fin.shift(UP*3+RIGHT*8.5)
+
+        self.play(GrowArrow(final_vec), FadeOut(mat_2_luck_2, shift=LEFT*2), FadeOut(mat_1_2, shift=RIGHT*2), Transform(plus_sign_2, mat_fin))
+
         self.wait(1)

@@ -336,12 +336,14 @@ class scene_8_1(Scene):
         self.wait(1)
 
         ### purple vector appears in both spaces
-        tom_vec_line = Line([0,0,0],[new_x+0.2, new_y-0.2, 0], color=PURPLE)
-        tom_vec_line.z_index = Tom_pt.z_index + 1
-        tom_tip = Triangle(fill_color=PURPLE, fill_opacity=1, color=PURPLE).scale(0.1).rotate(45*DEGREES).move_to([new_x+0.2, new_y-0.2, 0])
-        tom_tip.z_index = Tom_pt.z_index + 1
-        Tom_vec = VGroup(tom_vec_line, tom_tip)
+        # tom_vec_line = Line([0,0,0],[new_x+0.2, new_y-0.2, 0], color=PURPLE)
+        # tom_vec_line.z_index = Tom_pt.z_index + 1
+        # tom_tip = Triangle(fill_color=PURPLE, fill_opacity=1, color=PURPLE).scale(0.1).rotate(45*DEGREES).move_to([new_x+0.2, new_y-0.2, 0])
+        # tom_tip.z_index = Tom_pt.z_index + 1
+        # Tom_vec = VGroup(tom_vec_line, tom_tip)
+
+        final_vec = Vector([new_x, new_y, 0], color=PURPLE)
         
-        self.play(GrowFromPoint(Tom_vec, [0,0,0]))
+        self.play(GrowFromPoint(final_vec, [0,0,0]))
 
         self.wait(1)
