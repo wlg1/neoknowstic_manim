@@ -1,7 +1,7 @@
 from manim import *
 import pdb, re
 
-class scene_8_equiv_WX(Scene):
+class scene_8_1_equiv_WX(Scene):
     def construct(self):  
         #error- whenever within matrix, cannot do tex_to_color_map
         ''', tex_to_color_map={
@@ -37,10 +37,33 @@ class scene_8_equiv_WX(Scene):
         # self.add(row2)
 
         #####################
-        m1 = Matrix([["w_{11}", "w_{12}"], ["w_{21}", "w_{22}"]])
-        x = Matrix([["x_{1}"], ["x_{2}"]])
+        def get_colored_mat(strings_ASLIST):
+            tex_to_color_map={
+                "x1": RED,
+                "x2": BLUE,
+                "w11": YELLOW,
+                "w12": ORANGE,
+                "w21": GRAY,
+                "w22": GREEN
+            }            
+            strings_ASMAT = Matrix(strings_ASLIST, 
+            element_alignment_corner=ORIGIN)
+            ent = strings_ASMAT.get_entries()
+            strings_flatList = [item for sublist in strings_ASLIST for item in sublist]
+            for ent_ind, pure_string in enumerate(strings_flatList):
+                pure_string_cut = pure_string.replace('_', '').replace('{', '').replace('}', '').replace(' ', '')
+                for qry, color in tex_to_color_map.items():
+                    match_inds = [ i.start() for i in re.finditer(qry, pure_string_cut)]
+                    for ind in match_inds:
+                        ent[ent_ind][0][ind: ind +len(qry)].set_color(color)
+            return strings_ASMAT
 
-        dot_prod_row1 = Matrix([["w_{11} * x_{1} + w_{12} * x_{2}"], ["w_{21} * x_{1} + w_{22} * x_{2}"]])
+        # take frame w/ only first row, then paint over 2nd rows as black in gimp. fade in in video editor the second rows
+
+        m1 = get_colored_mat([["w_{11}", "w_{12}"], ["w_{21}", "w_{22}"]])
+        x = get_colored_mat([["x_{1}"], ["x_{2}"]])
+
+        dot_prod_row1 = get_colored_mat([["w_{11} * x_{1} + w_{12} * x_{2}"], ["w_{21} * x_{1} + w_{22} * x_{2}"]])
 
         row1_left = Group(m1, x).arrange(buff=0.2)
 
@@ -52,26 +75,24 @@ class scene_8_equiv_WX(Scene):
 
         #####################
         equals_row_2 = MathTex("=")
-
         plus_row2 = MathTex("+")
 
-        dot_prod_row2_left = Matrix([["w_{11} * x_{1} + w_{12} * x_{2}"], ["0"]], 
-            element_alignment_corner=ORIGIN)
-        ent = dot_prod_row2_left.get_entries()
-        # pdb.set_trace()
-
-        pure_string_1 = "w_{11} * x_{1} + w_{12} * x_{2}"
-        pure_string_1 = pure_string_1.replace('_', '').replace('{', '').replace('}', '').replace(' ', '')
-        find = 'x1'
-        match_inds = [ i.start() for i in re.finditer(find, pure_string_1)]
-        # pdb.set_trace()
-        for ind in match_inds:
-            ent[0][0][ind: ind +len(find)].set_color('#FFD580')
-
-        # ent[0][0][4].set_color(RED)
-
-        dot_prod_row2_right = Matrix([["0"], ["w_{21} * x_{1} + w_{22} * x_{2}"]], 
-            element_alignment_corner=ORIGIN)
+        dot_prod_row2_left = get_colored_mat([["w_{11} * x_{1} + w_{12} * x_{2}"], ["0"]])
+        dot_prod_row2_right = get_colored_mat([["0"], ["w_{21} * x_{1} + w_{22} * x_{2}"]])
 
         row2 = Group(equals_row_2, dot_prod_row2_left, plus_row2, dot_prod_row2_right).arrange(buff=0.6)
-        self.add(row2)
+
+        self.wait(2)
+        self.play(FadeIn(row2, shift=DOWN))
+
+        self.wait(2)
+        
+        rec_1 = SurroundingRectangle(dot_prod_row2_left)
+        self.play(FadeIn(rec_1))
+
+        self.wait(2)
+
+        rec_1 = SurroundingRectangle(dot_prod_row2_right)
+        self.play(FadeIn(rec_1))
+        
+        self.wait(2)
