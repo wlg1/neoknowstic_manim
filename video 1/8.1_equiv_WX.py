@@ -1,5 +1,5 @@
 from manim import *
-import pdb
+import pdb, re
 
 class scene_8_equiv_WX(Scene):
     def construct(self):  
@@ -36,7 +36,42 @@ class scene_8_equiv_WX(Scene):
         
         # self.add(row2)
 
-        m1 = Matrix([["w_{11}", "w_{12}"], ["w_{21}", "w_{22}"]]).set_row_colors(WHITE, BLACK).move_to([-3.5,2,0])
-        x = Matrix([["x_{1}"], ["x_{2}"]]).move_to([-1,2,0])
+        #####################
+        m1 = Matrix([["w_{11}", "w_{12}"], ["w_{21}", "w_{22}"]])
+        x = Matrix([["x_{1}"], ["x_{2}"]])
 
-        dot_prod_row1 = Matrix([["w_{11} * x_{1} + w_{12} * x_{2}"], ["w_{21} * x_{1} + w_{22} * x_{2}"]]).set_row_colors(WHITE, BLACK).move_to([-2.5,2,0])
+        dot_prod_row1 = Matrix([["w_{11} * x_{1} + w_{12} * x_{2}"], ["w_{21} * x_{1} + w_{22} * x_{2}"]])
+
+        row1_left = Group(m1, x).arrange(buff=0.2)
+
+        equals = MathTex("=")
+
+        row1 = Group(row1_left, equals, dot_prod_row1).arrange(buff=0.6).shift(UP*2.5)
+
+        self.add(row1)
+
+        #####################
+        equals_row_2 = MathTex("=")
+
+        plus_row2 = MathTex("+")
+
+        dot_prod_row2_left = Matrix([["w_{11} * x_{1} + w_{12} * x_{2}"], ["0"]], 
+            element_alignment_corner=ORIGIN)
+        ent = dot_prod_row2_left.get_entries()
+        # pdb.set_trace()
+
+        pure_string_1 = "w_{11} * x_{1} + w_{12} * x_{2}"
+        pure_string_1 = pure_string_1.replace('_', '').replace('{', '').replace('}', '').replace(' ', '')
+        find = 'x1'
+        match_inds = [ i.start() for i in re.finditer(find, pure_string_1)]
+        # pdb.set_trace()
+        for ind in match_inds:
+            ent[0][0][ind: ind +len(find)].set_color('#FFD580')
+
+        # ent[0][0][4].set_color(RED)
+
+        dot_prod_row2_right = Matrix([["0"], ["w_{21} * x_{1} + w_{22} * x_{2}"]], 
+            element_alignment_corner=ORIGIN)
+
+        row2 = Group(equals_row_2, dot_prod_row2_left, plus_row2, dot_prod_row2_right).arrange(buff=0.6)
+        self.add(row2)
