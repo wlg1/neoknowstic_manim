@@ -172,11 +172,15 @@ class scene_8_1(Scene):
             er.stroke_width=2
 
         ########## Show vector equations         
-        eqn_background_2 = Rectangle(color=WHITE, height=1.3, width=5, fill_color=BLACK, fill_opacity=1, stroke_width=2)
+        # width= 5
+        eqn_background_2 = Rectangle(color=WHITE, height=1.3, width=4.3, fill_color=BLACK, fill_opacity=1, stroke_width=2)
         eqn_background_2.move_to(np.array([-4.1, 0, 0]))
                 
         equal_sign_2 = Text('=', font_size=32)
         equal_sign_2.move_to(np.array([-6.5, 0, 0]))
+        
+        scalar_x1 = MathTex(r"x_1" + " \ * \ ")
+        scalar_x1.move_to(np.array([-5.7, 0, 0])).scale(0.7)
 
         scalar_1 = MathTex(str(new_x) + " \ * \ ")
         scalar_1.move_to(np.array([-5.7, 0, 0])).scale(0.7)
@@ -185,7 +189,10 @@ class scene_8_1(Scene):
         mat_1.move_to(np.array([-4.9, 0, 0])).scale(0.85)
         
         plus_sign_2 = Text('+', font_size=32)
-        plus_sign_2.move_to(np.array([-4.1, 0, 0]))
+        plus_sign_2.move_to(np.array([-4.2, 0, 0]))
+        
+        scalar_x2 = MathTex(r"x_2" + " \ * \ ")
+        scalar_x2.move_to(np.array([-3.6, 0, 0])).scale(0.7)
         
         scalar_2 = MathTex(str(new_y) + " \ * \ ")
         scalar_2.move_to(np.array([-3.6, 0, 0])).scale(0.7)
@@ -193,20 +200,21 @@ class scene_8_1(Scene):
         mat_2 = MathTex(r"\begin{bmatrix} 0 \\ 1 \end{bmatrix}", color = BLUE)
         mat_2.move_to(np.array([-2.8, 0, 0])).scale(0.85)
 
-        eqn_grp = VGroup(eqn_background_2, scalar_1, mat_1, scalar_2, plus_sign_2, mat_2).shift(UP*3+RIGHT*8.5)
+        eqn_grp = VGroup(eqn_background_2, scalar_x1, scalar_1, mat_1, scalar_x2, scalar_2, plus_sign_2, mat_2).shift(UP*3+RIGHT*6.8)
+        # ( UP*3+RIGHT*8.5)
                 
-        self.play(FadeIn(eqn_grp, shift=DOWN))
+        self.play(FadeIn(eqn_background_2, scalar_x1, mat_1, scalar_x2, plus_sign_2, mat_2, shift=DOWN))
         
-        self.wait(1)
+        self.wait(2)
 
         #################
         # move x vec copy to right out-bounds
 
         nose_group_unit = VGroup(nose_group_1, nose_unit_1)
-        x_vec_copy = nose_group_unit.copy().move_to([10, 3, 0])
+        x_vec_copy = nose_group_unit.copy().move_to([10, 2, 0])
         self.play(Transform(nose_group_unit.copy(), x_vec_copy), run_time=3)
 
-        self.wait(1)
+        self.wait(2)
 
         ear_group_unit = VGroup(ear_group_1, ear_unit_1)
         y_vec_copy = ear_group_unit.copy().rotate(-90*DEGREES).move_to([10, 1, 0])
@@ -214,7 +222,7 @@ class scene_8_1(Scene):
         self.play(Rotate(ear_group_unit_copy, angle = -90*DEGREES))
         self.play(Transform(ear_group_unit_copy, y_vec_copy), run_time=3)
 
-        self.wait(1)
+        self.wait(2)
 
         ################# 
         # scale nose in both IS and nap
@@ -261,16 +269,20 @@ class scene_8_1(Scene):
         
         plus_sign_b = Text('+', font_size=32).move_to(np.array([-3.8, 0, 0]))
 
-        eqn_grp_2 = VGroup(mat_1_2, mat_2_2, plus_sign_b).shift(UP*3+RIGHT*8.5)
+        eqn_grp_2 = VGroup(mat_1_2, mat_2_2, plus_sign_b).shift(UP*3+RIGHT*6.8)
 
         ##########
         # play scaling of imgs and eqns
 
-        self.play(Transform(nose_group_1, nose_group_axis_2), Transform(nose_unit_1, nose_vec_axis_2),  FadeOut(scalar_1,  shift=RIGHT), Transform(mat_1, mat_1_2))
-        
-        self.play(Transform(ear_group_1, ear_group_vert_2), Transform(ear_unit_1, ear_vec_vert_2),FadeOut(scalar_2, shift=RIGHT), Transform(mat_2, mat_2_2), Transform(plus_sign_2, plus_sign_b))
+        self.play(Transform(scalar_x1, scalar_1), Transform(scalar_x2, scalar_2))
 
-        self.wait(1)  
+        self.wait(2)  
+
+        self.play(Transform(nose_group_1, nose_group_axis_2), Transform(nose_unit_1, nose_vec_axis_2),  FadeOut(scalar_x1,  shift=RIGHT), Transform(mat_1, mat_1_2))
+        
+        self.play(Transform(ear_group_1, ear_group_vert_2), Transform(ear_unit_1, ear_vec_vert_2),FadeOut(scalar_x2, shift=RIGHT), Transform(mat_2, mat_2_2), Transform(plus_sign_2, plus_sign_b))
+
+        self.wait(2)  
         
         ######
         # dot appears in both spaces
@@ -287,7 +299,7 @@ class scene_8_1(Scene):
 
         self.play(MoveToTarget(Tom_pt), Transform(nose_group_1, nose_group_11))
         
-        self.wait(1)
+        self.wait(2)
 
         ### dot moves to ear in both spaces
 
@@ -301,7 +313,7 @@ class scene_8_1(Scene):
         
         self.play(Transform(ear_unit_1, ear_vec_2), Transform(ear_group_1, ear_group_11))
 
-        self.wait(1)
+        self.wait(2)
 
         ### move face DM to final pos in both spaces
         # Sum up vectors 
@@ -312,7 +324,7 @@ class scene_8_1(Scene):
         nose_group_1.target.move_to([new_x ,new_y,0])
 
         mat_3 = MathTex(r"\begin{bmatrix}" +str(new_x) + r" \\ " + str(new_y) + r" \end{bmatrix}", color = PURPLE).move_to(np.array([-4.9, 0, 0])).scale(0.85)
-        mat_3.shift(UP*3+RIGHT*8.5)
+        mat_3.shift(UP*3+RIGHT*6.8)
         
         # eqn_nap_5 = MathTex(r"[-0.5 \ Nap]", tex_to_color_map={
         #     "[-0.5 \ Nap]": '#CF9FFF'
@@ -323,27 +335,16 @@ class scene_8_1(Scene):
         self.play(Transform(Tom_pt, Tom_pt_11), MoveToTarget(nose_group_1), FadeOut(plus_sign_2, mat_2_2, shift=LEFT*2), Transform(mat_1_2, mat_3))
         # , Transform(eqn_nap, eqn_nap_5))
 
-        self.wait(1)
+        self.wait(2)
 
-        ### unfade. don't copy nose_group b/c now it's faded
+        ### unfade and final vec. don't copy nose_group b/c now it's faded
         nose_group_11_nofade = VGroup(face_outline.copy(), nose_scaled.copy(), box.copy()).scale(0.2).move_to([new_x,new_y,0])
         ear_group_11_nofade = VGroup(face_outline.copy(), left_ear_scaled.copy(), right_ear_scaled.copy(), box.copy()).scale(0.2).move_to([new_x ,new_y,0])
         
-        self.play(Transform(nose_group_1, nose_group_11_nofade), Transform(ear_group_1, ear_group_11_nofade))
+        final_vec = Vector([new_x, new_y, 0], color=PURPLE)
+
+        self.play(GrowFromPoint(final_vec, [0,0,0]), Transform(nose_group_1, nose_group_11_nofade), Transform(ear_group_1, ear_group_11_nofade))
         
         self.remove(Tom_pt)
 
-        self.wait(1)
-
-        ### purple vector appears in both spaces
-        # tom_vec_line = Line([0,0,0],[new_x+0.2, new_y-0.2, 0], color=PURPLE)
-        # tom_vec_line.z_index = Tom_pt.z_index + 1
-        # tom_tip = Triangle(fill_color=PURPLE, fill_opacity=1, color=PURPLE).scale(0.1).rotate(45*DEGREES).move_to([new_x+0.2, new_y-0.2, 0])
-        # tom_tip.z_index = Tom_pt.z_index + 1
-        # Tom_vec = VGroup(tom_vec_line, tom_tip)
-
-        final_vec = Vector([new_x, new_y, 0], color=PURPLE)
-        
-        self.play(GrowFromPoint(final_vec, [0,0,0]))
-
-        self.wait(1)
+        self.wait(2)

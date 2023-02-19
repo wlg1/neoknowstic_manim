@@ -187,7 +187,7 @@ class scene_8_2(Scene):
             er.stroke_width=2
 
         ########## Show vector equations         
-        eqn_background_2 = Rectangle(color=WHITE, height=1.3, width=5, fill_color=BLACK, fill_opacity=1, stroke_width=2)
+        eqn_background_2 = Rectangle(color=WHITE, height=1.3, width=4.3, fill_color=BLACK, fill_opacity=1, stroke_width=2)
         eqn_background_2.move_to(np.array([-4.1, 0, 0]))
                 
         equal_sign_2 = Text('=', font_size=32)
@@ -208,11 +208,11 @@ class scene_8_2(Scene):
         mat_2 = MathTex(r"\begin{bmatrix} "+str(w_12)+r" \\ 0 \end{bmatrix}", color = '#ADD8E6')
         mat_2.move_to(np.array([-2.8, 0, 0])).scale(0.85)
 
-        # eqn_grp = VGroup(eqn_background_2, scalar_1, mat_1, scalar_2, plus_sign_2, mat_2).shift(UP*3+RIGHT*8.5)
-        eqn_grp = VGroup(eqn_background_2, mat_1).shift(UP*3+RIGHT*8.5)
+        # eqn_grp = VGroup(eqn_background_2, scalar_1, mat_1, scalar_2, plus_sign_2, mat_2).shift(UP*3+RIGHT*6.8)
+        eqn_grp = VGroup(eqn_background_2, mat_1).shift(UP*3+RIGHT*6.8)
                 
         ########### LUCK SPACE ADDITION
-        eqn_background_luck = Rectangle(color=WHITE, height=1.3, width=5, fill_color=BLACK, fill_opacity=1, stroke_width=2)
+        eqn_background_luck = Rectangle(color=WHITE, height=1.3, width=4.3, fill_color=BLACK, fill_opacity=1, stroke_width=2)
         eqn_background_luck.move_to(np.array([-4.1, 0, 0]))
                 
         equal_sign_luck = Text('=', font_size=32)
@@ -233,8 +233,8 @@ class scene_8_2(Scene):
         mat_2_luck = MathTex(r"\begin{bmatrix} 0 \\ " +str(w_22)+ r" \end{bmatrix}", color = '#ADD8E6')      
         mat_2_luck.move_to(np.array([-2.8, 0, 0])).scale(0.85)
 
-        # eqn_grp_luck = VGroup(eqn_background_luck, scalar_1, mat_1_luck, scalar_2, plus_sign_luck, mat_2_luck).shift(DOWN*3+RIGHT*8.5)
-        eqn_grp_luck = VGroup(eqn_background_luck, mat_1_luck).shift(DOWN*3+RIGHT*8.5)
+        # eqn_grp_luck = VGroup(eqn_background_luck, scalar_1, mat_1_luck, scalar_2, plus_sign_luck, mat_2_luck).shift(DOWN*3+RIGHT*6.8)
+        eqn_grp_luck = VGroup(eqn_background_luck, mat_1_luck).shift(DOWN*3+RIGHT*6.8)
                         
         #################
         # move x vec copy from left out-bounds
@@ -259,7 +259,7 @@ class scene_8_2(Scene):
 
         self.play(FadeIn(eqn_grp, shift=DOWN), Transform(nap_nose_DM_unit, nap_nose_DM_unit_2, run_time=3))
 
-        self.wait(1)
+        self.wait(2)
 
         #################
         # move x vec copy from left out-bounds to luck space
@@ -284,17 +284,17 @@ class scene_8_2(Scene):
 
         self.play(FadeIn(eqn_grp_luck, shift=DOWN), Transform(luck_nose_DM_unit, luck_nose_DM_unit_2, run_time=3))
 
-        self.wait(1)
+        self.wait(2)
 
         # move x equations up
-        mat_1_luck_copy = mat_1_luck.copy().move_to(np.array([-2.8, 0, 0])).shift(UP*3+RIGHT*8.5)
+        mat_1_luck_copy = mat_1_luck.copy().move_to(np.array([-2.8, 0, 0])).shift(UP*3+RIGHT*6.8)
 
         plus_sign_2 = Text('+', font_size=32)
-        plus_sign_2.move_to(np.array([-4.1, 0, 0])).shift(RIGHT*0.2).shift(UP*3+RIGHT*8.5)
+        plus_sign_2.move_to(np.array([-4.1, 0, 0])).shift(RIGHT*0.2).shift(UP*3+RIGHT*6.8)
 
         self.play(Transform(mat_1_luck, mat_1_luck_copy), FadeOut(eqn_background_luck))
         self.play(FadeIn(plus_sign_2))
-        self.wait(1)
+        self.wait(2)
 
         #### move nose DMs and vectors into 2D space, add eqns
         luck_nose_DM.generate_target()
@@ -305,11 +305,11 @@ class scene_8_2(Scene):
         nose_vec = Vector([w_11*new_x, w_21*new_x, 0], color='#FF8BA0')
         
         mat_nose = MathTex(r"\begin{bmatrix}" +str(w_11*new_x) + r" \\ " + str(w_21*new_x) + r" \end{bmatrix}", color = '#FF8BA0').move_to(np.array([-4.9, 0, 0])).scale(0.85)
-        mat_nose.shift(UP*3+RIGHT*8.5)
+        mat_nose.shift(UP*3+RIGHT*6.8)
 
         self.play(MoveToTarget(luck_nose_DM), MoveToTarget(nap_nose_DM), Transform(luck_nose_vec, nose_vec), Transform(nap_nose_vec, nose_vec), FadeOut(plus_sign_2, mat_1_luck, shift=LEFT*2), Transform(mat_1, mat_nose))
 
-        self.wait(1)
+        self.wait(2)
 
         #############
         # move y vec copy from left out-bounds
@@ -332,10 +332,10 @@ class scene_8_2(Scene):
         nap_ear_DM_unit_2 = VGroup(nap_ear_DM.copy(), nap_ear_vec.copy())
         nap_ear_DM_unit.move_to([-10, 3, 0])
 
-        mat_2.shift(UP*3+RIGHT*8.5)
+        mat_2.shift(UP*3+RIGHT*6.8)
         self.play(FadeIn(mat_2, shift=DOWN), Transform(nap_ear_DM_unit, nap_ear_DM_unit_2, run_time=3))
 
-        self.wait(1)
+        self.wait(2)
 
         ####
         # move y vec copy from left out-bounds to luck
@@ -361,10 +361,10 @@ class scene_8_2(Scene):
         eqn_background_luck = Rectangle(color=WHITE, height=1.3, width=2, fill_color=BLACK, fill_opacity=1, stroke_width=2)
         eqn_background_luck.move_to(np.array([-4.1, 0, 0])).shift(RIGHT)
 
-        eqn_grp_luck = VGroup(eqn_background_luck, mat_2_luck).shift(DOWN*3+RIGHT*8.5)
+        eqn_grp_luck = VGroup(eqn_background_luck, mat_2_luck).shift(DOWN*3+RIGHT*6.8)
         self.play(FadeIn(eqn_grp_luck, shift=DOWN), Transform(luck_ear_DM_unit, luck_ear_DM_unit_2, run_time=3))
 
-        self.wait(1)
+        self.wait(2)
 
         #### move ear DMs and vectors into 2D space, move y equations up
         luck_ear_DM.generate_target()
@@ -375,10 +375,10 @@ class scene_8_2(Scene):
         ear_vec = Vector([w_12*new_y, w_22*new_y, 0], color='#ADD8E6')
 
         mat_ear = MathTex(r"\begin{bmatrix}" +str(w_12*new_y) + r" \\ " + str(w_22*new_y) + r" \end{bmatrix}", color = '#ADD8E6').move_to(np.array([-2.8, 0, 0])).scale(0.85)
-        mat_ear.shift(UP*3+RIGHT*8.5)
+        mat_ear.shift(UP*3+RIGHT*6.8)
 
         self.play(Transform(mat_2_luck, mat_ear), Transform(mat_2, mat_ear), FadeOut(eqn_background_luck), MoveToTarget(luck_ear_DM), MoveToTarget(nap_ear_DM), Transform(luck_ear_vec, ear_vec), Transform(nap_ear_vec, ear_vec))
-        self.wait(1)
+        self.wait(2)
         
         ### move ear vec to head of nose vec
 
@@ -390,13 +390,13 @@ class scene_8_2(Scene):
         ear_add_grp = VGroup(ear_vec_add, ear_DM_add)
         
         plus_sign_2 = Text('+', font_size=32)
-        plus_sign_2.move_to(np.array([-4.1, 0, 0])).shift(RIGHT*0.2).shift(UP*3+RIGHT*8.5)
+        plus_sign_2.move_to(np.array([-4.1, 0, 0])).shift(RIGHT*0.2).shift(UP*3+RIGHT*6.8)
 
         self.remove(luck_ear_vec, nap_ear_DM)
         self.play(Transform(ear_grp, ear_add_grp))
         self.play(FadeIn(plus_sign_2))
 
-        self.wait(1)
+        self.wait(2)
 
         ### move face DM to final pos 
 
@@ -406,12 +406,14 @@ class scene_8_2(Scene):
         self.play(MoveToTarget(luck_nose_DM))
 
         ##########################################
+        DM_nofade = VGroup(face_outline.copy(), left_ear_scaled.copy(), right_ear_scaled.copy(), nose_scaled.copy(), box.copy()).scale(0.2).move_to([w_11*new_x + w_12*new_y, w_21*new_x + w_22*new_y, 0])
+
         final_vec = Vector([w_11*new_x + w_12*new_y, w_21*new_x + w_22*new_y, 0], color='#C4A484')
         
         mat_fin = MathTex(r"\begin{bmatrix}" +str(w_11*new_x + w_12*new_y) + r" \\ " + str(w_21*new_x + w_22*new_y) + r" \end{bmatrix}", color = '#C4A484').move_to(np.array([-4.1, 0, 0])).scale(0.85)
-        mat_fin.shift(UP*3+RIGHT*8.5)
+        mat_fin.shift(UP*3+RIGHT*6.8)
 
         self.remove(mat_2)
-        self.play(GrowArrow(final_vec), FadeOut(mat_2_luck, shift=LEFT*2), FadeOut(mat_1, shift=RIGHT*2), Transform(plus_sign_2, mat_fin))
+        self.play(GrowArrow(final_vec), FadeOut(mat_2_luck, shift=LEFT*2), FadeOut(mat_1, shift=RIGHT*2), Transform(plus_sign_2, mat_fin), Transform(luck_nose_DM, DM_nofade))
 
-        self.wait(1)
+        self.wait(2)
