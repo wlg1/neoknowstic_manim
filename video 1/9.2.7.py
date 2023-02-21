@@ -163,34 +163,34 @@ class scene_9_1(Scene):
         
         ##############################
         numberplane = NumberPlane()
-        self.add(numberplane)
+        # self.add(numberplane)
 
-        # # self.add(nose_orig, ear_orig, nap_orig, luck_orig)
-        self.play(GrowArrow(nose_orig), GrowArrow(ear_orig))
-        # self.play(GrowArrow(nap_orig), GrowArrow(luck_orig))
+        # # # self.add(nose_orig, ear_orig, nap_orig, luck_orig)
+        # self.play(GrowArrow(nose_orig), GrowArrow(ear_orig))
+        # # self.play(GrowArrow(nap_orig), GrowArrow(luck_orig))
         
-        # # self.add(ear_group_1_0, nose_group_1_0, nap_1_0, luck_1_0)
-        self.wait(1)
-        self.play(GrowFromCenter(ear_group_1_0), GrowFromCenter(nose_group_1_0))
+        # # # self.add(ear_group_1_0, nose_group_1_0, nap_1_0, luck_1_0)
+        # self.wait(1)
+        # self.play(GrowFromCenter(ear_group_1_0), GrowFromCenter(nose_group_1_0))
         # , GrowFromCenter(nap_1_0), GrowFromCenter(luck_1_0))
 
-        self.wait(1)
-        # self.play(Transform(ear_group_1_0, ear_group_1_copy), Transform(nose_group_1_0, nose_group_1_copy), Transform(nap_1_0, nap_1_copy), Transform(luck_1_0, luck_1_copy), Transform(nose_orig, nose_new), Transform(ear_orig, ear_new), Transform(nap_orig, nap_new), Transform(luck_orig, luck_new), run_time=2.6)
-        self.play(Transform(ear_group_1_0, ear_group_1_copy), Transform(nose_group_1_0, nose_group_1_copy), Transform(nose_orig, nose_new), Transform(ear_orig, ear_new), run_time=2.6)
+        # self.wait(1)
+        # # self.play(Transform(ear_group_1_0, ear_group_1_copy), Transform(nose_group_1_0, nose_group_1_copy), Transform(nap_1_0, nap_1_copy), Transform(luck_1_0, luck_1_copy), Transform(nose_orig, nose_new), Transform(ear_orig, ear_new), Transform(nap_orig, nap_new), Transform(luck_orig, luck_new), run_time=2.6)
+        # self.play(Transform(ear_group_1_0, ear_group_1_copy), Transform(nose_group_1_0, nose_group_1_copy), Transform(nose_orig, nose_new), Transform(ear_orig, ear_new), run_time=2.6)
 
-        self.wait(1)
+        # self.wait(1)
 
         ####
         '''But what does it mean to map one vector to another? We aren't saying that the red vector equals the light red vector, or that the blue vector equals the light blue vector.'''
-        self.play(GrowArrow(nose_orig_copy), GrowArrow(ear_orig_copy))
+        # self.play(GrowArrow(nose_orig_copy), GrowArrow(ear_orig_copy))
 
         red_coord = nose_orig_copy.coordinate_label(color=RED).scale(0.65)
         blue_coord = ear_orig_copy.coordinate_label(color=BLUE).scale(0.65).shift(LEFT)
         l_red_coord = nose_new.coordinate_label(color='#FF8BA0').scale(0.65)
         l_blue_coord = ear_new.coordinate_label(color='#ADD8E6').scale(0.65)
-        self.play(FadeIn(red_coord, blue_coord, l_red_coord, l_blue_coord))
+        # self.play(FadeIn(red_coord, blue_coord, l_red_coord, l_blue_coord))
 
-        self.wait(1)
+        # self.wait(1)
 
         red_coord_2 = red_coord.copy()
         # MathTex(r"\begin{bmatrix} 1 \\ 0 \end{bmatrix}", color = RED)
@@ -200,61 +200,61 @@ class scene_9_1(Scene):
         eqn_bg = Rectangle(color=WHITE, height=1, width=2.5, fill_color=BLACK, fill_opacity=0, stroke_width=4).move_to(np.array([3.5, 1, 0]))
         neq_grp_1.z_index = 6
         eqn_bg.z_index = 5
-        # self.add(eqn_bg, neq_grp_1)
-        self.play(FadeIn(eqn_bg, neq_grp_1))  # split and fade in video editor
+        # # self.add(eqn_bg, neq_grp_1)
+        # self.play(FadeIn(eqn_bg, neq_grp_1))  # split and fade in video editor
 
-        self.wait(2)
+        # self.wait(2)
 
-        self.play(FadeOut(neq_grp_1, red_coord, blue_coord, l_red_coord, l_blue_coord))
+        # self.play(FadeOut(neq_grp_1, red_coord, blue_coord, l_red_coord, l_blue_coord))
 
-        self.wait(1)
+        # self.wait(1)
 
         ######
         # keep all in 1 file to preserve same zoom
         '''Let's think about this in a different way. Instead of mapping one vector to another vector, '''
 
-        self.play(ShrinkToCenter(ear_group_1_0), ShrinkToCenter(nose_group_1_0))
+        # self.play(ShrinkToCenter(ear_group_1_0), ShrinkToCenter(nose_group_1_0))
 
         ear_group_1_1 = ear_group_1.copy()
         nose_group_1_1 = nose_group_1.copy()
         ear_group_1_copy_1 = ear_group_1.copy().move_to([1, 2, 0])
         nose_group_1_copy_1 = nose_group_1.copy().move_to([2, -1, 0]).shift(UP*0.1)
 
-        self.play(GrowFromCenter(ear_group_1_1), GrowFromCenter(nose_group_1_1))
+        # self.play(GrowFromCenter(ear_group_1_1), GrowFromCenter(nose_group_1_1))
 
         m1 = Matrix([["w_{11}", "w_{12}"], ["w_{21}", "w_{22}"]])
         x = Matrix([["x_{1}"], ["x_{2}"]])
         WX = Group(m1, x).arrange(buff=0.2).move_to(np.array([3.5, 1, 0])).scale(0.3)
         WX.z_index = 6
-        self.play(FadeIn(WX))
+        # self.play(FadeIn(WX))
 
         '''let's map a Data Measurement on one vector to another vector by multiplying it with our matrix.'''
 
-        self.play(Transform(ear_group_1_1, ear_group_1_copy_1), Transform(nose_group_1_1, nose_group_1_copy_1), run_time=2.6)
+        # self.play(Transform(ear_group_1_1, ear_group_1_copy_1), Transform(nose_group_1_1, nose_group_1_copy_1), run_time=2.6)
 
-        self.wait(1)
+        # self.wait(1)
 
         ################
         '''Now we'll look at more vectors, and have them point to Data Measurements. When we pass these vectors through a matrix, we are performing a change of basis because the basis vectors that were pointing to the nose and ear unit 1 measurements are now pointing to the nap and luck unit 1 measurements.'''
 
-        self.play(ShrinkToCenter(ear_group_1_1), ShrinkToCenter(nose_group_1_1), FadeOut(WX, eqn_bg))
+        # self.play(ShrinkToCenter(ear_group_1_1), ShrinkToCenter(nose_group_1_1), FadeOut(WX, eqn_bg))
 
         ear_group_1_2 = ear_group_1.copy()
         nose_group_1_2 = nose_group_1.copy()
         ear_group_1_copy_2 = ear_group_1.copy().move_to([1, 2, 0])
         nose_group_1_copy_2 = nose_group_1.copy().move_to([2, -1, 0]).shift(UP*0.1)
 
-        self.play(GrowArrow(nap_orig), GrowArrow(luck_orig))
+        # self.play(GrowArrow(nap_orig), GrowArrow(luck_orig))
 
-        self.wait(1)
+        # self.wait(1)
 
-        self.play(GrowFromCenter(ear_group_1_2), GrowFromCenter(nose_group_1_2), GrowFromCenter(nap_1_0), GrowFromCenter(luck_1_0))
+        # self.play(GrowFromCenter(ear_group_1_2), GrowFromCenter(nose_group_1_2), GrowFromCenter(nap_1_0), GrowFromCenter(luck_1_0))
 
-        self.wait(1)
+        # self.wait(1)
 
-        self.play(Transform(ear_group_1_2, ear_group_1_copy_2), Transform(nose_group_1_2, nose_group_1_copy_2), Transform(nap_1_0, nap_1_copy), Transform(luck_1_0, luck_1_copy), run_time=2.6)
+        # self.play(Transform(ear_group_1_2, ear_group_1_copy_2), Transform(nose_group_1_2, nose_group_1_copy_2), Transform(nap_1_0, nap_1_copy), Transform(luck_1_0, luck_1_copy), run_time=2.6)
 
-        self.wait(1)
+        # self.wait(1)
 
         ################
         '''Similarly, the data measurement previously measured by the white vector [2,1] is now measured by the silver vector'''
@@ -292,7 +292,7 @@ class scene_9_1(Scene):
         vec_41 = Vector([3, 1, 0]).set_color('#c0c0c0')
 
         #####        
-        self.play(ShrinkToCenter(ear_group_1_2), ShrinkToCenter(nose_group_1_2), ShrinkToCenter(nap_1_0), ShrinkToCenter(luck_1_0))
+        # self.play(ShrinkToCenter(ear_group_1_2), ShrinkToCenter(nose_group_1_2), ShrinkToCenter(nap_1_0), ShrinkToCenter(luck_1_0))
 
         ear_group_1_2 = ear_group_1.copy()
         nose_group_1_2 = nose_group_1.copy()
@@ -303,13 +303,22 @@ class scene_9_1(Scene):
         nap_1_copy = nap_1.copy().move_to([1, 0, 0]).shift(UP*0.1)
         luck_1_copy = luck_1.copy().move_to([0, 1, 0])
 
-        self.play(GrowArrow(vec_11), GrowArrow(vec_41))
-        self.play(GrowFromCenter(DM_11))
+        # self.play(GrowArrow(vec_11), GrowArrow(vec_41))
+        # self.play(GrowFromCenter(DM_11))
 
-        self.wait(1)
+        # self.wait(1)
         
-        self.play(GrowFromCenter(ear_group_1_2), GrowFromCenter(nose_group_1_2), GrowFromCenter(nap_1_0), GrowFromCenter(luck_1_0))
+        # self.play(GrowFromCenter(ear_group_1_2), GrowFromCenter(nose_group_1_2), GrowFromCenter(nap_1_0), GrowFromCenter(luck_1_0))
         
-        self.play(Transform(ear_group_1_2, ear_group_1_copy_2), Transform(nose_group_1_2, nose_group_1_copy_2), Transform(nap_1_0, nap_1_copy), Transform(luck_1_0, luck_1_copy), Transform(DM_11, DM_11_2), run_time=2.6)
+        # self.play(Transform(ear_group_1_2, ear_group_1_copy_2), Transform(nose_group_1_2, nose_group_1_copy_2), Transform(nap_1_0, nap_1_copy), Transform(luck_1_0, luck_1_copy), Transform(DM_11, DM_11_2), run_time=2.6)
         
-        self.wait(1)
+        # self.wait(1)
+
+        ################
+        whitevec = MathTex(r"\begin{bmatrix} 1 \\ 1 \end{bmatrix}", color = WHITE).scale(2)
+        neq = MathTex(r"\neq").scale(2)
+        DM_11 = VGroup(face_outline.copy(), left_eye.copy(), right_eye.copy(), left_ear_nap_u1.copy(), right_ear_nap_u1.copy(), nose_nap_u1.copy(), whiskers.copy(), box.copy()).scale(0.7)
+        
+        leftgrp = Group(whitevec, neq).arrange(buff=0.9)
+        neq_grp_1 = Group(leftgrp, DM_11).arrange(buff=0.4).shift(RIGHT)
+        self.add(neq_grp_1)

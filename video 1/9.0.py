@@ -33,11 +33,11 @@ class scene_9_0(Scene):
 
         self.play(FadeOut(dot, numb1, numb2))
 
-        apple3 = ImageMobject("apple.jpg").shift(LEFT*2.5)
-        apple4 = ImageMobject("apple.jpg").shift(LEFT*3.5+UP)
-        apple5 = ImageMobject("apple.jpg").shift(LEFT*3.5+DOWN)
-        numb3 = numb.copy().shift(RIGHT*4)
-        neq = MathTex(r"\neq").scale(3)
+        apple3 = ImageMobject("apple.jpg").shift(LEFT*3.5)
+        apple4 = ImageMobject("apple.jpg").shift(LEFT*4.5+UP)
+        apple5 = ImageMobject("apple.jpg").shift(LEFT*4.5+DOWN)
+        numb3 = numb.copy().shift(RIGHT*3)
+        neq = MathTex(r"\neq").scale(3).shift(LEFT)
 
         self.play(FadeIn(apple3, apple4, apple5, neq, numb3))
         self.wait(2)
