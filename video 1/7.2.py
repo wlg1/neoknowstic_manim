@@ -230,9 +230,35 @@ class scene_7_2(Scene):
 
         self.wait(2)
 
+        ###
+        ear_length = 0.5 /2.75  #lowest is 0.5. each +1 is 0.5; largest is 1.5
+        nose_tip = 0.3 /2.75 # each unit of 1 is 0.25. 3 is 0.75, etc
+        
+        left_ear_1 = Line([-1.5, 0, 0], [-1, ear_length+1.5, 0])
+        left_ear_2 = Line([-1, ear_length+1.5, 0], [0, 0, 0])
+        left_ear_nap_u1 = VGroup(left_ear_1, left_ear_2)
+        
+        right_ear_1 = Line([1.5, 0, 0], [1, ear_length+1.5, 0])
+        right_ear_2 = Line([1, ear_length+1.5, 0], [0, 0, 0])
+        right_ear_nap_u1 = VGroup(right_ear_1, right_ear_2)
+                
+        nose_line_1 = Line([-0.5, 0, 0], [0.5, 0, 0])
+        nose_line_2 = Line([-0.5, 0, 0], [0, nose_tip, 0])
+        nose_line_3 = Line([0, nose_tip, 0], [0.5, 0, 0])
+        nose_nap_u1 = VGroup(nose_line_1, nose_line_2, nose_line_3)
+                       
+        for er in left_ear_nap_u1:
+            er.stroke_width=2
+        for er in right_ear_nap_u1:
+            er.stroke_width=2
+            
+        for nl in nose_nap_u1:
+            nl.z_index=3
+            nl.stroke_width=2  #default is 4
+        ###
         mouth_smile_2 = mouth_smile.copy().scale(0.3)
 
-        nap_1 = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear.copy(), right_ear.copy(), nose.copy(), whiskers.copy(), mouth_smile_2, zzz.copy(), box.copy()).scale(0.2).move_to(nap_space_2.number_to_point(1)).shift(UP*0.2)   
+        nap_1 = VGroup(face_outline.copy(), left_eye_zzz.copy(), right_eye_zzz.copy(), left_ear_nap_u1.copy(), right_ear_nap_u1.copy(), nose_nap_u1.copy(), whiskers.copy(), mouth_smile_2, zzz.copy(), box.copy()).scale(0.2).move_to(nap_space_2.number_to_point(1)).shift(UP*0.2)   
 
         nap_1_line = Line(nap_space_2.number_to_point(0), nap_space_2.number_to_point(0.95), color='#FFD700', fill_opacity=0.9)
         nap_1_line.z_index = 5

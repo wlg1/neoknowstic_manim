@@ -398,22 +398,23 @@ class scene_8_2(Scene):
 
         self.wait(2)
 
-        ### move face DM to final pos 
+        ### move face DM to final pos and add eqns
 
         luck_nose_DM.generate_target()
         luck_nose_DM.target.move_to([w_11*new_x + w_12*new_y, w_21*new_x + w_22*new_y, 0])
-        self.remove(nap_nose_DM)
-        self.play(MoveToTarget(luck_nose_DM))
+        
+        mat_fin = MathTex(r"\begin{bmatrix}" +str(w_11*new_x + w_12*new_y) + r" \\ " + str(w_21*new_x + w_22*new_y) + r" \end{bmatrix}", color = '#C4A484').move_to(np.array([-4.1, 0, 0])).scale(0.85)
+        mat_fin.shift(UP*3+RIGHT*6.8)
+
+        self.remove(nap_nose_DM, mat_2)
+        self.play(MoveToTarget(luck_nose_DM), FadeOut(mat_2_luck, shift=LEFT*2), FadeOut(mat_1, shift=RIGHT*2), Transform(plus_sign_2, mat_fin))
 
         ##########################################
         DM_nofade = VGroup(face_outline.copy(), left_ear_scaled.copy(), right_ear_scaled.copy(), nose_scaled.copy(), box.copy()).scale(0.2).move_to([w_11*new_x + w_12*new_y, w_21*new_x + w_22*new_y, 0])
 
         final_vec = Vector([w_11*new_x + w_12*new_y, w_21*new_x + w_22*new_y, 0], color='#C4A484')
         
-        mat_fin = MathTex(r"\begin{bmatrix}" +str(w_11*new_x + w_12*new_y) + r" \\ " + str(w_21*new_x + w_22*new_y) + r" \end{bmatrix}", color = '#C4A484').move_to(np.array([-4.1, 0, 0])).scale(0.85)
-        mat_fin.shift(UP*3+RIGHT*6.8)
-
-        self.remove(mat_2)
-        self.play(GrowArrow(final_vec), FadeOut(mat_2_luck, shift=LEFT*2), FadeOut(mat_1, shift=RIGHT*2), Transform(plus_sign_2, mat_fin), Transform(luck_nose_DM, DM_nofade))
+        self.play(GrowArrow(final_vec))
+        self.add(DM_nofade)
 
         self.wait(2)
