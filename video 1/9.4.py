@@ -76,23 +76,26 @@ class scene_9_4(Scene):
 
             return VGroup(face_outline.copy(),  left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), mouth_smile.copy(), whiskers.copy(), box.copy())
         
-        def get_new_coords(prev_cat):
-            old_x = prev_cat.get_center()[0]
-            old_y = prev_cat.get_center()[1]
+        def get_new_coords(prev_cat_list, tr_range):
+            new_cat_list = VGroup()
+            for prev_cat in prev_cat_list:
+                old_x = prev_cat.get_center()[0]
+                old_y = prev_cat.get_center()[1]
 
-            inVec = [[old_x, old_y]]
+                inVec = [[old_x, old_y]]
 
-            w11 = random.uniform(-3,3)
-            w12 = random.uniform(-3,3)
-            w21 = random.uniform(-3,3)
-            w22 = random.uniform(-3,3)
-            W = [[w11, w12],
-                [w21, w22]]
-            
-            out_vec = np.matmul(inVec, W)
-            new_cat = prev_cat.copy().move_to([out_vec[0][0], out_vec[0][1], 0])
+                w11 = random.uniform(-tr_range,tr_range)
+                w12 = random.uniform(-tr_range,tr_range)
+                w21 = random.uniform(-tr_range,tr_range)
+                w22 = random.uniform(-tr_range,tr_range)
+                W = [[w11, w12],
+                    [w21, w22]]
+                
+                out_vec = np.matmul(inVec, W)
+                new_cat = prev_cat.copy().move_to([out_vec[0][0], out_vec[0][1], 0])
 
-            return new_cat
+                new_cat_list.add(new_cat)
+            return new_cat_list
 
         ###########################################
         # use a fn here b/c no need to exclude certain features (though that could've been done within func or using abstraction)
@@ -104,14 +107,10 @@ class scene_9_4(Scene):
         cat_2 = cat_person(0.5, -2, 2, RED).scale(0.2).move_to([3,1,0])
         cat_3 = cat_person(0.5, -2, 3, PURPLE_E).scale(0.2).move_to([-2,2,0])
 
-        cat_list = [cat_1, cat_2, cat_3]
-        for cat in cat_list:
-            self.add(cat)
+        cat_list = VGroup(cat_1, cat_2, cat_3)
 
-        for cat in cat_list:
-            new_cat_list = []
-            new_cat_list.append(Transform(cat, get_new_coords(cat)))
-            self.play(*new_cat_list)
+        new_cat_list = get_new_coords(cat_list, 2)
+        self.play(Transform(cat_list, new_cat_list))
 
         #########
         # self.begin_ambient_camera_rotation(rate=0.1)
