@@ -76,20 +76,23 @@ class scene_9_4(Scene):
 
             return VGroup(face_outline.copy(),  left_eye.copy(), right_eye.copy(), left_ear.copy(), right_ear.copy(), mouth_smile.copy(), whiskers.copy(), box.copy())
         
-        def get_new_coords(prev_cat_list, tr_range):
+        def get_new_coords(prev_cat_list, tr_range):    
+            # w11 = random.randint(-tr_range,tr_range)
+            # w12 = random.randint(-tr_range,tr_range)
+            # w21 = -w12
+            # w22 = w11
+            w11 = random.uniform(-tr_range,tr_range)
+            w12 = random.uniform(-tr_range,tr_range)
+            w21 = random.uniform(-tr_range,tr_range)
+            w22 = random.uniform(-tr_range,tr_range)
+            W = [[w11, w12],
+                [w21, w22]]
+
             new_cat_list = VGroup()
             for prev_cat in prev_cat_list:
                 old_x = prev_cat.get_center()[0]
-                old_y = prev_cat.get_center()[1]
-
+                old_y = prev_cat.get_center()[1]                
                 inVec = [[old_x, old_y]]
-
-                w11 = random.uniform(-tr_range,tr_range)
-                w12 = random.uniform(-tr_range,tr_range)
-                w21 = random.uniform(-tr_range,tr_range)
-                w22 = random.uniform(-tr_range,tr_range)
-                W = [[w11, w12],
-                    [w21, w22]]
                 
                 out_vec = np.matmul(inVec, W)
                 new_cat = prev_cat.copy().move_to([out_vec[0][0], out_vec[0][1], 0])
@@ -101,16 +104,27 @@ class scene_9_4(Scene):
         # use a fn here b/c no need to exclude certain features (though that could've been done within func or using abstraction)
 
         numberplane = NumberPlane()
-        # self.add(numberplane)
+        self.add(numberplane)
 
-        cat_1 = cat_person(1.5, 0.5, 0.1, BLUE).scale(0.2).move_to([0,1,0])
-        cat_2 = cat_person(0.5, -2, 2, RED).scale(0.2).move_to([3,1,0])
-        cat_3 = cat_person(0.5, -2, 3, PURPLE_E).scale(0.2).move_to([-2,2,0])
+        # cat_1 = cat_person(1.5, 0.5, 0.1, BLUE).scale(0.2).move_to([0,1,0])
+        # cat_2 = cat_person(0.5, -2, 2, RED).scale(0.2).move_to([3,1,0])
+        # cat_3 = cat_person(0.5, -2, 3, PURPLE_E).scale(0.2).move_to([-2,2,0])
+        # cat_list = VGroup(cat_1, cat_2, cat_3)
+       
+        cat_list = VGroup()
+        for c in range(10):
+            nose_tip = random.uniform(-0.5, 0.5)
+            ear_length = random.uniform(0.5, 1.5)
+            mouth_size = random.uniform(0.5, 1.5)
+            randColor = lambda: random.randint(0,255)
+            cat_color = '#%02X%02X%02X' % (randColor(),randColor(),randColor())
+            rand_x = random.uniform(-3,3)
+            rand_y = random.uniform(-6,6)
+            cat_list.add(cat_person(nose_tip, ear_length, mouth_size, cat_color).scale(0.2).move_to([rand_x, rand_y,0]))
 
-        cat_list = VGroup(cat_1, cat_2, cat_3)
-
-        new_cat_list = get_new_coords(cat_list, 2)
-        self.play(Transform(cat_list, new_cat_list))
+        for i in range(4):
+            new_cat_list = get_new_coords(cat_list, 1.3)
+            self.play(Transform(cat_list, new_cat_list))
 
         #########
         # self.begin_ambient_camera_rotation(rate=0.1)
