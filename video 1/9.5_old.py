@@ -208,8 +208,8 @@ class scene_9_5(Scene):
 
         nap_eqn = nap_DM_1.copy().move_to(np.array([3, -1.5, 0]))
 
-        conn_1 = Line(nose_group_eqn.get_center() + np.array([0.15, 0.15, 0]), nap_eqn.get_center(), color=WHITE)
-        conn_2 = Line(ears_eqn.get_center() + np.array([0.15, -0.15, 0]), nap_eqn.get_center(), color=WHITE)
+        conn_1 = Line(nose_group_eqn.get_center(), nap_eqn.get_center(), color=WHITE)
+        conn_2 = Line(ears_eqn.get_center(), nap_eqn.get_center(), color=WHITE)
 
         nose_val = Text('0.4', font_size=25).move_to(np.array([1.2, -2, 0]))
         ears_val = Text('0.2', font_size=25).move_to(np.array([1.2, -1, 0]))
@@ -250,33 +250,37 @@ class scene_9_5(Scene):
         self.wait(2)
 
         ###
-        '''Let's turn the neurons and weights into variables. '''
-
-        # first turn DMs into vars and fade out scalars into them
-
-        x_var = MathTex('x', font_size=42).move_to(nose_group_eqn.get_center())
-        y_var = MathTex('y', font_size=42).move_to(ears_eqn.get_center())
-        n_var = MathTex('n', font_size=42).move_to(nap_eqn.get_center())
-
-        self.play(FadeOut(ratio_line), FadeOut(nose_val, ears_val, shift=RIGHT), Transform(nose_group_eqn, x_var), Transform(ears_eqn, y_var), Transform(nap_eqn, n_var))
-        self.wait(1)
-        
-        wx_0 = MathTex('2 *', font_size=42).move_to(np.array([1.2, -2, 0]))
-        wy_0 = MathTex('1 *', font_size=42).move_to(np.array([1.2, -1, 0]))
-        self.play(Transform(conn_1, wx_0), Transform(conn_2, wy_0))
-        self.wait(2)
-
-        ###########
         '''These combinations of nose and ear neurons make up their own dimension. '''
 
-        eqn_background_2 = Rectangle(color=WHITE, height=1, width=4, fill_color=BLACK, fill_opacity=1, stroke_width=2)
-        eqn_background_2.move_to(np.array([4, -1, 0]))
-                
-        NN = VGroup(conn_1, nose_group_eqn, conn_2, ears_eqn, nap_eqn)
+        # show DM equals linear combination of neurons
 
-        eqngrp = MathTex("2 *", "x", "+", "1 *", "y" "=", "n", font_size=42).move_to(np.array([4, -1, 0]))
-        
-        self.play(TransformMatchingShapes(NN, eqngrp), Transform(eqn_background, eqn_background_2))
+        eqn_background_2 = Rectangle(color=WHITE, height=1, width=5, fill_color=BLACK, fill_opacity=1, stroke_width=2)
+        eqn_background_2.move_to(np.array([3, -1, 0]))
+                
+        nose_val_hor = Text('0.4 *', font_size=25).move_to(np.array([1.2, -1, 0]))
+
+        nose_group_eqn_2 = VGroup(face_outline.copy(), nose.copy()).scale(0.11).move_to(np.array([2, -1, 0]))
+                        
+        ears_val_hor = Text('0.2 *', font_size=25).move_to(np.array([1.2, -1, 0]))
+
+        plus_sign = Text('+', font_size=25).move_to(np.array([2.5, -1, 0]))
+
+        ears_eqn_2 = ears_eqn.copy().move_to(np.array([2, -1, 0]))
+
+        equal_sign = Text('=', font_size=25).move_to(np.array([3.5, -1, 0]))
+
+        nap_eqn_2 = nap_DM_1.copy().move_to(np.array([4, -1, 0]))
+
+        NN = VGroup(nose_val, nose_group_eqn, ears_val, ears_eqn, nap_eqn)
+
+        eqngrp = VGroup(nose_val_hor, nose_group_eqn_2, plus_sign, ears_val_hor, ears_eqn_2, equal_sign, nap_eqn_2).arrange(buff=0.2).move_to(np.array([3, -1, 0]))
+
+        faceBlack = ears_eqn_2[0].copy()
+        faceBlack.z_index = 2
+
+        self.play(FadeOut(conn_1, conn_2, ratio_line))
+        self.play(Transform(NN, eqngrp), Transform(eqn_background, eqn_background_2))
+        self.add(faceBlack)
         self.wait(2)
 
         ###
@@ -289,66 +293,22 @@ class scene_9_5(Scene):
         self.play(FadeIn(napName))
         self.wait(2)
 
-        # transform back
-        new_cat_list_2 = get_inv_coords(new_cat_list)
-        self.play(Transform(cat_list, new_cat_list_2))
-        self.wait(2)
-
-        ##
+        ###
         '''If we take our nap equation and plug in any value of ear, such as 1 or 3, we can always get any nap value by solving for nose. These two points map to the same nap value.'''
 
-        eqngrp_2 = MathTex("y", "=", "-2 *", "x", "+", "n", font_size=42).move_to(np.array([4, -1, 0]))
-        
-        self.play(TransformMatchingShapes(eqngrp, eqngrp_2))
+        # ear_eqn_3 = Text("1", font_size=25).copy().move_to(ears_eqn_2.get_center())
+        nose_eqn_3 = Text("1", font_size=25).copy().move_to(nose_group_eqn_2.get_center())
+        nap_eqn_3 = Text("1", font_size=25).copy().move_to(nap_eqn_2.get_center())
+
+        # eqngrp_1 = VGroup(nose_val, nose_group_eqn, plus_sign, ears_val, ears_eqn, equal_sign, nap_eqn)
+
+        # eqngrp_2 = VGroup(nose_val_hor, nose_group_eqn_2, plus_sign, ears_val_hor, ear_eqn_3, equal_sign, nap_eqn_3).arrange(buff=0.2).move_to(np.array([3, -1, 0]))
+
+        # self.remove(faceBlack, NN[4], NN[-1])
+        # self.play(ShrinkToCenter(ears_eqn), ShrinkToCenter(ears_eqn_2), FadeIn(ear_eqn_3), FadeIn(equal_sign), ShrinkToCenter(nap_eqn), ShrinkToCenter(nap_eqn_2), FadeIn(nap_eqn_3))
+
+        self.remove(faceBlack, NN[1], NN[-1])
+        self.play(ShrinkToCenter(nose_group_eqn), ShrinkToCenter(nose_group_eqn_2), FadeIn(nose_eqn_3), FadeIn(equal_sign), ShrinkToCenter(nap_eqn), ShrinkToCenter(nap_eqn_2), FadeIn(nap_eqn_3))
         self.wait(2)
 
-        ### fix nap as 1
-        eqngrp_3 = MathTex("y", "=", "-2 *", "x", "+", "1", font_size=42).move_to(np.array([4, -1, 0]))
-        self.play(TransformMatchingShapes(eqngrp_2, eqngrp_3))
-        self.wait(2)
-
-        to_nap_1_line = Line([-20, 41, 0], [20, -39, 0], color=YELLOW)
-        self.play(GrowFromPoint(to_nap_1_line, [0.4, 0.2, 0]))
-        self.wait(2)
-        
-        # # plug in vars and show dots
-        eqngrp_4 = MathTex("y", "=", "-2 *", "0", "+", "1", font_size=42).move_to(np.array([4, -1, 0]))
-        self.play(TransformMatchingShapes(eqngrp_3, eqngrp_4))
-        self.wait(1)
-        eqngrp_4b = MathTex("y", "=", "1", font_size=42).move_to(np.array([3, -1, 0]))
-        dot1 = Dot([0, 1, 0], color=PURPLE, radius = 0.2)
-        self.play(TransformMatchingShapes(eqngrp_4, eqngrp_4b), GrowFromCenter(dot1))
-
-        self.wait(2)
-
-        eqngrp_5 = MathTex("y", "=", "-2 *", "1", "+", "1", font_size=42).move_to(np.array([4, -1, 0]))
-        self.play(TransformMatchingShapes(eqngrp_4b, eqngrp_5))
-        self.wait(1)
-        eqngrp_5b = MathTex("y", "=", "-1", font_size=42).move_to(np.array([3, -1, 0]))
-        dot2 = Dot([1, -1, 0], color='#00FFFF', radius = 0.2)
-        self.play(TransformMatchingShapes(eqngrp_5, eqngrp_5b), GrowFromCenter(dot2))
-
-        self.wait(2)
-
-        ### transform all
-        to_nap_1_line_tr = Line([1, 20, 0], [1, -20, 0], color=YELLOW)
-        dot1b = Dot([1, 2, 0], color=PURPLE, radius = 0.2)
-        dot2b = Dot([1, -3, 0], color='#00FFFF', radius = 0.2)
-        eqngrp_6 = MathTex("y", "=", "-2 *", "x", "+", "n", font_size=42).move_to(np.array([4, -1, 0]))
-
-        self.play(TransformMatchingShapes(eqngrp_5b, eqngrp_6), ShrinkToCenter(dot1), ShrinkToCenter(dot2))
-        self.play(Transform(cat_list, new_cat_list), Transform(to_nap_1_line, to_nap_1_line_tr))
-        self.play(GrowFromCenter(dot1b), GrowFromCenter(dot2b))
-        self.wait(2)
-    
-        # transform back
-        to_nap_1_line_rep = Line([-20, 41, 0], [20, -39, 0], color=YELLOW)
-        new_cat_list_2 = get_inv_coords(new_cat_list)
-        self.play(Transform(cat_list, new_cat_list_2), Transform(to_nap_1_line, to_nap_1_line_rep), ShrinkToCenter(dot1b), ShrinkToCenter(dot2b))
-        self.wait(2)
-
-        to_nap_1_line_tr_rep = Line([1, 20, 0], [1, -20, 0], color=YELLOW)
-        new_cat_list = get_new_coords(cat_list)
-        self.play(Transform(cat_list, new_cat_list), Transform(to_nap_1_line, to_nap_1_line_tr_rep), run_time = 2.5)
-        self.wait(2)
        
