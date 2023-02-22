@@ -97,8 +97,10 @@ class scene_9_4(Scene):
             w12 = random.uniform(1,tr_range)
             w21 = -w12
             w22 = w11
-            W = [[w11, w12],
-                [w21, w22]]
+            # W = [[w11, w12],
+            #     [w21, w22]]
+            W = [[w11, w21],
+                [w12, w22]]
 
             new_cat_list = VGroup()
             for prev_cat in prev_cat_list:
@@ -142,43 +144,44 @@ class scene_9_4(Scene):
         #####################
         # longer run times take longer to render, so no adv to just use more shorter anims
 
-        # fade into this. narrates around 15 seconds, so repeat 6 times
-
+        '''
         # get list of coords. then instead of transforming, use 'move to' in a path
-
-        transf_list = [get_new_coords(cat_list, 2) for i in range(3)]
+        # transf_list = [get_new_coords(cat_list, 2) for i in range(3)]
         # self.play(AnimationGroup(*[Transform(cat_list, new_cat_list) for new_cat_list in transf_list]))
-        self.play(Succession(*[Transform(cat_list, new_cat_list) for new_cat_list in transf_list]), rate_func=linear)
-        # for i in range(3):
-        #     new_cat_list = get_new_coords(cat_list, 2)
-        #     self.play(Transform(cat_list, new_cat_list))
+        # self.play(Succession(*[Transform(cat_list, new_cat_list) for new_cat_list in transf_list]), rate_func=linear)
         # , run_time=2.5
+        '''
+                
+        # fade into this. narrates around 15 seconds, so repeat 6 times        
+        for i in range(3):
+            new_cat_list = get_new_coords(cat_list, 2)
+            self.play(Transform(cat_list, new_cat_list), rate_func=linear)
 
-        # basis_pairs = [("Fast", "Playful"), ("Funny", "Scheming"), ("Ambitious", "Trusting")]
-        # for z in range(3):
-        #     curr_pair = basis_pairs[z]
-        #     numberplane_copy = numberplane.copy()
-        #     x_text = Text(curr_pair[0], color=RED).move_to([4, 0.5, 0])
-        #     x_text.z_index=10
-        #     x_vec = Arrow([0,0,0], [10,0,0], color=RED, buff=0)
-        #     y_text = Text(curr_pair[1], color=BLUE).move_to([3, 3.5,0])
-        #     y_text.z_index=10
-        #     y_vec = Arrow([0,0,0], [0,10,0], color=BLUE, buff=0)
-        #     self.play(FadeIn(numberplane_copy, x_text, x_vec, y_text, y_vec))
-        #     # self.add_foreground_mobjects(x_text, y_text)
+        basis_pairs = [("Fast", "Playful"), ("Funny", "Scheming"), ("Ambitious", "Trusting")]
+        for z in range(3):
+            curr_pair = basis_pairs[z]
+            numberplane_copy = numberplane.copy()
+            x_text = Text(curr_pair[0], color=RED).move_to([4, 0.5, 0])
+            x_text.z_index=10
+            x_vec = Arrow([0,0,0], [10,0,0], color=RED, buff=0)
+            y_text = Text(curr_pair[1], color=BLUE).move_to([3, 3.5,0])
+            y_text.z_index=10
+            y_vec = Arrow([0,0,0], [0,10,0], color=BLUE, buff=0)
+            self.play(FadeIn(numberplane_copy, x_text, x_vec, y_text, y_vec))
+            # self.add_foreground_mobjects(x_text, y_text)
 
-        #     self.wait(2)
+            self.wait(2)
 
-        #     self.play(FadeOut(numberplane_copy, x_text, x_vec, y_text, y_vec))
+            self.play(FadeOut(numberplane_copy, x_text, x_vec, y_text, y_vec))
 
-        #     for i in range(2):
-        #         new_cat_list = get_new_coords(cat_list, 2)
-        #         self.play(Transform(cat_list, new_cat_list))
+            for i in range(2):
+                new_cat_list = get_new_coords(cat_list, 2)
+                self.play(Transform(cat_list, new_cat_list), rate_func=linear)
 
-        # # afterwards, takes around 20 secs to narrate
-        # for i in range(20):
-        #     new_cat_list = get_new_coords(cat_list, 2)
-        #     self.play(Transform(cat_list, new_cat_list))
+        # afterwards, takes around 20 secs to narrate
+        for i in range(20):
+            new_cat_list = get_new_coords(cat_list, 2)
+            self.play(Transform(cat_list, new_cat_list), rate_func=linear)
 
         #########
         # self.begin_ambient_camera_rotation(rate=0.1)
