@@ -329,26 +329,35 @@ class scene_9_5(Scene):
         self.play(TransformMatchingShapes(eqngrp_5, eqngrp_5b), GrowFromCenter(dot2))
 
         self.wait(2)
+        
+        # move to 1
+        dot1c = Dot([0.4, 0.2, 0], color=PURPLE, radius = 0.2, fill_opacity=0.5)
+        dot2c = Dot([0.4, 0.2, 0], color='#00FFFF', radius = 0.2, fill_opacity=0.5)
+        dotT = Dot([0.4, 0.2, 0], color=YELLOW, radius = 0.2, fill_opacity=0.5)
+        self.play(Transform(dot1, dot1c), Transform(dot2, dot2c), Transform(to_nap_1_line, dotT))
 
+        self.wait(2)
+       
         ### transform all
+        to_nap_1_line_rep = Line([-20, 41, 0], [20, -39, 0], color=YELLOW)
         to_nap_1_line_tr = Line([1, 20, 0], [1, -20, 0], color=YELLOW)
         dot1b = Dot([1, 2, 0], color=PURPLE, radius = 0.2)
         dot2b = Dot([1, -3, 0], color='#00FFFF', radius = 0.2)
         eqngrp_6 = MathTex("y", "=", "-2 *", "x", "+", "n", font_size=42).move_to(np.array([4, -1, 0]))
 
-        self.play(TransformMatchingShapes(eqngrp_5b, eqngrp_6), ShrinkToCenter(dot1), ShrinkToCenter(dot2))
-        self.play(Transform(cat_list, new_cat_list), Transform(to_nap_1_line, to_nap_1_line_tr))
+        self.play(TransformMatchingShapes(eqngrp_5b, eqngrp_6), ShrinkToCenter(dot1), ShrinkToCenter(dot2), ShrinkToCenter(to_nap_1_line), GrowFromPoint(to_nap_1_line_rep, [0.4, 0.2, 0]))
+        self.play(Transform(cat_list, new_cat_list), Transform(to_nap_1_line_rep, to_nap_1_line_tr), run_time = 2)
         self.play(GrowFromCenter(dot1b), GrowFromCenter(dot2b))
         self.wait(2)
     
         # transform back
-        to_nap_1_line_rep = Line([-20, 41, 0], [20, -39, 0], color=YELLOW)
-        new_cat_list_2 = get_inv_coords(new_cat_list)
-        self.play(Transform(cat_list, new_cat_list_2), Transform(to_nap_1_line, to_nap_1_line_rep), ShrinkToCenter(dot1b), ShrinkToCenter(dot2b))
-        self.wait(2)
+        # to_nap_1_line_rep = Line([-20, 41, 0], [20, -39, 0], color=YELLOW)
+        # new_cat_list_2 = get_inv_coords(new_cat_list)
+        # self.play(Transform(cat_list, new_cat_list_2), Transform(to_nap_1_line, to_nap_1_line_rep), ShrinkToCenter(dot1b), ShrinkToCenter(dot2b))
+        # self.wait(2)
 
-        to_nap_1_line_tr_rep = Line([1, 20, 0], [1, -20, 0], color=YELLOW)
-        new_cat_list = get_new_coords(cat_list)
-        self.play(Transform(cat_list, new_cat_list), Transform(to_nap_1_line, to_nap_1_line_tr_rep), run_time = 2.5)
-        self.wait(2)
+        # to_nap_1_line_tr_rep = Line([1, 20, 0], [1, -20, 0], color=YELLOW)
+        # new_cat_list = get_new_coords(cat_list)
+        # self.play(Transform(cat_list, new_cat_list), Transform(to_nap_1_line, to_nap_1_line_tr_rep), run_time = 2.5)
+        # self.wait(2)
        

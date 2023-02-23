@@ -93,8 +93,8 @@ class scene_9_4(Scene):
             # w12 = 1
             # w21 = -1
             # w22 = 2
-            w11 = random.uniform(1,tr_range)
-            w12 = random.uniform(1,tr_range)
+            w11 = random.uniform(0.9,tr_range)
+            w12 = random.uniform(0.9,tr_range)
             w21 = -w12
             w22 = w11
             # W = [[w11, w12],
@@ -102,6 +102,15 @@ class scene_9_4(Scene):
             W = [[w11, w21],
                 [w12, w22]]
 
+            # randomly invert / reverse counterclockwise
+            invornot = random.uniform(0,1)
+            if invornot > 0.9:
+                # W = np.linalg.inv(W)
+                w12 = -w12
+                w21 = -w12
+                W = [[w11, w21],
+                [w12, w22]]
+                
             new_cat_list = VGroup()
             for prev_cat in prev_cat_list:
                 old_x = prev_cat.get_center()[0]
@@ -128,7 +137,7 @@ class scene_9_4(Scene):
         # cat_list = VGroup(cat_1, cat_2, cat_3)
        
         cat_list = VGroup()
-        for c in range(10):
+        for c in range(15):
             nose_tip = random.uniform(-0.75, 0.75)
             ear_length = random.uniform(0.5, 2)
             # eye_size = random.uniform(0.1, 2)
@@ -153,7 +162,7 @@ class scene_9_4(Scene):
         '''
                 
         # fade into this. narrates around 15 seconds, so repeat 6 times        
-        for i in range(3):
+        for i in range(6):
             new_cat_list = get_new_coords(cat_list, 2)
             self.play(Transform(cat_list, new_cat_list), rate_func=linear)
 
